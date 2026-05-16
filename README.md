@@ -61,6 +61,26 @@ This can be hosted for free as a static site on GitHub Pages, Netlify, or Vercel
 
 The workflow in `.github/workflows/pages.yml` publishes the static files directly. No build step or paid service is needed.
 
+## Publish updates
+
+This repo is configured to auto-push after every local commit on `main`.
+
+To publish an update safely:
+
+```powershell
+.\scripts\publish.ps1 -Message "Describe the update"
+```
+
+The script checks `app.js` and `service-worker.js`, stages changes, commits them, and the local post-commit hook pushes `main` to GitHub.
+
+To temporarily stop auto-push for one commit:
+
+```powershell
+$env:SECURE_COACH_NO_AUTO_PUSH = "1"
+git commit -m "Local only change"
+Remove-Item Env:\SECURE_COACH_NO_AUTO_PUSH
+```
+
 ## Privacy model
 
 Data stays on the user's device unless they export a backup file. If the user clears browser data, uses private browsing, changes devices, or resets the app, local progress can be lost unless they exported a backup.

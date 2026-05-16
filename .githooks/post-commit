@@ -1,0 +1,26 @@
+#!/bin/sh
+set -u
+
+branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+if [ "$branch" != "main" ]; then
+  echo "Auto-push skipped: current branch is '$branch', not 'main'."
+  exit 0
+fi
+
+if [ "${SECURE_COACH_NO_AUTO_PUSH:-}" = "1" ]; then
+  echo "Auto-push skipped: SECURE_COACH_NO_AUTO_PUSH=1."
+  exit 0
+fi
+
+remote="$(git remote get-url origin 2>/dev/null || true)"
+if [ -z "$remote" ]; then
+  echo "Auto-push skipped: no origin remote is configured."
+  exit 0
+fi
+
+echo "Auto-pushing main to origin..."
+if ! git push origin main; then
+  echo "Auto-push failed. Commit was created locally; run 'git push origin main' when ready." >&2
+fi
+
+exit 0
