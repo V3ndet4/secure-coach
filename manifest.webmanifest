@@ -1,0 +1,17 @@
+{
+  "name": "Secure Coach",
+  "short_name": "Secure Coach",
+  "description": "A private local-first daily coach for secure attachment practice.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5efe3",
+  "theme_color": "#214633",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
