@@ -3179,7 +3179,8 @@ function renderDailyFlow(content, progress) {
       title: "Complete",
       detail: `${progress}% through the path.`,
       action: "Use check-in",
-      view: "today"
+      view: "today",
+      target: "dailyCheckIn"
     }
   ];
 
@@ -3195,7 +3196,7 @@ function renderDailyFlow(content, progress) {
             <span class="step-number">${index + 1}</span>
             <h3>${escapeHTML(step.title)}</h3>
             <p>${escapeHTML(step.detail)}</p>
-            <button class="text-button" type="button" data-view="${escapeHTML(step.view)}">${escapeHTML(step.action)}</button>
+            <button class="text-button" type="button" data-view="${escapeHTML(step.view)}" ${step.target ? `data-scroll-target="${escapeHTML(step.target)}"` : ""}>${escapeHTML(step.action)}</button>
           </article>
         `).join("")}
       </div>
@@ -3301,7 +3302,7 @@ function renderToday() {
       </aside>
     </div>
 
-    <section class="panel" style="margin-top: 18px;">
+    <section class="panel" id="dailyCheckIn" style="margin-top: 18px;">
       <h2>Daily check-in</h2>
       <form id="dailyForm" class="form">
         <input type="hidden" name="day" value="${day}">
@@ -4472,8 +4473,12 @@ document.addEventListener("submit", async (event) => {
 document.addEventListener("click", async (event) => {
   const viewButton = event.target.closest("[data-view]");
   if (viewButton) {
+    const scrollTarget = viewButton.dataset.scrollTarget;
     activeView = viewButton.dataset.view;
     render();
+    if (scrollTarget) {
+      requestAnimationFrame(() => scrollToSection(scrollTarget));
+    }
     return;
   }
 
@@ -4481,6 +4486,14 @@ document.addEventListener("click", async (event) => {
   if (!actionButton) return;
   await handleAction(actionButton.dataset.action, actionButton);
 });
+
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if (!section) return;
+  section.scrollIntoView({ behavior: "smooth", block: "start" });
+  const firstField = section.querySelector("input, select, textarea, button");
+  if (firstField) firstField.focus({ preventScroll: true });
+}
 
 document.addEventListener("change", async (event) => {
   if (event.target.dataset.action === "import-file" && event.target.files?.[0]) {
