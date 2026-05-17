@@ -101,6 +101,10 @@ The app includes an in-app `References` view with influence notes from:
 - `The Power of Less` by Leo Babauta
 - `The Subtle Art of Not Giving a F*ck` by Mark Manson
 - Gabor Mate references: `Scattered Minds`, `The Myth of Normal`, and `The Return to Ourselves`
+- Dr Shadé Zahrai's public work on self-leadership, confidence, performance, and behavioral science
+- Dr John Delony references: `Building a Non-Anxious Life`, `Own Your Past, Change Your Future`, and his public relationship and mental wellness work
+- Scott Galloway references: `The Algebra of Happiness`, `The Algebra of Wealth`, and `Notes on Being a Man`
+- Tony Robbins' public work on state, standards, rituals, and personal development
 
 The exercises are original and use high-level concepts only. The app does not copy book text.
 

@@ -711,6 +711,46 @@ const LIBRARY = [
       "Choose one action that returns you to your life."
     ],
     script: "Missing someone does not mean I should abandon myself. Today I return to the next grounded action."
+  },
+  {
+    title: "When doubt is running the room",
+    focus: "Self-leadership",
+    steps: [
+      "Name the doubt without treating it as truth.",
+      "Write the smallest capable action available now.",
+      "Do that action before asking for reassurance."
+    ],
+    script: "Doubt can be present, and I can still act like someone I trust."
+  },
+  {
+    title: "When anxiety wants a relationship emergency",
+    focus: "Non-anxious living",
+    steps: [
+      "Ask whether this is danger, discomfort, or uncertainty.",
+      "Return to your body before creating a story.",
+      "Choose one connecting action that does not demand control."
+    ],
+    script: "I do not need to turn uncertainty into an emergency. I can breathe, choose, and connect clearly."
+  },
+  {
+    title: "When you need to act like an adult",
+    focus: "Maturity and ownership",
+    steps: [
+      "Name the immature move you are tempted to make.",
+      "Name the adult move that protects your future self.",
+      "Do the adult move without announcing it."
+    ],
+    script: "My feelings are real, but my future is built by what I do next."
+  },
+  {
+    title: "When your state is deciding for you",
+    focus: "State and standards",
+    steps: [
+      "Change your body position, breathing, or movement first.",
+      "Ask what standard you want to live from.",
+      "Take one immediate action that matches that standard."
+    ],
+    script: "I can change my state before I choose my response."
   }
 ];
 
@@ -1043,6 +1083,50 @@ const INFLUENCES = [
       "Help users separate worth from approval, pursuit, achievement, or relationship status.",
       "Use inquiry prompts that lead back to essential value and self-worth.",
       "Frame healing as return, not self-improvement through self-rejection."
+    ]
+  },
+  {
+    author: "Dr Shadé Zahrai",
+    work: "Self-leadership, confidence, performance, and behavioral science education",
+    source: "https://www.shadezahrai.com/",
+    theme: "Self-leadership and confidence under pressure",
+    uses: [
+      "Help users separate self-doubt from evidence before they react in a relationship.",
+      "Build practices around capable action, self-trust, and behavioral follow-through.",
+      "Turn confidence into repeated behavior rather than waiting to feel ready."
+    ]
+  },
+  {
+    author: "Dr John Delony",
+    work: "Building a Non-Anxious Life; Own Your Past, Change Your Future; The Dr. John Delony Show",
+    source: "https://www.ramseysolutions.com/john-delony",
+    theme: "Anxiety, connection, and owning your story",
+    uses: [
+      "Help users stop treating every discomfort as danger.",
+      "Build exercises around body safety, honest connection, and choosing a non-anxious next step.",
+      "Ask users to own their history without letting it run the present conversation."
+    ]
+  },
+  {
+    author: "Scott Galloway",
+    work: "The Algebra of Happiness; The Algebra of Wealth; Notes on Being a Man",
+    source: "https://www.ascottgalloway.net/books",
+    theme: "Maturity, agency, relationships, and adult responsibility",
+    uses: [
+      "Push users toward adult ownership: health, work, friendship, family, and long-term choices.",
+      "Reduce relationship obsession by strengthening the life around the relationship.",
+      "Frame self-respect as disciplined action, not just emotional insight."
+    ]
+  },
+  {
+    author: "Tony Robbins",
+    work: "Personal development, standards, state management, and performance coaching",
+    source: "https://www.tonyrobbins.com/",
+    theme: "State, standards, and decisive action",
+    uses: [
+      "Help users change their physical and emotional state before choosing a relationship response.",
+      "Turn vague goals into standards, rituals, and immediate next actions.",
+      "Use momentum and repetition to move from insight into behavior."
     ]
   }
 ];
@@ -1911,6 +1995,142 @@ const ADDITIONAL_EXERCISE_TRACKS = [
         prompt: "I may not control ____, but I am responsible for ____."
       }
     ]
+  },
+  {
+    title: "Self-Leadership and Doubt Reset",
+    lens: "Confidence, self-trust, and capable action",
+    goal: "Help users act from self-leadership when doubt, comparison, or fear tries to lead.",
+    exercises: [
+      {
+        name: "Doubt versus data",
+        steps: [
+          "Write the doubt in one sentence.",
+          "Write the actual evidence for and against it.",
+          "Choose the smallest action a self-trusting person would take."
+        ],
+        prompt: "The doubt says ____. The data says ____. The capable action is ____."
+      },
+      {
+        name: "Confidence from behavior",
+        steps: [
+          "Pick one promise you can keep today.",
+          "Make it small enough that excuses are not needed.",
+          "Complete it before seeking validation."
+        ],
+        prompt: "Today I build self-trust by keeping this promise: ____."
+      },
+      {
+        name: "Pressure pause",
+        steps: [
+          "Name the pressure you feel to perform, prove, or fix.",
+          "Ask what a grounded leader of your own life would do.",
+          "Do one action that lowers drama and raises clarity."
+        ],
+        prompt: "The pressure is ____. The self-led response is ____."
+      }
+    ]
+  },
+  {
+    title: "Non-Anxious Connection",
+    lens: "Safety, connection, and owning your story",
+    goal: "Help users respond to anxiety without making the relationship carry every wound.",
+    exercises: [
+      {
+        name: "Danger, discomfort, or uncertainty",
+        steps: [
+          "Ask whether this is real danger, emotional discomfort, or uncertainty.",
+          "Match the response to the category.",
+          "Do not use control when regulation is the actual need."
+        ],
+        prompt: "This is most likely ____. The matching response is ____."
+      },
+      {
+        name: "Own the old story",
+        steps: [
+          "Name the past experience this moment reminds you of.",
+          "Name what is actually happening today.",
+          "Choose a present-day response instead of replaying the old story."
+        ],
+        prompt: "The old story is ____. Today the facts are ____. I choose ____."
+      },
+      {
+        name: "Connection without panic",
+        steps: [
+          "Regulate your body first.",
+          "Ask for connection in one clean sentence.",
+          "Let the other person answer without chasing the answer."
+        ],
+        prompt: "The clean connection request is ____."
+      }
+    ]
+  },
+  {
+    title: "Adult Life and Relationship Maturity",
+    lens: "Agency, discipline, friendship, work, and long-term choices",
+    goal: "Move users from relationship obsession into a stronger adult life that can hold love better.",
+    exercises: [
+      {
+        name: "Build the life around the relationship",
+        steps: [
+          "Name one area outside romance that needs attention: health, work, money, friendship, or family.",
+          "Choose one concrete action in that area today.",
+          "Do it before checking for relationship reassurance."
+        ],
+        prompt: "The adult-life area I will strengthen today is ____. The action is ____."
+      },
+      {
+        name: "Future-self filter",
+        steps: [
+          "Write the reaction you want to make right now.",
+          "Ask whether your future self would respect it.",
+          "Choose the response your future self can stand behind."
+        ],
+        prompt: "Future me would respect ____ more than ____."
+      },
+      {
+        name: "Quiet competence",
+        steps: [
+          "Pick one responsible action that needs no announcement.",
+          "Complete it without using it to impress anyone.",
+          "Let the proof be private consistency."
+        ],
+        prompt: "The quiet competent action is ____."
+      }
+    ]
+  },
+  {
+    title: "State Standards and Momentum",
+    lens: "Physiology, standards, rituals, and immediate action",
+    goal: "Help users change state before choosing behavior and turn insight into momentum.",
+    exercises: [
+      {
+        name: "Change state first",
+        steps: [
+          "Stand up, breathe slower, walk, stretch, or move for two minutes.",
+          "Name the emotion after the body shift.",
+          "Choose the response from the new state, not the spike."
+        ],
+        prompt: "Before movement I felt ____. After movement I can choose ____."
+      },
+      {
+        name: "Raise the standard",
+        steps: [
+          "Write the pattern you are no longer willing to practice.",
+          "Write the new standard in behavior terms.",
+          "Take one action today that proves the standard."
+        ],
+        prompt: "The old pattern is ____. The new standard is ____. Today's proof is ____."
+      },
+      {
+        name: "Momentum over mood",
+        steps: [
+          "Choose one action that takes less than five minutes.",
+          "Do it before your mood agrees.",
+          "Record the proof so confidence has evidence."
+        ],
+        prompt: "The five-minute action is ____. The proof I finished is ____."
+      }
+    ]
   }
 ];
 
@@ -2129,64 +2349,83 @@ const ALL_EXERCISE_TRACKS = [
 const PHASE_EXERCISE_TRACKS = {
   stabilize: [
     "Regulate and Reframe",
+    "Non-Anxious Connection",
+    "State Standards and Momentum",
     "Self-Compassion and Regulation",
     "Emotional Toolkit",
     "Body & Trauma Inquiry",
+    "Self-Leadership and Doubt Reset",
     "Attachment Practice",
     "The Power of Less",
     "Self-Improvement Accountability"
   ],
   understand: [
     "Attachment Practice",
+    "Non-Anxious Connection",
     "Attachment Bonding Practice",
     "Parts, Boundaries, and Inner Leadership",
     "Deep Seeing and Listening",
+    "Adult Life and Relationship Maturity",
     "Self-Esteem Pillars",
     "Body & Trauma Inquiry"
   ],
   practice: [
     "Secure Communication",
+    "Non-Anxious Connection",
     "Relationship Repair Lab",
     "Attachment Bonding Practice",
     "Deep Seeing and Listening",
+    "State Standards and Momentum",
     "Let Them / Let Me",
     "Courage and Task Separation"
   ],
   strengthen: [
+    "Self-Leadership and Doubt Reset",
+    "Adult Life and Relationship Maturity",
     "Self-Improvement Accountability",
     "It Begins With Me",
     "Self-Esteem Pillars",
+    "State Standards and Momentum",
     "Values and Responsibility",
     "Good Life Design",
     "The Power of Less"
   ],
   maintain: [
+    "Adult Life and Relationship Maturity",
+    "Self-Leadership and Doubt Reset",
     "Values and Responsibility",
     "Good Life Design",
     "Relationship Repair Lab",
     "Quiet Strength",
     "Self-Improvement Accountability",
+    "State Standards and Momentum",
     "Courage and Task Separation"
   ]
 };
 
 const FOCUS_EXERCISE_TRACKS = {
   anxious: [
+    "Non-Anxious Connection",
     "Let Them / Let Me",
+    "State Standards and Momentum",
     "Self-Compassion and Regulation",
     "Attachment Bonding Practice"
   ],
   conflict: [
+    "Non-Anxious Connection",
     "Secure Communication",
     "Relationship Repair Lab",
     "Deep Seeing and Listening"
   ],
   boundaries: [
+    "Self-Leadership and Doubt Reset",
     "It Begins With Me",
     "Values and Responsibility",
     "Courage and Task Separation"
   ],
   independence: [
+    "Adult Life and Relationship Maturity",
+    "Self-Leadership and Doubt Reset",
     "Quiet Strength",
     "Good Life Design",
     "The Power of Less"
@@ -2196,24 +2435,29 @@ const FOCUS_EXERCISE_TRACKS = {
 const MODULE_EXERCISE_TRACKS = {
   "Stop the spiral": [
     "Regulate and Reframe",
+    "Non-Anxious Connection",
+    "State Standards and Momentum",
     "Self-Compassion and Regulation",
     "Emotional Toolkit",
     "Body & Trauma Inquiry"
   ],
   "One message rule": [
     "Warm Clear Stop Protocol",
+    "Non-Anxious Connection",
     "Let Them / Let Me",
     "Attachment Practice",
     "The Power of Less"
   ],
   "Body before meaning": [
     "Regulate and Reframe",
+    "State Standards and Momentum",
     "Body & Trauma Inquiry",
     "Self-Compassion and Regulation",
     "Emotional Toolkit"
   ],
   "No emergency from uncertainty": [
     "Release Outcome and Return to Self",
+    "Non-Anxious Connection",
     "Regulate and Reframe",
     "Emotional Toolkit",
     "The Power of Less",
@@ -2231,6 +2475,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Attachment Practice"
   ],
   "Need beneath the strategy": [
+    "Non-Anxious Connection",
     "Attachment Bonding Practice",
     "Parts, Boundaries, and Inner Leadership",
     "Self-Esteem Pillars"
@@ -2241,6 +2486,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Parts, Boundaries, and Inner Leadership"
   ],
   "Clear request": [
+    "Non-Anxious Connection",
     "Trust Freedom and Mutual Effort",
     "Validate Reset Slice",
     "Secure Communication",
@@ -2268,6 +2514,8 @@ const MODULE_EXERCISE_TRACKS = {
     "Relationship Repair Lab"
   ],
   "Self-respect first": [
+    "Self-Leadership and Doubt Reset",
+    "Adult Life and Relationship Maturity",
     "Critical Self-Analysis and Confidence",
     "Let Go With Dignity",
     "Self-Improvement Accountability",
@@ -2275,6 +2523,7 @@ const MODULE_EXERCISE_TRACKS = {
     "It Begins With Me"
   ],
   "Boundary without apology": [
+    "Self-Leadership and Doubt Reset",
     "Critical Self-Analysis and Confidence",
     "Warm Clear Stop Protocol",
     "Let Go With Dignity",
@@ -2283,6 +2532,8 @@ const MODULE_EXERCISE_TRACKS = {
     "Courage and Task Separation"
   ],
   "Values over monitoring": [
+    "Adult Life and Relationship Maturity",
+    "State Standards and Momentum",
     "Critical Self-Analysis and Confidence",
     "Trust Freedom and Mutual Effort",
     "Let Go With Dignity",
@@ -2291,6 +2542,8 @@ const MODULE_EXERCISE_TRACKS = {
     "Good Life Design"
   ],
   "Choose from standards": [
+    "Self-Leadership and Doubt Reset",
+    "State Standards and Momentum",
     "Critical Self-Analysis and Confidence",
     "Trust Freedom and Mutual Effort",
     "Warm Clear Stop Protocol",
@@ -2300,18 +2553,22 @@ const MODULE_EXERCISE_TRACKS = {
     "It Begins With Me"
   ],
   "Relapse plan": [
+    "State Standards and Momentum",
     "Let Go With Dignity",
     "Values and Responsibility",
     "Self-Improvement Accountability",
     "The Power of Less"
   ],
   "Weekly review": [
+    "Adult Life and Relationship Maturity",
     "Warm Clear Stop Protocol",
     "Self-Improvement Accountability",
     "The Power of Less",
     "Good Life Design"
   ],
   "Deeper self-trust": [
+    "Self-Leadership and Doubt Reset",
+    "Adult Life and Relationship Maturity",
     "Critical Self-Analysis and Confidence",
     "Release Outcome and Return to Self",
     "Let Go With Dignity",
@@ -2320,6 +2577,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Good Life Design"
   ],
   "Stay open and centered": [
+    "Non-Anxious Connection",
     "Release Outcome and Return to Self",
     "Trust Freedom and Mutual Effort",
     "Quiet Strength",
