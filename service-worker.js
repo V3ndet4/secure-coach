@@ -1,4 +1,4 @@
-const CACHE_NAME = "secure-coach-cache-v1-expanded-references";
+const CACHE_NAME = "secure-coach-cache-v1-orion-references";
 const APP_SHELL = [
   "./",
   "./index.html",

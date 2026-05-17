@@ -751,6 +751,26 @@ const LIBRARY = [
       "Take one immediate action that matches that standard."
     ],
     script: "I can change my state before I choose my response."
+  },
+  {
+    title: "When you are overinvesting",
+    focus: "Reciprocity and value",
+    steps: [
+      "Write what you are giving: time, attention, emotional labor, consistency, or forgiveness.",
+      "Write what is actually coming back through behavior.",
+      "Adjust your investment to match reality, not fantasy."
+    ],
+    script: "I can value someone without overpaying with my peace."
+  },
+  {
+    title: "When attraction makes you ignore the exchange",
+    focus: "Dating clarity",
+    steps: [
+      "Name what you want from this connection.",
+      "Name what the other person appears to want from you.",
+      "Decide whether the exchange is honest, mutual, and sustainable."
+    ],
+    script: "Chemistry is not enough. I need mutual value, respect, and clear intention."
   }
 ];
 
@@ -1087,7 +1107,7 @@ const INFLUENCES = [
   },
   {
     author: "Dr Shadé Zahrai",
-    work: "Self-leadership, confidence, performance, and behavioral science education",
+    work: "Back Yourself When It Counts; self-leadership, confidence, performance, and behavioral science education",
     source: "https://www.shadezahrai.com/",
     theme: "Self-leadership and confidence under pressure",
     uses: [
@@ -1098,7 +1118,7 @@ const INFLUENCES = [
   },
   {
     author: "Dr John Delony",
-    work: "Building a Non-Anxious Life; Own Your Past, Change Your Future; The Dr. John Delony Show",
+    work: "Redefining Anxiety; Own Your Past, Change Your Future; Building a Non-Anxious Life; The Dr. John Delony Show",
     source: "https://www.ramseysolutions.com/john-delony",
     theme: "Anxiety, connection, and owning your story",
     uses: [
@@ -1110,7 +1130,7 @@ const INFLUENCES = [
   {
     author: "Scott Galloway",
     work: "The Algebra of Happiness; The Algebra of Wealth; Notes on Being a Man",
-    source: "https://www.ascottgalloway.net/books",
+    source: "https://scottgalloway.profgmedia.com/book/the-algebra-of-wealth/",
     theme: "Maturity, agency, relationships, and adult responsibility",
     uses: [
       "Push users toward adult ownership: health, work, friendship, family, and long-term choices.",
@@ -1127,6 +1147,17 @@ const INFLUENCES = [
       "Help users change their physical and emotional state before choosing a relationship response.",
       "Turn vague goals into standards, rituals, and immediate next actions.",
       "Use momentum and repetition to move from insight into behavior."
+    ]
+  },
+  {
+    author: "Dr Orion Taraban",
+    work: "PsycHacks; The Value of Others",
+    source: "https://oriontaraban.podbean.com/",
+    theme: "Relationship value, reciprocity, selection, and reality testing",
+    uses: [
+      "Help users look at mutual investment, incentives, and behavior instead of only intensity or hope.",
+      "Turn dating and relationship anxiety into practical questions: what is being offered, what is being chosen, and what is actually reciprocal.",
+      "Keep value work ethical: raise self-respect and honest contribution without dehumanizing, manipulating, or reducing people to transactions."
     ]
   }
 ];
@@ -2131,6 +2162,49 @@ const ADDITIONAL_EXERCISE_TRACKS = [
         prompt: "The five-minute action is ____. The proof I finished is ____."
       }
     ]
+  },
+  {
+    title: "Reciprocity and Value Reality Check",
+    lens: "Mutual investment, incentives, self-respect, and honest selection",
+    goal: "Help users stop overinvesting in fantasy and evaluate relationship value through behavior, reciprocity, and dignity.",
+    exercises: [
+      {
+        name: "Investment ledger",
+        steps: [
+          "List what you are investing: time, attention, money, emotional labor, access, forgiveness, or loyalty.",
+          "List what is being invested back through consistent behavior.",
+          "Reduce any investment that is not matched by respect, clarity, or real effort."
+        ],
+        prompt: "I am investing ____. The return in behavior is ____. A dignified adjustment is ____."
+      },
+      {
+        name: "Value without performance",
+        steps: [
+          "Name what you bring to a relationship when you are calm and authentic.",
+          "Name where you start performing to increase your perceived value.",
+          "Choose one action that improves your life instead of auditioning for approval."
+        ],
+        prompt: "My real value includes ____. I perform by ____. Today I improve my life by ____."
+      },
+      {
+        name: "Terms of access",
+        steps: [
+          "Name what kind of access you are giving: emotional, sexual, logistical, financial, or daily attention.",
+          "Ask whether the access matches the level of trust and commitment actually present.",
+          "Set one boundary that brings access back into alignment."
+        ],
+        prompt: "The access I am giving is ____. The trust actually present is ____. I will adjust by ____."
+      },
+      {
+        name: "Selection over persuasion",
+        steps: [
+          "Stop trying to persuade someone to value you.",
+          "Observe whether they choose you through action when they are free to choose.",
+          "Choose from the evidence instead of chasing the outcome."
+        ],
+        prompt: "The evidence of being chosen is ____. The evidence of persuasion is ____. I choose ____."
+      }
+    ]
   }
 ];
 
@@ -2362,6 +2436,7 @@ const PHASE_EXERCISE_TRACKS = {
   understand: [
     "Attachment Practice",
     "Non-Anxious Connection",
+    "Reciprocity and Value Reality Check",
     "Attachment Bonding Practice",
     "Parts, Boundaries, and Inner Leadership",
     "Deep Seeing and Listening",
@@ -2372,6 +2447,7 @@ const PHASE_EXERCISE_TRACKS = {
   practice: [
     "Secure Communication",
     "Non-Anxious Connection",
+    "Reciprocity and Value Reality Check",
     "Relationship Repair Lab",
     "Attachment Bonding Practice",
     "Deep Seeing and Listening",
@@ -2382,6 +2458,7 @@ const PHASE_EXERCISE_TRACKS = {
   strengthen: [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "Reciprocity and Value Reality Check",
     "Self-Improvement Accountability",
     "It Begins With Me",
     "Self-Esteem Pillars",
@@ -2393,6 +2470,7 @@ const PHASE_EXERCISE_TRACKS = {
   maintain: [
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
+    "Reciprocity and Value Reality Check",
     "Values and Responsibility",
     "Good Life Design",
     "Relationship Repair Lab",
@@ -2406,6 +2484,7 @@ const PHASE_EXERCISE_TRACKS = {
 const FOCUS_EXERCISE_TRACKS = {
   anxious: [
     "Non-Anxious Connection",
+    "Reciprocity and Value Reality Check",
     "Let Them / Let Me",
     "State Standards and Momentum",
     "Self-Compassion and Regulation",
@@ -2419,6 +2498,7 @@ const FOCUS_EXERCISE_TRACKS = {
   ],
   boundaries: [
     "Self-Leadership and Doubt Reset",
+    "Reciprocity and Value Reality Check",
     "It Begins With Me",
     "Values and Responsibility",
     "Courage and Task Separation"
@@ -2426,6 +2506,7 @@ const FOCUS_EXERCISE_TRACKS = {
   independence: [
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
+    "Reciprocity and Value Reality Check",
     "Quiet Strength",
     "Good Life Design",
     "The Power of Less"
@@ -2464,6 +2545,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Let Them / Let Me"
   ],
   "Fact versus story": [
+    "Reciprocity and Value Reality Check",
     "Regulate and Reframe",
     "Attachment Practice",
     "Deep Seeing and Listening",
@@ -2481,6 +2563,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Self-Esteem Pillars"
   ],
   "Pattern review": [
+    "Reciprocity and Value Reality Check",
     "Attachment Practice",
     "Deep Seeing and Listening",
     "Parts, Boundaries, and Inner Leadership"
@@ -2502,6 +2585,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Space tolerance": [
     "Warm Clear Stop Protocol",
+    "Reciprocity and Value Reality Check",
     "Let Them / Let Me",
     "Quiet Strength",
     "Attachment Bonding Practice"
@@ -2516,6 +2600,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Self-respect first": [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Let Go With Dignity",
     "Self-Improvement Accountability",
@@ -2524,6 +2609,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Boundary without apology": [
     "Self-Leadership and Doubt Reset",
+    "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Warm Clear Stop Protocol",
     "Let Go With Dignity",
@@ -2534,6 +2620,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Values over monitoring": [
     "Adult Life and Relationship Maturity",
     "State Standards and Momentum",
+    "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Trust Freedom and Mutual Effort",
     "Let Go With Dignity",
@@ -2544,6 +2631,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Choose from standards": [
     "Self-Leadership and Doubt Reset",
     "State Standards and Momentum",
+    "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Trust Freedom and Mutual Effort",
     "Warm Clear Stop Protocol",
@@ -2569,6 +2657,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Deeper self-trust": [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Release Outcome and Return to Self",
     "Let Go With Dignity",
@@ -2587,6 +2676,15 @@ const MODULE_EXERCISE_TRACKS = {
 };
 
 const EXTRA_NOTES = [
+  {
+    title: "Value needs reciprocity",
+    phaseIds: ["understand", "practice", "strengthen", "maintain"],
+    moduleTitles: ["Fact versus story", "Pattern review", "Self-respect first", "Values over monitoring", "Choose from standards"],
+    focusKeys: ["anxious", "boundaries", "independence"],
+    body: "A relationship is not only how strongly you feel. It is also what both people repeatedly invest, protect, repair, and choose. If your attention, loyalty, and emotional labor are not met with respect and effort, the secure move is to adjust access instead of proving your value harder.",
+    prompt: "Where am I overinvesting because I want the connection to become more mutual than it currently is?",
+    script: "I can care, but I will match my investment to respect, clarity, and real effort."
+  },
   {
     title: "Care without self-abandonment",
     phaseIds: ["stabilize", "strengthen"],
