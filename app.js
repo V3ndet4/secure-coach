@@ -1162,6 +1162,154 @@ const INFLUENCES = [
   }
 ];
 
+const REFERENCE_ROUTING = {
+  "Amir Levine and Rachel Heller": {
+    phaseIds: ["stabilize", "understand", "practice"],
+    focusKeys: ["anxious", "independence"],
+    moduleTitles: ["Fact versus story", "Trigger map", "Need beneath the strategy", "Space tolerance"]
+  },
+  "John Gottman and Julie Schwartz Gottman": {
+    phaseIds: ["practice", "maintain"],
+    focusKeys: ["conflict", "boundaries"],
+    moduleTitles: ["Clear request", "Repair without collapse", "Hard conversation practice", "Weekly review"]
+  },
+  "Dr Sue Johnson": {
+    phaseIds: ["understand", "practice"],
+    focusKeys: ["anxious", "conflict"],
+    moduleTitles: ["Need beneath the strategy", "Repair without collapse", "Stay open and centered"]
+  },
+  "Kim Bartholomew and Leonard Horowitz": {
+    phaseIds: ["understand"],
+    focusKeys: ["anxious", "independence"],
+    moduleTitles: ["Trigger map", "Pattern review"]
+  },
+  "Dr Kristin Neff": {
+    phaseIds: ["stabilize", "understand"],
+    focusKeys: ["anxious"],
+    moduleTitles: ["Stop the spiral", "Body before meaning", "Trigger map"]
+  },
+  "Marsha M. Linehan": {
+    phaseIds: ["stabilize", "practice"],
+    focusKeys: ["anxious", "conflict"],
+    moduleTitles: ["Stop the spiral", "No emergency from uncertainty", "Hard conversation practice"]
+  },
+  "Dr Daniel J. Siegel": {
+    phaseIds: ["stabilize", "understand"],
+    focusKeys: ["anxious", "conflict"],
+    moduleTitles: ["Body before meaning", "Fact versus story", "Trigger map"]
+  },
+  "Dr Richard C. Schwartz": {
+    phaseIds: ["understand", "strengthen"],
+    focusKeys: ["anxious", "boundaries", "independence"],
+    moduleTitles: ["Trigger map", "Need beneath the strategy", "Deeper self-trust"]
+  },
+  "Harriet Lerner, PhD": {
+    phaseIds: ["practice", "strengthen"],
+    focusKeys: ["conflict", "boundaries"],
+    moduleTitles: ["Clear request", "Hard conversation practice", "Boundary without apology"]
+  },
+  "Esther Perel, LMFT": {
+    phaseIds: ["practice", "maintain"],
+    focusKeys: ["conflict", "independence"],
+    moduleTitles: ["Space tolerance", "Stay open and centered", "Weekly review"]
+  },
+  "Stan Tatkin, PsyD, MFT": {
+    phaseIds: ["practice", "maintain"],
+    focusKeys: ["conflict", "anxious"],
+    moduleTitles: ["Repair without collapse", "Hard conversation practice", "Stay open and centered"]
+  },
+  "Brene Brown, PhD": {
+    phaseIds: ["understand", "practice"],
+    focusKeys: ["conflict", "boundaries"],
+    moduleTitles: ["Need beneath the strategy", "Clear request", "Hard conversation practice"]
+  },
+  "Mel Robbins and Sawyer Robbins": {
+    phaseIds: ["stabilize", "strengthen"],
+    focusKeys: ["anxious", "boundaries"],
+    moduleTitles: ["One message rule", "No emergency from uncertainty", "Values over monitoring"]
+  },
+  "Jillian Turecki": {
+    phaseIds: ["strengthen", "maintain"],
+    focusKeys: ["boundaries", "independence"],
+    moduleTitles: ["Self-respect first", "Choose from standards", "Deeper self-trust"]
+  },
+  "Gabor Mate": {
+    phaseIds: ["understand", "strengthen"],
+    focusKeys: ["anxious", "independence"],
+    moduleTitles: ["Trigger map", "Need beneath the strategy", "Body before meaning"]
+  },
+  "Dr Julie Smith": {
+    phaseIds: ["stabilize"],
+    focusKeys: ["anxious", "conflict"],
+    moduleTitles: ["Stop the spiral", "Body before meaning", "No emergency from uncertainty"]
+  },
+  "Ichiro Kishimi and Fumitake Koga": {
+    phaseIds: ["strengthen", "maintain"],
+    focusKeys: ["boundaries", "independence"],
+    moduleTitles: ["Boundary without apology", "Values over monitoring", "Choose from standards"]
+  },
+  "Charles T. Lee": {
+    phaseIds: ["strengthen", "maintain"],
+    focusKeys: ["independence"],
+    moduleTitles: ["Values over monitoring", "Weekly review", "Deeper self-trust"]
+  },
+  "David Brooks": {
+    phaseIds: ["practice", "maintain"],
+    focusKeys: ["conflict", "independence"],
+    moduleTitles: ["Clear request", "Hard conversation practice", "Stay open and centered"]
+  },
+  "Susan Cain": {
+    phaseIds: ["stabilize", "maintain"],
+    focusKeys: ["independence"],
+    moduleTitles: ["Body before meaning", "Space tolerance", "Stay open and centered"]
+  },
+  "Nathaniel Branden": {
+    phaseIds: ["strengthen", "maintain"],
+    focusKeys: ["boundaries", "independence"],
+    moduleTitles: ["Self-respect first", "Choose from standards", "Deeper self-trust"]
+  },
+  "Leo Babauta": {
+    phaseIds: ["stabilize", "maintain"],
+    focusKeys: ["anxious", "independence"],
+    moduleTitles: ["One message rule", "Relapse plan", "Weekly review"]
+  },
+  "Mark Manson": {
+    phaseIds: ["strengthen", "maintain"],
+    focusKeys: ["boundaries", "independence"],
+    moduleTitles: ["Values over monitoring", "Choose from standards", "Relapse plan"]
+  },
+  "Gabor Mate and Daniel Mate": {
+    phaseIds: ["understand", "strengthen"],
+    focusKeys: ["anxious", "independence"],
+    moduleTitles: ["Trigger map", "Need beneath the strategy", "Self-respect first"]
+  },
+  "Dr Shadé Zahrai": {
+    phaseIds: ["stabilize", "strengthen", "maintain"],
+    focusKeys: ["anxious", "boundaries", "independence"],
+    moduleTitles: ["No emergency from uncertainty", "Self-respect first", "Choose from standards", "Deeper self-trust"]
+  },
+  "Dr John Delony": {
+    phaseIds: ["stabilize", "understand", "practice"],
+    focusKeys: ["anxious", "conflict"],
+    moduleTitles: ["Stop the spiral", "Body before meaning", "No emergency from uncertainty", "Repair without collapse"]
+  },
+  "Scott Galloway": {
+    phaseIds: ["strengthen", "maintain"],
+    focusKeys: ["boundaries", "independence"],
+    moduleTitles: ["Self-respect first", "Values over monitoring", "Weekly review", "Deeper self-trust"]
+  },
+  "Tony Robbins": {
+    phaseIds: ["stabilize", "strengthen", "maintain"],
+    focusKeys: ["anxious", "boundaries", "independence"],
+    moduleTitles: ["Body before meaning", "No emergency from uncertainty", "Choose from standards", "Relapse plan"]
+  },
+  "Dr Orion Taraban": {
+    phaseIds: ["understand", "practice", "strengthen", "maintain"],
+    focusKeys: ["anxious", "boundaries", "independence"],
+    moduleTitles: ["Fact versus story", "Pattern review", "Space tolerance", "Self-respect first", "Values over monitoring", "Choose from standards"]
+  }
+};
+
 const ADDITIONAL_EXERCISE_TRACKS = [
   {
     title: "Warm Clear Stop Protocol",
@@ -4461,7 +4609,7 @@ function getDailyContent(day) {
   const phaseDayIndex = Math.max(0, contentDay - phase.days[0]);
   const module = pick(COACH_MODULES[phase.id], Math.floor(phaseDayIndex / 4));
   const isWeeklyReview = programDay % 7 === 0;
-  const reference = pick(INFLUENCES, dayIndex);
+  const reference = getAlignedReference(phase.id, focusKey, module.title, dayIndex);
   const track = getAlignedExerciseTrack(phase.id, focusKey, module.title, phaseDayIndex);
   const trackExercise = pick(track.exercises, phaseDayIndex);
   const extraNote = getChapterExtraNote(phase.id, focusKey, module.title, phaseDayIndex);
@@ -4548,6 +4696,25 @@ function getAlignedExerciseTrack(phaseId, focusKey, moduleTitle, phaseDayIndex) 
   }
 
   return pick(merged.length ? merged : ALL_EXERCISE_TRACKS, phaseDayIndex);
+}
+
+function getAlignedReference(phaseId, focusKey, moduleTitle, dayIndex) {
+  const scored = INFLUENCES
+    .map((reference) => {
+      const route = REFERENCE_ROUTING[reference.author] || {};
+      const score = [
+        route.moduleTitles?.includes(moduleTitle) ? 4 : 0,
+        route.focusKeys?.includes(focusKey) ? 2 : 0,
+        route.phaseIds?.includes(phaseId) ? 1 : 0
+      ].reduce((total, value) => total + value, 0);
+      return { reference, score };
+    })
+    .filter((item) => item.score > 0);
+
+  if (!scored.length) return pick(INFLUENCES, dayIndex);
+  const maxScore = Math.max(...scored.map((item) => item.score));
+  const bestMatches = scored.filter((item) => item.score === maxScore).map((item) => item.reference);
+  return pick(bestMatches, dayIndex);
 }
 
 function resolveExerciseTracks(titles = []) {
@@ -5292,6 +5459,13 @@ function getSearchIndex() {
     meta: track.title,
     tags: `${track.title} ${track.goal} ${exercise.steps.join(" ")}`
   })));
+  const influences = INFLUENCES.map((item) => ({
+    type: "reference",
+    title: item.author,
+    body: `${item.work} ${item.theme} ${item.uses.join(" ")}`,
+    meta: "References",
+    tags: item.source
+  }));
   const attachments = ATTACHMENT_TYPES.map((type) => ({
     type: "attachment",
     title: type.title,
@@ -5300,7 +5474,7 @@ function getSearchIndex() {
     tags: type.signs.join(" ")
   }));
 
-  return [...situations, ...sos, ...notes, ...scripts, ...exercises, ...attachments];
+  return [...situations, ...sos, ...notes, ...scripts, ...exercises, ...influences, ...attachments];
 }
 
 function getRewardBadges() {

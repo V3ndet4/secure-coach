@@ -107,7 +107,7 @@ The app includes an in-app `References` view with influence notes from:
 - Tony Robbins' public work on state, standards, rituals, and personal development
 - Dr Orion Taraban references: `PsycHacks` and `The Value of Others`, used carefully for reciprocity, selection, value, and reality-testing exercises
 
-The exercises are original and use high-level concepts only. The app does not copy book text.
+The exercises and daily reference lens are routed by phase, focus area, and module. They are original and use high-level concepts only. The app does not copy book text.
 
 The self-care priority is also informed by public guidance from NIMH, CDC, and WHO. The product rule is simple: relationship skills matter, but daily care for the user's own body, mind, environment, boundaries, and future comes first.
 
