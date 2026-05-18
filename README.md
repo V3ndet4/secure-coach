@@ -110,6 +110,7 @@ The app includes an in-app `References` view with influence notes from:
 - Scott Galloway references: `The Algebra of Happiness`, `The Algebra of Wealth`, and `Notes on Being a Man`
 - Tony Robbins' public work on state, standards, rituals, and personal development
 - Dr Orion Taraban references: `The Value of Others` and `PsycHacks`, used carefully for perceived value, reciprocity, access, selection, and reality-testing exercises
+- Pooja Lakshmin, MD reference: `Real Self-Care`, used for boundaries, compassion, values, power/agency, real-vs-faux self-care, and the Real Self-Care Compass
 
 The exercises and daily reference lens are routed by phase, focus area, and module. They are original and use high-level concepts only. The app does not copy book text.
 

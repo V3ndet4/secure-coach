@@ -70,6 +70,12 @@ const SELF_CARE_SOURCES = [
     title: "Self-care for health and well-being",
     url: "https://www.who.int/news-room/questions-and-answers/item/self-care-for-health-and-well-being",
     note: "Self-care includes actions people take to promote health, maintain health, and cope with illness."
+  },
+  {
+    label: "Pooja Lakshmin, MD",
+    title: "Real Self-Care",
+    url: "https://www.poojalakshmin.com/realselfcare",
+    note: "Real self-care is treated here as an internal, values-led decision process, not a product or performance."
   }
 ];
 
@@ -385,6 +391,14 @@ const DAILY_CARD_DECK = [
     purpose: "Stop making another person's mood the center of your day.",
     steps: ["Choose one task for future you.", "Put your phone out of reach.", "Work for ten minutes before checking anything."],
     anchor: "My life still needs me today."
+  },
+  {
+    id: "real-care",
+    badge: "Real self-care card",
+    title: "Compass Before Comfort",
+    purpose: "Choose care that changes the decision, not just care that numbs the moment.",
+    steps: ["Name the problem you are trying to soothe.", "Ask what boundary, compassion, value, or agency is needed.", "Take one small action that changes tomorrow."],
+    anchor: "Real care returns power to my choices."
   }
 ];
 
@@ -396,7 +410,8 @@ const MINI_QUESTS = [
   { id: "direct-line", title: "One Direct Line", difficulty: "5 min", action: "Write one clear sentence that asks, needs, or declines without blaming.", reward: "Clear voice" },
   { id: "future-self", title: "Future Self Deposit", difficulty: "12 min", action: "Do one task tomorrow's version of you will be glad you handled.", reward: "Future credit" },
   { id: "phone-away", title: "Phone Away", difficulty: "15 min", action: "Put your phone across the room and complete one normal routine.", reward: "Attention back" },
-  { id: "truth-note", title: "Truth Note", difficulty: "4 min", action: "Write the factual version of what happened without mind-reading.", reward: "Clean evidence" }
+  { id: "truth-note", title: "Truth Note", difficulty: "4 min", action: "Write the factual version of what happened without mind-reading.", reward: "Clean evidence" },
+  { id: "compass-check", title: "Compass Check", difficulty: "6 min", action: "Write your What, How, and Why before choosing the next relationship action.", reward: "Inner compass" }
 ];
 
 const SCENARIO_PRACTICE = [
@@ -561,6 +576,40 @@ const WEEKLY_CONTENT_PACKS = [
         purpose: "Keep standards without harshness.",
         steps: ["Remove contempt from the sentence.", "Keep the standard intact.", "Say it like both people are on the same side."],
         prompt: "What is the kind but firm version of my standard?"
+      }
+    ]
+  },
+  {
+    week: "real-self-care-week",
+    title: "Real Self-Care Week",
+    source: "Original weekly pack based on Pooja Lakshmin's real self-care framework: boundaries, compassion, values, power, and the self-care compass",
+    items: [
+      {
+        title: "Real versus faux care audit",
+        phaseIds: ["stabilize", "understand"],
+        focusKeys: ["anxious", "independence"],
+        moduleTitles: ["Stop the spiral", "Body before meaning", "No emergency from uncertainty", "Fact versus story"],
+        purpose: "Separate temporary soothing from care that changes the decision.",
+        steps: ["Name the comfort you are reaching for.", "Ask whether it changes the boundary, value, or next decision.", "Choose one action that returns agency to you."],
+        prompt: "The comfort is ____. The real-care decision is ____."
+      },
+      {
+        title: "Boundary guilt practice",
+        phaseIds: ["practice", "strengthen"],
+        focusKeys: ["boundaries", "conflict", "anxious"],
+        moduleTitles: ["Clear request", "Repair without collapse", "Boundary without apology", "Self-respect first"],
+        purpose: "Treat guilt as information, not an instruction to abandon yourself.",
+        steps: ["Name the boundary.", "Name the guilt story.", "Choose the smallest respectful follow-through."],
+        prompt: "The boundary is ____. The guilt says ____. I will still ____."
+      },
+      {
+        title: "Compass before reaction",
+        phaseIds: ["strengthen", "maintain"],
+        focusKeys: ["boundaries", "independence"],
+        moduleTitles: ["Values over monitoring", "Choose from standards", "Weekly review", "Deeper self-trust"],
+        purpose: "Use What, How, and Why before a relationship decision.",
+        steps: ["Write what you are trying to protect.", "Write how you want to behave while protecting it.", "Write why this matters to the person you are becoming."],
+        prompt: "My What is ____. My How is ____. My Why is ____."
       }
     ]
   },
@@ -1557,6 +1606,17 @@ const INFLUENCES = [
       "Turn dating and relationship anxiety into practical questions: what is being offered, what is being chosen, what access is being granted, and what is actually reciprocal.",
       "Keep value work ethical: increase honest contribution, self-respect, and discernment without dehumanizing, manipulating, or reducing people to transactions."
     ]
+  },
+  {
+    author: "Pooja Lakshmin, MD",
+    work: "Real Self-Care",
+    source: "https://www.poojalakshmin.com/realselfcare",
+    theme: "Real self-care, boundaries, compassion, values, and power",
+    uses: [
+      "Help users distinguish temporary soothing from self-care that changes decisions, boundaries, and agency.",
+      "Route self-care through four internal principles: boundaries, compassionate self-talk, values, and reclaiming power over the next choice.",
+      "Use the Real Self-Care Compass as a practical What, How, and Why filter before reacting, overgiving, or abandoning the self."
+    ]
   }
 ];
 
@@ -1705,10 +1765,76 @@ const REFERENCE_ROUTING = {
     phaseIds: ["understand", "practice", "strengthen", "maintain"],
     focusKeys: ["anxious", "boundaries", "independence"],
     moduleTitles: ["Fact versus story", "Pattern review", "Space tolerance", "Self-respect first", "Values over monitoring", "Choose from standards"]
+  },
+  "Pooja Lakshmin, MD": {
+    phaseIds: ["stabilize", "understand", "practice", "strengthen", "maintain"],
+    focusKeys: ["anxious", "conflict", "boundaries", "independence"],
+    moduleTitles: ["Stop the spiral", "Body before meaning", "No emergency from uncertainty", "Fact versus story", "Need beneath the strategy", "Clear request", "Repair without collapse", "Self-respect first", "Boundary without apology", "Values over monitoring", "Choose from standards", "Relapse plan", "Weekly review", "Deeper self-trust"]
   }
 };
 
 const ADDITIONAL_EXERCISE_TRACKS = [
+  {
+    title: "Real Self-Care Compass",
+    lens: "Boundaries, compassion, values, and agency",
+    goal: "Turn self-care into an internal decision process instead of a product, escape, or performance.",
+    exercises: [
+      {
+        name: "Faux versus real care audit",
+        steps: [
+          "Name the self-care move you want to use right now.",
+          "Ask whether it only soothes the moment or changes the decision that keeps hurting you.",
+          "Choose one boundary, value, or agency action that will still matter tomorrow."
+        ],
+        prompt: "The soothing move is ____. The real-care decision is ____."
+      },
+      {
+        name: "Boundary guilt buffer",
+        steps: [
+          "Write the boundary in one sentence.",
+          "Write the guilt story that appears when you hold it.",
+          "Answer the guilt with compassion and one clear follow-through."
+        ],
+        prompt: "My boundary is ____. My guilt says ____. My compassionate follow-through is ____."
+      },
+      {
+        name: "Compassionate self-talk repair",
+        steps: [
+          "Write the harsh sentence you are saying to yourself.",
+          "Rewrite it as if you were speaking to someone you protect.",
+          "Take one action from the kinder sentence."
+        ],
+        prompt: "The harsh sentence is ____. The compassionate version is ____."
+      },
+      {
+        name: "Values before access",
+        steps: [
+          "Name the value you want to live from today.",
+          "Name the access, attention, or effort you are giving.",
+          "Adjust one behavior so your access matches your values."
+        ],
+        prompt: "My value is ____. The access I give should change by ____."
+      },
+      {
+        name: "Power map",
+        steps: [
+          "Draw two columns: what is not in my control and what is in my power.",
+          "Move one worry from control-seeking into an agency action.",
+          "Do the smallest agency action before asking for reassurance."
+        ],
+        prompt: "I cannot control ____. I can use my power by ____."
+      },
+      {
+        name: "Good-enough permission",
+        steps: [
+          "Name the impossible standard you are using against yourself.",
+          "Choose the good-enough version that still protects your health and dignity.",
+          "Let good-enough count as real progress."
+        ],
+        prompt: "The impossible standard is ____. Good-enough today is ____."
+      }
+    ]
+  },
   {
     title: "Warm Clear Stop Protocol",
     lens: "Soft tone, firm standards, and no chasing",
@@ -3033,6 +3159,7 @@ const PHASE_EXERCISE_TRACKS = {
     "Non-Anxious Connection",
     "State Standards and Momentum",
     "Self-Compassion and Regulation",
+    "Real Self-Care Compass",
     "Emotional Toolkit",
     "Body & Trauma Inquiry",
     "Self-Leadership and Doubt Reset",
@@ -3048,6 +3175,7 @@ const PHASE_EXERCISE_TRACKS = {
     "Attachment Bonding Practice",
     "Parts, Boundaries, and Inner Leadership",
     "Deep Seeing and Listening",
+    "Real Self-Care Compass",
     "Adult Life and Relationship Maturity",
     "Self-Esteem Pillars",
     "Body & Trauma Inquiry"
@@ -3055,6 +3183,7 @@ const PHASE_EXERCISE_TRACKS = {
   practice: [
     "Secure Communication",
     "Non-Anxious Connection",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Relationship Repair Lab",
@@ -3066,6 +3195,7 @@ const PHASE_EXERCISE_TRACKS = {
   ],
   strengthen: [
     "Self-Leadership and Doubt Reset",
+    "Real Self-Care Compass",
     "Adult Life and Relationship Maturity",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
@@ -3080,6 +3210,7 @@ const PHASE_EXERCISE_TRACKS = {
   maintain: [
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Values and Responsibility",
@@ -3099,6 +3230,7 @@ const FOCUS_EXERCISE_TRACKS = {
     "Reciprocity and Value Reality Check",
     "Let Them / Let Me",
     "State Standards and Momentum",
+    "Real Self-Care Compass",
     "Self-Compassion and Regulation",
     "Attachment Bonding Practice"
   ],
@@ -3106,10 +3238,12 @@ const FOCUS_EXERCISE_TRACKS = {
     "Non-Anxious Connection",
     "Secure Communication",
     "Relationship Repair Lab",
+    "Real Self-Care Compass",
     "Deep Seeing and Listening"
   ],
   boundaries: [
     "Self-Leadership and Doubt Reset",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "It Begins With Me",
@@ -3119,6 +3253,7 @@ const FOCUS_EXERCISE_TRACKS = {
   independence: [
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Quiet Strength",
@@ -3133,11 +3268,13 @@ const MODULE_EXERCISE_TRACKS = {
     "Non-Anxious Connection",
     "State Standards and Momentum",
     "Self-Compassion and Regulation",
+    "Real Self-Care Compass",
     "Emotional Toolkit",
     "Body & Trauma Inquiry"
   ],
   "One message rule": [
     "Warm Clear Stop Protocol",
+    "Real Self-Care Compass",
     "Non-Anxious Connection",
     "Let Them / Let Me",
     "Attachment Practice",
@@ -3146,6 +3283,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Body before meaning": [
     "Regulate and Reframe",
     "State Standards and Momentum",
+    "Real Self-Care Compass",
     "Body & Trauma Inquiry",
     "Self-Compassion and Regulation",
     "Emotional Toolkit"
@@ -3153,6 +3291,7 @@ const MODULE_EXERCISE_TRACKS = {
   "No emergency from uncertainty": [
     "Release Outcome and Return to Self",
     "Non-Anxious Connection",
+    "Real Self-Care Compass",
     "Regulate and Reframe",
     "Emotional Toolkit",
     "The Power of Less",
@@ -3161,6 +3300,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Fact versus story": [
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
+    "Real Self-Care Compass",
     "Regulate and Reframe",
     "Attachment Practice",
     "Deep Seeing and Listening",
@@ -3169,10 +3309,12 @@ const MODULE_EXERCISE_TRACKS = {
   "Trigger map": [
     "Body & Trauma Inquiry",
     "Parts, Boundaries, and Inner Leadership",
+    "Real Self-Care Compass",
     "Attachment Practice"
   ],
   "Need beneath the strategy": [
     "Non-Anxious Connection",
+    "Real Self-Care Compass",
     "Attachment Bonding Practice",
     "Parts, Boundaries, and Inner Leadership",
     "Self-Esteem Pillars"
@@ -3180,6 +3322,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Pattern review": [
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
+    "Real Self-Care Compass",
     "Attachment Practice",
     "Deep Seeing and Listening",
     "Parts, Boundaries, and Inner Leadership"
@@ -3188,6 +3331,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Non-Anxious Connection",
     "Trust Freedom and Mutual Effort",
     "Validate Reset Slice",
+    "Real Self-Care Compass",
     "Secure Communication",
     "Relationship Repair Lab",
     "Attachment Bonding Practice"
@@ -3197,10 +3341,12 @@ const MODULE_EXERCISE_TRACKS = {
     "Validate Reset Slice",
     "Relationship Repair Lab",
     "Secure Communication",
+    "Real Self-Care Compass",
     "Self-Compassion and Regulation"
   ],
   "Space tolerance": [
     "Warm Clear Stop Protocol",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Let Them / Let Me",
@@ -3210,6 +3356,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Hard conversation practice": [
     "Trust Freedom and Mutual Effort",
     "Validate Reset Slice",
+    "Real Self-Care Compass",
     "Secure Communication",
     "Deep Seeing and Listening",
     "Relationship Repair Lab"
@@ -3217,6 +3364,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Self-respect first": [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
@@ -3227,6 +3375,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Boundary without apology": [
     "Self-Leadership and Doubt Reset",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
@@ -3239,6 +3388,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Values over monitoring": [
     "Adult Life and Relationship Maturity",
     "State Standards and Momentum",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
@@ -3251,6 +3401,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Choose from standards": [
     "Self-Leadership and Doubt Reset",
     "State Standards and Momentum",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
@@ -3264,6 +3415,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Relapse plan": [
     "State Standards and Momentum",
     "Let Go With Dignity",
+    "Real Self-Care Compass",
     "Values and Responsibility",
     "Self-Improvement Accountability",
     "The Power of Less"
@@ -3271,6 +3423,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Weekly review": [
     "Adult Life and Relationship Maturity",
     "The Value of Others Practice",
+    "Real Self-Care Compass",
     "Warm Clear Stop Protocol",
     "Self-Improvement Accountability",
     "The Power of Less",
@@ -3279,6 +3432,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Deeper self-trust": [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
@@ -3291,6 +3445,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Stay open and centered": [
     "Non-Anxious Connection",
     "Release Outcome and Return to Self",
+    "Real Self-Care Compass",
     "Trust Freedom and Mutual Effort",
     "Quiet Strength",
     "Attachment Bonding Practice",
@@ -3316,6 +3471,33 @@ const EXTRA_NOTES = [
     body: "Someone's perception of your value can influence how they behave, but it is not the same thing as your actual worth. The secure move is to read the exchange clearly, improve what is yours to improve, and stop auditioning for people who do not choose mutuality.",
     prompt: "Where am I trying to change their perception instead of improving my life and choosing from evidence?",
     script: "I can become more grounded and valuable without begging to be valued."
+  },
+  {
+    title: "Real care is a decision process",
+    phaseIds: ["stabilize", "understand"],
+    moduleTitles: ["Stop the spiral", "Body before meaning", "No emergency from uncertainty", "Fact versus story", "Trigger map"],
+    focusKeys: ["anxious", "independence"],
+    body: "Comfort can help, but it is not the whole of self-care. Real care asks what decision will protect your values, your energy, and your future once the comfort wears off. The secure move is to soothe the body, then make one values-led choice.",
+    prompt: "What am I using for comfort, and what real decision still needs to be made?",
+    script: "I can soothe myself and still choose the decision that protects my life."
+  },
+  {
+    title: "Guilt is not the boundary judge",
+    phaseIds: ["practice", "strengthen"],
+    moduleTitles: ["Clear request", "Repair without collapse", "Boundary without apology", "Self-respect first"],
+    focusKeys: ["conflict", "boundaries", "anxious"],
+    body: "Guilt often appears when you stop overfunctioning. That does not mean the boundary is wrong. It means the old role is protesting. Let guilt speak, then let your values decide.",
+    prompt: "What boundary brings guilt, and what value makes it necessary?",
+    script: "I can feel guilt and still keep a respectful boundary."
+  },
+  {
+    title: "Power is agency, not control",
+    phaseIds: ["strengthen", "maintain"],
+    moduleTitles: ["Values over monitoring", "Choose from standards", "Relapse plan", "Weekly review", "Deeper self-trust"],
+    focusKeys: ["anxious", "boundaries", "independence"],
+    body: "Reclaiming power is not controlling another person. It is naming what is yours to choose: access, standards, speech, rest, honesty, and where your attention goes next. Control chases certainty. Agency builds a life.",
+    prompt: "Where am I trying to control an outcome instead of using my agency?",
+    script: "I release control and use my power on the next honest choice."
   },
   {
     title: "Care without self-abandonment",
@@ -6034,9 +6216,10 @@ function getAdaptiveTrackTitles(focusKey) {
 
   if (lastIntensity >= 4) titles.push("State Standards and Momentum", "Non-Anxious Connection");
   if (/silence|quiet|reply|blocked|blocking|distance|avoid/.test(signalText)) titles.push("Non-Anxious Connection", "Warm Clear Stop Protocol");
-  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort|undervalued|value/.test(signalText)) titles.push("The Value of Others Practice", "Reciprocity and Value Reality Check", "Values and Responsibility");
-  if (focusKey === "boundaries") titles.push("Self-Leadership and Doubt Reset");
-  if (focusKey === "independence") titles.push("Adult Life and Relationship Maturity");
+  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort|undervalued|value/.test(signalText)) titles.push("The Value of Others Practice", "Reciprocity and Value Reality Check", "Values and Responsibility", "Real Self-Care Compass");
+  if (/guilt|burnout|tired|exhaust|self-care|self care|overfunction|people please/.test(signalText)) titles.push("Real Self-Care Compass", "Self-Compassion and Regulation");
+  if (focusKey === "boundaries") titles.push("Self-Leadership and Doubt Reset", "Real Self-Care Compass");
+  if (focusKey === "independence") titles.push("Adult Life and Relationship Maturity", "Real Self-Care Compass");
   return [...new Set(titles)];
 }
 
