@@ -305,6 +305,18 @@ const RIGHT_NOW_CHOICES = [
     ],
     script: "I can value someone without overpaying with my peace.",
     trackTitle: "Reciprocity and Value Reality Check"
+  },
+  {
+    id: "value-confusion",
+    label: "I feel undervalued",
+    purpose: "Check perceived value through behavior instead of trying harder to be chosen.",
+    steps: [
+      "Name the value you are offering without performing.",
+      "Name the behavior showing how the other person values the connection.",
+      "Choose whether to contribute, clarify, or reduce access."
+    ],
+    script: "My value is not proven by persuading someone to see it.",
+    trackTitle: "The Value of Others Practice"
   }
 ];
 
@@ -417,6 +429,40 @@ const WEEKLY_CONTENT_PACKS = [
         purpose: "Keep standards without harshness.",
         steps: ["Remove contempt from the sentence.", "Keep the standard intact.", "Say it like both people are on the same side."],
         prompt: "What is the kind but firm version of my standard?"
+      }
+    ]
+  },
+  {
+    week: "value-of-others-week",
+    title: "Value of Others Week",
+    source: "Original weekly pack based on The Value of Others: perceived value, value exchange, reciprocity, access, and selection",
+    items: [
+      {
+        title: "Perceived value versus actual worth",
+        phaseIds: ["understand", "strengthen"],
+        focusKeys: ["anxious", "boundaries", "independence"],
+        moduleTitles: ["Fact versus story", "Pattern review", "Self-respect first"],
+        purpose: "Stop confusing one person's valuation with your actual worth.",
+        steps: ["Write how this person appears to value the connection.", "Write what your worth is independent of their behavior.", "Choose one self-respecting adjustment."],
+        prompt: "Where am I treating their valuation as the truth about my worth?"
+      },
+      {
+        title: "Current offer audit",
+        phaseIds: ["practice", "strengthen"],
+        focusKeys: ["anxious", "boundaries"],
+        moduleTitles: ["Space tolerance", "Values over monitoring", "Choose from standards"],
+        purpose: "Evaluate the present relationship offer instead of negotiating with potential.",
+        steps: ["List what is actually being offered today.", "List what you are hoping it becomes.", "Respond to the current offer with dignity."],
+        prompt: "What is the current offer, and what response respects me?"
+      },
+      {
+        title: "Contribution without auditioning",
+        phaseIds: ["strengthen", "maintain"],
+        focusKeys: ["boundaries", "independence"],
+        moduleTitles: ["Deeper self-trust", "Weekly review", "Stay open and centered"],
+        purpose: "Increase your real-life value without performing for approval.",
+        steps: ["Name one value you bring naturally.", "Name one way you overperform to be chosen.", "Make one contribution to your life that is not aimed at winning them."],
+        prompt: "How can I become more valuable to myself and others without auditioning?"
       }
     ]
   }
@@ -961,6 +1007,36 @@ const LIBRARY = [
       "Decide whether the exchange is honest, mutual, and sustainable."
     ],
     script: "Chemistry is not enough. I need mutual value, respect, and clear intention."
+  },
+  {
+    title: "When you feel undervalued",
+    focus: "Perceived value",
+    steps: [
+      "Separate your actual worth from how this person is currently valuing the connection.",
+      "Look at behavior: consistency, effort, repair, access, honesty, and follow-through.",
+      "Make one move that raises self-respect without trying to manipulate their interest."
+    ],
+    script: "Being undervalued by someone is data about the exchange, not a final verdict on my worth."
+  },
+  {
+    title: "When you are negotiating with potential",
+    focus: "Selection over persuasion",
+    steps: [
+      "Name the future version you keep hoping they become.",
+      "Name the present behavior they are actually offering.",
+      "Choose based on the current offer, not the imagined upgrade."
+    ],
+    script: "I can respect potential without dating only the possibility."
+  },
+  {
+    title: "When access exceeds commitment",
+    focus: "Access and commitment",
+    steps: [
+      "Name the access you are giving: attention, emotional support, intimacy, time, or convenience.",
+      "Name the commitment, respect, and consistency actually present.",
+      "Bring access back into alignment without punishment or drama."
+    ],
+    script: "Access should match trust, consistency, and mutual care."
   }
 ];
 
@@ -1341,13 +1417,13 @@ const INFLUENCES = [
   },
   {
     author: "Dr Orion Taraban",
-    work: "PsycHacks; The Value of Others",
-    source: "https://oriontaraban.podbean.com/",
-    theme: "Relationship value, reciprocity, selection, and reality testing",
+    work: "The Value of Others; PsycHacks",
+    source: "https://books.google.com/books/about/The_Value_of_Others.html?id=hKAPEQAAQBAJ",
+    theme: "Perceived value, reciprocity, selection, and relationship exchange",
     uses: [
-      "Help users look at mutual investment, incentives, and behavior instead of only intensity or hope.",
-      "Turn dating and relationship anxiety into practical questions: what is being offered, what is being chosen, and what is actually reciprocal.",
-      "Keep value work ethical: raise self-respect and honest contribution without dehumanizing, manipulating, or reducing people to transactions."
+      "Use the book's economic-model lens to help users compare perceived value, actual behavior, and mutual investment instead of only intensity or hope.",
+      "Turn dating and relationship anxiety into practical questions: what is being offered, what is being chosen, what access is being granted, and what is actually reciprocal.",
+      "Keep value work ethical: increase honest contribution, self-respect, and discernment without dehumanizing, manipulating, or reducing people to transactions."
     ]
   }
 ];
@@ -2543,6 +2619,67 @@ const ADDITIONAL_EXERCISE_TRACKS = [
         prompt: "The evidence of being chosen is ____. The evidence of persuasion is ____. I choose ____."
       }
     ]
+  },
+  {
+    title: "The Value of Others Practice",
+    lens: "Perceived value, relationship exchange, selection, access, and contribution",
+    goal: "Use a clear value exchange and reciprocity lens without losing empathy, dignity, or emotional maturity.",
+    exercises: [
+      {
+        name: "Perceived value map",
+        steps: [
+          "Write what you believe this person values in you.",
+          "Write the behavior that supports or contradicts that belief.",
+          "Separate your actual worth from their current valuation of the connection."
+        ],
+        prompt: "They appear to value ____. The behavior shows ____. My worth remains ____."
+      },
+      {
+        name: "Offer and ask clarity",
+        steps: [
+          "Name what you are offering in the connection.",
+          "Name what you are asking for in return.",
+          "Check whether both sides are explicit, ethical, and realistic."
+        ],
+        prompt: "I offer ____. I am asking for ____. The honest exchange is ____."
+      },
+      {
+        name: "Current offer, not imagined upgrade",
+        steps: [
+          "Write the present relationship offer in behavior terms.",
+          "Write the upgrade you are hoping time will create.",
+          "Choose based on the present offer unless there is visible movement."
+        ],
+        prompt: "The current offer is ____. The imagined upgrade is ____. I will respond to ____."
+      },
+      {
+        name: "Access ladder",
+        steps: [
+          "List the access you are giving: time, attention, intimacy, emotional labor, support, or convenience.",
+          "Rate the trust and commitment that justify that access.",
+          "Move one level of access up or down to match reality."
+        ],
+        prompt: "The access I give is ____. The trust present is ____. The aligned access level is ____."
+      },
+      {
+        name: "Selection over convincing",
+        steps: [
+          "Stop presenting more evidence that you are valuable.",
+          "Observe whether they freely choose consistency, repair, and respect.",
+          "Select from the people who choose mutuality instead of persuading someone into it."
+        ],
+        prompt: "I am done convincing by ____. I will select for ____."
+      },
+      {
+        name: "Contribution without transaction",
+        steps: [
+          "Name one way you can become more grounded, useful, healthy, or honest.",
+          "Do it because it improves your life and relationships, not to manipulate desire.",
+          "Notice whether your contribution and standards rise together."
+        ],
+        prompt: "My contribution grows through ____. My standard rises through ____."
+      }
+    ]
   }
 ];
 
@@ -2774,6 +2911,7 @@ const PHASE_EXERCISE_TRACKS = {
   understand: [
     "Attachment Practice",
     "Non-Anxious Connection",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Attachment Bonding Practice",
     "Parts, Boundaries, and Inner Leadership",
@@ -2785,6 +2923,7 @@ const PHASE_EXERCISE_TRACKS = {
   practice: [
     "Secure Communication",
     "Non-Anxious Connection",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Relationship Repair Lab",
     "Attachment Bonding Practice",
@@ -2796,6 +2935,7 @@ const PHASE_EXERCISE_TRACKS = {
   strengthen: [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Self-Improvement Accountability",
     "It Begins With Me",
@@ -2808,6 +2948,7 @@ const PHASE_EXERCISE_TRACKS = {
   maintain: [
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Values and Responsibility",
     "Good Life Design",
@@ -2822,6 +2963,7 @@ const PHASE_EXERCISE_TRACKS = {
 const FOCUS_EXERCISE_TRACKS = {
   anxious: [
     "Non-Anxious Connection",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Let Them / Let Me",
     "State Standards and Momentum",
@@ -2836,6 +2978,7 @@ const FOCUS_EXERCISE_TRACKS = {
   ],
   boundaries: [
     "Self-Leadership and Doubt Reset",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "It Begins With Me",
     "Values and Responsibility",
@@ -2844,6 +2987,7 @@ const FOCUS_EXERCISE_TRACKS = {
   independence: [
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Quiet Strength",
     "Good Life Design",
@@ -2883,6 +3027,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Let Them / Let Me"
   ],
   "Fact versus story": [
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Regulate and Reframe",
     "Attachment Practice",
@@ -2901,6 +3046,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Self-Esteem Pillars"
   ],
   "Pattern review": [
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Attachment Practice",
     "Deep Seeing and Listening",
@@ -2923,6 +3069,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Space tolerance": [
     "Warm Clear Stop Protocol",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Let Them / Let Me",
     "Quiet Strength",
@@ -2938,6 +3085,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Self-respect first": [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Let Go With Dignity",
@@ -2947,6 +3095,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Boundary without apology": [
     "Self-Leadership and Doubt Reset",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Warm Clear Stop Protocol",
@@ -2958,6 +3107,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Values over monitoring": [
     "Adult Life and Relationship Maturity",
     "State Standards and Momentum",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Trust Freedom and Mutual Effort",
@@ -2969,6 +3119,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Choose from standards": [
     "Self-Leadership and Doubt Reset",
     "State Standards and Momentum",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Trust Freedom and Mutual Effort",
@@ -2987,6 +3138,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Weekly review": [
     "Adult Life and Relationship Maturity",
+    "The Value of Others Practice",
     "Warm Clear Stop Protocol",
     "Self-Improvement Accountability",
     "The Power of Less",
@@ -2995,6 +3147,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Deeper self-trust": [
     "Self-Leadership and Doubt Reset",
     "Adult Life and Relationship Maturity",
+    "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Critical Self-Analysis and Confidence",
     "Release Outcome and Return to Self",
@@ -3022,6 +3175,15 @@ const EXTRA_NOTES = [
     body: "A relationship is not only how strongly you feel. It is also what both people repeatedly invest, protect, repair, and choose. If your attention, loyalty, and emotional labor are not met with respect and effort, the secure move is to adjust access instead of proving your value harder.",
     prompt: "Where am I overinvesting because I want the connection to become more mutual than it currently is?",
     script: "I can care, but I will match my investment to respect, clarity, and real effort."
+  },
+  {
+    title: "Perceived value is not final worth",
+    phaseIds: ["understand", "practice", "strengthen"],
+    moduleTitles: ["Fact versus story", "Pattern review", "Space tolerance", "Self-respect first", "Choose from standards"],
+    focusKeys: ["anxious", "boundaries", "independence"],
+    body: "Someone's perception of your value can influence how they behave, but it is not the same thing as your actual worth. The secure move is to read the exchange clearly, improve what is yours to improve, and stop auditioning for people who do not choose mutuality.",
+    prompt: "Where am I trying to change their perception instead of improving my life and choosing from evidence?",
+    script: "I can become more grounded and valuable without begging to be valued."
   },
   {
     title: "Care without self-abandonment",
@@ -4977,7 +5139,7 @@ function renderPatternTracker(patternStats) {
             <label for="patternType">Pattern</label>
             <select id="patternType" name="pattern" required>
               <option value="">Choose one</option>
-              ${["silence / distance", "blocking / disappearing", "mixed signals", "jealousy / testing", "conflict repair", "inconsistency", "overinvesting", "boundary crossed", "healthy repair", "steady consistency"].map((item) => `<option>${escapeHTML(item)}</option>`).join("")}
+              ${["silence / distance", "blocking / disappearing", "mixed signals", "jealousy / testing", "conflict repair", "inconsistency", "overinvesting", "feeling undervalued", "access exceeds commitment", "boundary crossed", "healthy repair", "steady consistency"].map((item) => `<option>${escapeHTML(item)}</option>`).join("")}
             </select>
           </div>
           <div class="field">
@@ -5206,12 +5368,12 @@ function getAdaptiveCoachSignal(content) {
     };
   }
 
-  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort/.test(`${latestTrigger} ${topPattern}`)) {
+  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort|undervalued|value/.test(`${latestTrigger} ${topPattern}`)) {
     return {
       title: "Match effort to reality.",
       body: "Recent data points toward standards or reciprocity. The secure move is not proving harder; it is aligning access with behavior.",
       steps: ["Write what you are giving.", "Write what is coming back consistently.", "Adjust one investment without drama."],
-      trackTitle: "Reciprocity and Value Reality Check"
+      trackTitle: "The Value of Others Practice"
     };
   }
 
@@ -5241,7 +5403,7 @@ function getAdaptiveTrackTitles(focusKey) {
 
   if (lastIntensity >= 4) titles.push("State Standards and Momentum", "Non-Anxious Connection");
   if (/silence|quiet|reply|blocked|blocking|distance|avoid/.test(signalText)) titles.push("Non-Anxious Connection", "Warm Clear Stop Protocol");
-  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort/.test(signalText)) titles.push("Reciprocity and Value Reality Check", "Values and Responsibility");
+  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort|undervalued|value/.test(signalText)) titles.push("The Value of Others Practice", "Reciprocity and Value Reality Check", "Values and Responsibility");
   if (focusKey === "boundaries") titles.push("Self-Leadership and Doubt Reset");
   if (focusKey === "independence") titles.push("Adult Life and Relationship Maturity");
   return [...new Set(titles)];
@@ -5998,11 +6160,14 @@ function getAvailableSearchTerms() {
     "panic",
     "reassurance",
     "repair",
+    "reciprocity",
     "self-care",
     "self-respect",
     "self-trust",
+    "selection",
     "space",
-    "trust"
+    "trust",
+    "value exchange"
   ]);
 
   for (const item of getSearchIndex()) {
