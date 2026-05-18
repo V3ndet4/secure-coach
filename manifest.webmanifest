@@ -4,8 +4,8 @@
   "description": "A private local-first daily coach for secure attachment practice.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f5efe3",
-  "theme_color": "#214633",
+  "background_color": "#080b18",
+  "theme_color": "#10152b",
   "icons": [
     {
       "src": "./icon.svg",

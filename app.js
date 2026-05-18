@@ -1434,7 +1434,7 @@ const INFLUENCES = [
   {
     author: "Dr Julie Smith",
     work: "Why Has Nobody Told Me This Before?",
-    source: "https://books.apple.com/us/book/why-has-nobody-told-me-this-before/id1574160153",
+    source: "https://www.penguin.co.uk/books/454841/why-has-nobody-told-me-this-before-by-smith-dr-julie/9780241529737",
     theme: "Practical emotional skills",
     uses: [
       "Turn emotional spirals into short, concrete coping steps.",
@@ -1500,7 +1500,7 @@ const INFLUENCES = [
   {
     author: "Leo Babauta",
     work: "The Power of Less",
-    source: "https://books.apple.com/us/book/the-power-of-less/id699048779",
+    source: "https://books.google.com/books/about/The_Power_of_Less.html?id=5Ga_vgEACAAJ",
     theme: "Simplicity, limits, and essentials",
     uses: [
       "Reduce overwhelm by choosing one essential action instead of ten emotional reactions.",
@@ -1544,7 +1544,7 @@ const INFLUENCES = [
   {
     author: "Gabor Mate",
     work: "The Return to Ourselves",
-    source: "https://wordery.com/return-to-ourselves-6d-9781683640677",
+    source: "https://www.goodreads.com/en/book/show/36020793-the-return-to-ourselves",
     theme: "Returning to inherent worth",
     uses: [
       "Help users separate worth from approval, pursuit, achievement, or relationship status.",
@@ -1641,9 +1641,14 @@ const REFERENCE_ROUTING = {
     focusKeys: ["anxious", "independence"],
     moduleTitles: ["Trigger map", "Pattern review"]
   },
+  "Cindy Hazan and Phillip Shaver": {
+    phaseIds: ["stabilize", "understand"],
+    focusKeys: ["anxious", "independence"],
+    moduleTitles: ["Fact versus story", "Trigger map", "Pattern review", "Space tolerance"]
+  },
   "Dr Kristin Neff": {
     phaseIds: ["stabilize", "understand"],
-    focusKeys: ["anxious"],
+    focusKeys: ["anxious", "selfWorth"],
     moduleTitles: ["Stop the spiral", "Body before meaning", "Trigger map"]
   },
   "Marsha M. Linehan": {
@@ -1658,7 +1663,7 @@ const REFERENCE_ROUTING = {
   },
   "Dr Richard C. Schwartz": {
     phaseIds: ["understand", "strengthen"],
-    focusKeys: ["anxious", "boundaries", "independence"],
+    focusKeys: ["anxious", "selfWorth", "boundaries", "independence"],
     moduleTitles: ["Trigger map", "Need beneath the strategy", "Deeper self-trust"]
   },
   "Harriet Lerner, PhD": {
@@ -1671,10 +1676,25 @@ const REFERENCE_ROUTING = {
     focusKeys: ["conflict", "independence"],
     moduleTitles: ["Space tolerance", "Stay open and centered", "Weekly review"]
   },
+  "Terry Real, LICSW": {
+    phaseIds: ["practice", "strengthen", "maintain"],
+    focusKeys: ["conflict", "boundaries"],
+    moduleTitles: ["Clear request", "Repair without collapse", "Boundary without apology", "Hard conversation practice"]
+  },
+  "Dr Diane Poole Heller": {
+    phaseIds: ["stabilize", "understand", "practice"],
+    focusKeys: ["anxious", "conflict", "independence"],
+    moduleTitles: ["Body before meaning", "Trigger map", "Need beneath the strategy", "Space tolerance"]
+  },
   "Stan Tatkin, PsyD, MFT": {
     phaseIds: ["practice", "maintain"],
     focusKeys: ["conflict", "anxious"],
     moduleTitles: ["Repair without collapse", "Hard conversation practice", "Stay open and centered"]
+  },
+  "Tara Brach, PhD": {
+    phaseIds: ["stabilize", "understand"],
+    focusKeys: ["anxious", "selfWorth", "independence"],
+    moduleTitles: ["Stop the spiral", "Body before meaning", "No emergency from uncertainty", "Need beneath the strategy"]
   },
   "Brene Brown, PhD": {
     phaseIds: ["understand", "practice"],
@@ -1688,12 +1708,12 @@ const REFERENCE_ROUTING = {
   },
   "Jillian Turecki": {
     phaseIds: ["strengthen", "maintain"],
-    focusKeys: ["boundaries", "independence"],
+    focusKeys: ["selfWorth", "boundaries", "independence"],
     moduleTitles: ["Self-respect first", "Choose from standards", "Deeper self-trust"]
   },
   "Gabor Mate": {
     phaseIds: ["understand", "strengthen"],
-    focusKeys: ["anxious", "independence"],
+    focusKeys: ["anxious", "selfWorth", "independence"],
     moduleTitles: ["Trigger map", "Need beneath the strategy", "Body before meaning"]
   },
   "Dr Julie Smith": {
@@ -1723,7 +1743,7 @@ const REFERENCE_ROUTING = {
   },
   "Nathaniel Branden": {
     phaseIds: ["strengthen", "maintain"],
-    focusKeys: ["boundaries", "independence"],
+    focusKeys: ["selfWorth", "boundaries", "independence"],
     moduleTitles: ["Self-respect first", "Choose from standards", "Deeper self-trust"]
   },
   "Leo Babauta": {
@@ -1738,12 +1758,12 @@ const REFERENCE_ROUTING = {
   },
   "Gabor Mate and Daniel Mate": {
     phaseIds: ["understand", "strengthen"],
-    focusKeys: ["anxious", "independence"],
+    focusKeys: ["anxious", "selfWorth", "independence"],
     moduleTitles: ["Trigger map", "Need beneath the strategy", "Self-respect first"]
   },
   "Dr Shadé Zahrai": {
     phaseIds: ["stabilize", "strengthen", "maintain"],
-    focusKeys: ["anxious", "boundaries", "independence"],
+    focusKeys: ["anxious", "selfWorth", "boundaries", "independence"],
     moduleTitles: ["No emergency from uncertainty", "Self-respect first", "Choose from standards", "Deeper self-trust"]
   },
   "Dr John Delony": {
@@ -1762,14 +1782,14 @@ const REFERENCE_ROUTING = {
     moduleTitles: ["Body before meaning", "No emergency from uncertainty", "Choose from standards", "Relapse plan"]
   },
   "Dr Orion Taraban": {
-    phaseIds: ["understand", "practice", "strengthen", "maintain"],
-    focusKeys: ["anxious", "boundaries", "independence"],
-    moduleTitles: ["Fact versus story", "Pattern review", "Space tolerance", "Self-respect first", "Values over monitoring", "Choose from standards"]
+    phaseIds: ["understand", "practice", "strengthen"],
+    focusKeys: ["boundaries", "independence"],
+    moduleTitles: ["Fact versus story", "Pattern review", "Space tolerance", "Values over monitoring", "Choose from standards"]
   },
   "Pooja Lakshmin, MD": {
-    phaseIds: ["stabilize", "understand", "practice", "strengthen", "maintain"],
-    focusKeys: ["anxious", "conflict", "boundaries", "independence"],
-    moduleTitles: ["Stop the spiral", "Body before meaning", "No emergency from uncertainty", "Fact versus story", "Need beneath the strategy", "Clear request", "Repair without collapse", "Self-respect first", "Boundary without apology", "Values over monitoring", "Choose from standards", "Relapse plan", "Weekly review", "Deeper self-trust"]
+    phaseIds: ["stabilize", "strengthen", "maintain"],
+    focusKeys: ["selfWorth", "boundaries", "independence"],
+    moduleTitles: ["No emergency from uncertainty", "Self-respect first", "Boundary without apology", "Values over monitoring", "Choose from standards", "Weekly review", "Deeper self-trust"]
   }
 };
 
@@ -4934,13 +4954,13 @@ function getWeeklyPostcardText() {
 function renderToday() {
   const day = state.settings.currentDay;
   const content = getDailyContent(day);
-  const programPhase = getPhase(day);
+  const habitPhase = getPhase(day);
   const routePhase = content.phase;
   const progress = Math.min(100, Math.round(((day - 1) / TOTAL_DAYS) * 100));
   const profileName = state.profile.name ? `${escapeHTML(state.profile.name)}, ` : "";
   const analysis = state.profile.analysis || analyzeProfile(state.profile);
-  const routePill = routePhase.id !== programPhase.id
-    ? `<span class="pill">Personalized route: ${escapeHTML(routePhase.title)}</span>`
+  const habitPill = routePhase.id !== habitPhase.id
+    ? `<span class="pill">Habit day phase: ${escapeHTML(habitPhase.title)}</span>`
     : "";
 
   return `
@@ -4948,12 +4968,12 @@ function renderToday() {
       <div>
         <p class="eyebrow">Day ${day} of ${TOTAL_DAYS}</p>
         <h1>${profileName}${escapeHTML(content.title)}</h1>
-        <p class="lead">${escapeHTML(programPhase.goal)}</p>
+        <p class="lead">${escapeHTML(routePhase.goal)}</p>
       </div>
       <div class="card stat">
-        <span class="small">Current phase</span>
-        <strong>${escapeHTML(programPhase.title)}</strong>
-        <span class="small">${escapeHTML(programPhase.practice)}</span>
+        <span class="small">Personalized phase</span>
+        <strong>${escapeHTML(routePhase.title)}</strong>
+        <span class="small">${escapeHTML(routePhase.practice)}</span>
       </div>
     </header>
 
@@ -4978,7 +4998,7 @@ function renderToday() {
           <span class="pill">${escapeHTML(analysis.stageLabel || "Beginning")}</span>
           <span class="pill coral">${escapeHTML(analysis.primaryFocusLabel || "Anxious pursuit")}</span>
           <span class="pill">${escapeHTML(content.moduleTitle)}</span>
-          ${routePill}
+          ${habitPill}
           <span class="pill gold">${progress}% complete</span>
         </div>
         <h2>Today's coaching step</h2>
@@ -5130,7 +5150,7 @@ function renderPath() {
       <div>
         <p class="eyebrow">Your placement</p>
         <h1>${escapeHTML(analysis.stageLabel || "Beginning")} path</h1>
-        <p class="lead">Primary focus: ${escapeHTML(focusData.label)}. You are on program day ${day}, inside the ${escapeHTML(programPhase.title)} phase. Your exercises are personalized to the ${escapeHTML(routePhase.title)} level when your intake shows you are already further along.</p>
+        <p class="lead">Primary focus: ${escapeHTML(focusData.label)}. You are on day ${day} of the habit path, while today's content is routed to the ${escapeHTML(routePhase.title)} phase based on your intake.</p>
       </div>
       <div class="card stat">
         <span class="small">Long-term path</span>
@@ -5146,7 +5166,7 @@ function renderPath() {
         <h2>180-day structure</h2>
         <div class="phase-map">
           ${PHASES.map((item) => `
-            <article class="phase-item ${item.id === programPhase.id ? "active" : ""}">
+            <article class="phase-item ${item.id === routePhase.id ? "active" : ""}">
               <div class="phase-days">${item.days[0]}-${item.days[1]}</div>
               <div>
                 <h3>${escapeHTML(item.title)}</h3>
@@ -5163,8 +5183,8 @@ function renderPath() {
         <ul class="plain-list">
           <li>Stage: ${escapeHTML(analysis.stageLabel || "Beginning")}</li>
           <li>Main pattern: ${escapeHTML(focusData.label)}</li>
-          <li>Current journey phase: ${escapeHTML(programPhase.title)}</li>
-          <li>Personalized exercise route: ${escapeHTML(routePhase.title)}</li>
+          <li>Habit day phase: ${escapeHTML(programPhase.title)}</li>
+          <li>Active personalized content phase: ${escapeHTML(routePhase.title)}</li>
           <li>Current personalized module: ${escapeHTML(content.moduleTitle)}</li>
           <li>Today's aligned exercise track: ${escapeHTML(content.exerciseTrackTitle)}</li>
           <li>Today's extra note: ${escapeHTML(content.extraNote.title)}</li>
