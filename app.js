@@ -19,7 +19,8 @@ let state = {
   selfCareLog: {},
   bookmarks: [],
   reminders: {},
-  weeklyReviews: []
+  weeklyReviews: [],
+  patternLog: []
 };
 
 const SELF_CARE_CATEGORIES = [
@@ -229,6 +230,195 @@ const SITUATION_GUIDES = [
       "Record proof so self-trust has evidence."
     ],
     script: "Confidence is built by keeping one promise at a time."
+  }
+];
+
+const RIGHT_NOW_CHOICES = [
+  {
+    id: "text",
+    label: "I want to text",
+    purpose: "Slow pursuit before it becomes reassurance seeking.",
+    steps: [
+      "Put the phone down for 90 seconds and lengthen the exhale.",
+      "Write one fact and one fear.",
+      "If a message is still needed, send one clear sentence and stop."
+    ],
+    script: "I can ask clearly without chasing safety.",
+    trackTitle: "Non-Anxious Connection"
+  },
+  {
+    id: "ignored",
+    label: "I feel ignored",
+    purpose: "Separate silence from the story your body is creating.",
+    steps: [
+      "Ask whether this is a pattern or a single moment.",
+      "Do one normal routine before seeking clarity.",
+      "Use a calm check-in only if the pattern continues."
+    ],
+    script: "Silence is information, not a verdict on my worth.",
+    trackTitle: "Attachment Practice"
+  },
+  {
+    id: "walk-away",
+    label: "I want to walk away",
+    purpose: "Choose from standards instead of a spike of emotion.",
+    steps: [
+      "Name the standard that feels violated.",
+      "Name the behavior you would need to see to continue.",
+      "Do not make the final decision while dysregulated unless safety is involved."
+    ],
+    script: "I can protect my peace without making a dramatic exit.",
+    trackTitle: "Values and Responsibility"
+  },
+  {
+    id: "jealous",
+    label: "I feel jealous",
+    purpose: "Check whether the issue is insecurity, disrespect, or unclear agreements.",
+    steps: [
+      "Name the exact behavior that triggered jealousy.",
+      "Ask whether there is evidence of disrespect or only comparison.",
+      "Request clarity once if there is a real agreement issue."
+    ],
+    script: "Jealousy is a signal to examine, not a command to control.",
+    trackTitle: "Trust Freedom and Mutual Effort"
+  },
+  {
+    id: "confused",
+    label: "I feel calm but confused",
+    purpose: "Use clarity without turning the conversation into pressure.",
+    steps: [
+      "Write the one question that would actually help.",
+      "Remove blame, testing, and hidden demands.",
+      "Ask directly and let the answer be data."
+    ],
+    script: "I can ask for clarity without forcing certainty.",
+    trackTitle: "Secure Communication"
+  },
+  {
+    id: "overinvesting",
+    label: "I am overinvesting",
+    purpose: "Match investment to reciprocity instead of fantasy.",
+    steps: [
+      "List what you are giving right now.",
+      "List what is consistently coming back.",
+      "Adjust access, effort, or attention to match reality."
+    ],
+    script: "I can value someone without overpaying with my peace.",
+    trackTitle: "Reciprocity and Value Reality Check"
+  }
+];
+
+const WEEKLY_CONTENT_PACKS = [
+  {
+    week: "secure-reset",
+    title: "Secure Reset Week",
+    source: "Original weekly pack based on the app reference model",
+    items: [
+      {
+        title: "Ninety-second non-anxious reset",
+        phaseIds: ["stabilize"],
+        focusKeys: ["anxious", "conflict"],
+        moduleTitles: ["Stop the spiral", "No emergency from uncertainty", "Body before meaning"],
+        purpose: "Use the body first so the relationship does not become an emergency.",
+        steps: ["Exhale longer than you inhale for 90 seconds.", "Name danger, discomfort, or uncertainty.", "Delay the relationship action by 20 minutes."],
+        prompt: "What changed when I treated this as activation instead of emergency?"
+      },
+      {
+        title: "Old story, current fact",
+        phaseIds: ["understand"],
+        focusKeys: ["anxious", "independence"],
+        moduleTitles: ["Fact versus story", "Trigger map"],
+        purpose: "Separate history from the present signal.",
+        steps: ["Write the old story this resembles.", "Write the current facts only.", "Choose the response that belongs to today."],
+        prompt: "What old story tried to lead today, and what fact corrected it?"
+      },
+      {
+        title: "One clean repair request",
+        phaseIds: ["practice"],
+        focusKeys: ["conflict", "boundaries"],
+        moduleTitles: ["Clear request", "Repair without collapse", "Hard conversation practice"],
+        purpose: "Repair without overexplaining or collapsing.",
+        steps: ["Name what happened in one sentence.", "Name the effect without accusation.", "Ask for one concrete repair behavior."],
+        prompt: "What repair request would be direct, kind, and measurable?"
+      },
+      {
+        title: "Self-trust proof",
+        phaseIds: ["strengthen", "maintain"],
+        focusKeys: ["boundaries", "independence"],
+        moduleTitles: ["Self-respect first", "Choose from standards", "Deeper self-trust"],
+        purpose: "Turn confidence into evidence.",
+        steps: ["Choose one promise that takes under ten minutes.", "Complete it before seeking validation.", "Write the proof in one sentence."],
+        prompt: "What did I prove to myself today?"
+      }
+    ]
+  },
+  {
+    week: "reciprocity-week",
+    title: "Reciprocity Week",
+    source: "Original weekly pack based on value, standards, and adult responsibility references",
+    items: [
+      {
+        title: "Investment reality check",
+        phaseIds: ["understand", "practice"],
+        focusKeys: ["anxious", "boundaries"],
+        moduleTitles: ["Pattern review", "Space tolerance", "Fact versus story"],
+        purpose: "Stop using intensity as proof of mutuality.",
+        steps: ["List what you are investing.", "List what comes back consistently.", "Reduce one overinvestment without drama."],
+        prompt: "Where am I paying with peace for something that is not mutual yet?"
+      },
+      {
+        title: "Access alignment",
+        phaseIds: ["practice", "strengthen"],
+        focusKeys: ["boundaries", "independence"],
+        moduleTitles: ["Boundary without apology", "Values over monitoring", "Choose from standards"],
+        purpose: "Match emotional access to trust and consistency.",
+        steps: ["Name the access you are giving.", "Name the trust actually present.", "Adjust one behavior so access and trust match."],
+        prompt: "What access needs to be earned through behavior, not hope?"
+      },
+      {
+        title: "Adult life deposit",
+        phaseIds: ["strengthen", "maintain"],
+        focusKeys: ["independence"],
+        moduleTitles: ["Weekly review", "Relapse plan", "Deeper self-trust"],
+        purpose: "Build the life around the relationship so one person is not the whole plan.",
+        steps: ["Pick health, money, friendship, work, or home.", "Make one deposit in that area.", "Do it before checking for reassurance."],
+        prompt: "What adult-life deposit made me more stable today?"
+      }
+    ]
+  },
+  {
+    week: "communication-week",
+    title: "Clean Communication Week",
+    source: "Original weekly pack based on repair, listening, and boundary references",
+    items: [
+      {
+        title: "Validate, then ask",
+        phaseIds: ["practice"],
+        focusKeys: ["conflict", "anxious"],
+        moduleTitles: ["Clear request", "Hard conversation practice"],
+        purpose: "Lower defensiveness before asking for change.",
+        steps: ["Validate the understandable part first.", "Name your need without blame.", "Ask for one next behavior."],
+        prompt: "What can I validate without abandoning my need?"
+      },
+      {
+        title: "Slice the conversation thinner",
+        phaseIds: ["practice", "maintain"],
+        focusKeys: ["conflict", "boundaries"],
+        moduleTitles: ["Repair without collapse", "Weekly review", "Stay open and centered"],
+        purpose: "Stop one hard conversation from becoming every old hurt.",
+        steps: ["Choose one issue only.", "Pause any past issue that is not needed now.", "Agree on one repair step for the issue in front of you."],
+        prompt: "What is the smallest honest piece of this conversation?"
+      },
+      {
+        title: "Kind firmness",
+        phaseIds: ["strengthen", "maintain"],
+        focusKeys: ["boundaries", "independence"],
+        moduleTitles: ["Boundary without apology", "Choose from standards", "Stay open and centered"],
+        purpose: "Keep standards without harshness.",
+        steps: ["Remove contempt from the sentence.", "Keep the standard intact.", "Say it like both people are on the same side."],
+        prompt: "What is the kind but firm version of my standard?"
+      }
+    ]
   }
 ];
 
@@ -3419,13 +3609,14 @@ function clearStore(storeName) {
 }
 
 async function loadState() {
-  const [profile, settings, selfCareLog, bookmarks, reminders, weeklyReviews, sessions, journal] = await Promise.all([
+  const [profile, settings, selfCareLog, bookmarks, reminders, weeklyReviews, patternLog, sessions, journal] = await Promise.all([
     getKV("profile"),
     getKV("settings"),
     getKV("selfCareLog"),
     getKV("bookmarks"),
     getKV("reminders"),
     getKV("weeklyReviews"),
+    getKV("patternLog"),
     getAllRecords("sessions"),
     getAllRecords("journal")
   ]);
@@ -3438,7 +3629,8 @@ async function loadState() {
     selfCareLog: selfCareLog || {},
     bookmarks: Array.isArray(bookmarks) ? bookmarks : [],
     reminders: { ...DEFAULT_REMINDERS, ...(reminders || {}) },
-    weeklyReviews: Array.isArray(weeklyReviews) ? weeklyReviews : []
+    weeklyReviews: Array.isArray(weeklyReviews) ? weeklyReviews : [],
+    patternLog: Array.isArray(patternLog) ? patternLog : []
   };
 
   await migrateSettingsIfNeeded();
@@ -3708,6 +3900,100 @@ function renderDailyFlow(content, progress) {
   `;
 }
 
+function renderRightNowTool() {
+  const selected = getRightNowChoice(state.settings?.rightNowChoice);
+  return `
+    <section class="panel right-now-panel">
+      <div>
+        <p class="eyebrow">Right now</p>
+        <h2>What do I do before I react?</h2>
+        <p class="small">Pick the moment you are in. The app gives you the next secure move without making the whole day heavier.</p>
+      </div>
+      <div class="choice-grid">
+        ${RIGHT_NOW_CHOICES.map((choice) => `
+          <button class="choice-chip ${choice.id === selected.id ? "active" : ""}" type="button" data-action="choose-right-now" data-choice-id="${escapeHTML(choice.id)}">
+            ${escapeHTML(choice.label)}
+          </button>
+        `).join("")}
+      </div>
+      <article class="example right-now-result">
+        <div class="meta-row">
+          <span class="pill gold">${escapeHTML(selected.trackTitle)}</span>
+          <span class="pill">${escapeHTML(selected.purpose)}</span>
+        </div>
+        <ol class="step-list">
+          ${selected.steps.map((step, index) => `
+            <li>
+              <span class="step-number">${index + 1}</span>
+              <span>${escapeHTML(step)}</span>
+            </li>
+          `).join("")}
+        </ol>
+        <p><strong>Anchor:</strong> ${escapeHTML(selected.script)}</p>
+        <button class="button secondary" type="button" data-action="copy-text" data-text="${escapeHTML(selected.script)}">Copy anchor</button>
+      </article>
+    </section>
+  `;
+}
+
+function getRightNowChoice(id) {
+  return RIGHT_NOW_CHOICES.find((choice) => choice.id === id) || RIGHT_NOW_CHOICES[0];
+}
+
+function renderWeeklyPackCard(content) {
+  const weekly = getWeeklyContentFor(content);
+  if (!weekly) return "";
+
+  return `
+    <section class="panel weekly-pack-panel">
+      <div class="meta-row">
+        <span class="pill gold">New this week</span>
+        <span class="pill">${escapeHTML(weekly.pack.title)}</span>
+        <span class="pill coral">${escapeHTML(weekly.item.purpose)}</span>
+      </div>
+      <h2>${escapeHTML(weekly.item.title)}</h2>
+      <ol class="step-list">
+        ${weekly.item.steps.map((step, index) => `
+          <li>
+            <span class="step-number">${index + 1}</span>
+            <span>${escapeHTML(step)}</span>
+          </li>
+        `).join("")}
+      </ol>
+      <p class="example"><strong>Journal:</strong> ${escapeHTML(weekly.item.prompt)}</p>
+      <p class="small">Source model: ${escapeHTML(weekly.pack.source)}. Weekly content is original and matched to your current phase, focus, and module.</p>
+      ${bookmarkButton({
+        type: "weekly-practice",
+        title: weekly.item.title,
+        body: weekly.item.prompt,
+        meta: weekly.pack.title
+      })}
+    </section>
+  `;
+}
+
+function renderAdaptiveCoachCard(content) {
+  const signal = getAdaptiveCoachSignal(content);
+  return `
+    <section class="panel adaptive-panel">
+      <div class="meta-row">
+        <span class="pill">Adaptive coach</span>
+        <span class="pill gold">${escapeHTML(signal.trackTitle)}</span>
+      </div>
+      <h2>${escapeHTML(signal.title)}</h2>
+      <p>${escapeHTML(signal.body)}</p>
+      <ol class="step-list">
+        ${signal.steps.map((step, index) => `
+          <li>
+            <span class="step-number">${index + 1}</span>
+            <span>${escapeHTML(step)}</span>
+          </li>
+        `).join("")}
+      </ol>
+    </section>
+  `;
+}
+
 function renderToday() {
   const day = state.settings.currentDay;
   const content = getDailyContent(day);
@@ -3735,6 +4021,11 @@ function renderToday() {
     </header>
 
     ${renderDailyFlow(content, progress)}
+    ${renderRightNowTool()}
+    <div class="grid two" style="margin-bottom: 18px;">
+      ${renderWeeklyPackCard(content)}
+      ${renderAdaptiveCoachCard(content)}
+    </div>
 
     <div class="grid two">
       <section class="panel coach-panel">
@@ -3974,6 +4265,8 @@ function renderLibrary() {
       </div>
     </header>
 
+    ${renderRightNowTool()}
+
     <section class="grid two">
       ${LIBRARY.map((item) => `
         <article class="card">
@@ -4001,6 +4294,9 @@ function renderLibrary() {
 }
 
 function renderExercises() {
+  const content = getDailyContent(state.settings.currentDay);
+  const weekly = getWeeklyContentFor(content);
+
   return `
     <header class="topbar">
       <div>
@@ -4009,6 +4305,24 @@ function renderExercises() {
         <p class="lead">These tracks turn the reference ideas into original, repeatable exercises. Use them outside the daily program when a specific pattern is active.</p>
       </div>
     </header>
+
+    <section class="panel" style="margin-bottom: 18px;">
+      <div class="meta-row">
+        <span class="pill gold">Weekly pack</span>
+        <span class="pill">${escapeHTML(weekly.pack.title)}</span>
+      </div>
+      <h2>${escapeHTML(weekly.item.title)}</h2>
+      <p>${escapeHTML(weekly.item.purpose)}</p>
+      <ol class="step-list">
+        ${weekly.item.steps.map((step, index) => `
+          <li>
+            <span class="step-number">${index + 1}</span>
+            <span>${escapeHTML(step)}</span>
+          </li>
+        `).join("")}
+      </ol>
+      <p class="example"><strong>Journal:</strong> ${escapeHTML(weekly.item.prompt)}</p>
+    </section>
 
     <section class="grid two">
       ${ALL_EXERCISE_TRACKS.map((track) => `
@@ -4413,6 +4727,8 @@ function renderProgress() {
   const streak = calculateStreak(state.sessions);
   const selfCareStats = calculateSelfCareStats();
   const summary = getWeeklySummary();
+  const insights = getProgressInsights();
+  const patternStats = getRelationshipPatternStats();
   const recovery = getMissedDayRecovery();
   const earnedMilestones = getEarnedMilestones();
   const badges = getRewardBadges();
@@ -4469,6 +4785,9 @@ function renderProgress() {
         </div>
       </div>
     </section>
+
+    ${renderProgressInsights(insights)}
+    ${renderPatternTracker(patternStats)}
 
     <section class="panel" style="margin-top: 18px;">
       <h2>Weekly reset</h2>
@@ -4599,6 +4918,113 @@ function renderProgress() {
   `;
 }
 
+function renderProgressInsights(insights) {
+  return `
+    <section class="panel" style="margin-top: 18px;">
+      <div class="meta-row">
+        <span class="pill">Mood trend</span>
+        <span class="pill gold">Intensity trend</span>
+        <span class="pill coral">Trigger clarity</span>
+      </div>
+      <h2>Progress dashboard</h2>
+      <div class="grid three">
+        <div class="stat"><span class="small">Average intensity before</span><strong>${insights.averageBefore}</strong><span class="small">last ${insights.sessionCount} sessions</span></div>
+        <div class="stat"><span class="small">Average intensity after</span><strong>${insights.averageAfter}</strong><span class="small">${escapeHTML(insights.shiftLabel)}</span></div>
+        <div class="stat"><span class="small">Most common mood</span><strong>${escapeHTML(insights.topMood || "n/a")}</strong><span class="small">before practice</span></div>
+      </div>
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="example">
+          <h3>Intensity over recent sessions</h3>
+          <div class="trend-bars">
+            ${insights.intensityBars.length ? insights.intensityBars.map((bar) => `
+              <div class="trend-row">
+                <span class="small">Day ${bar.day}</span>
+                <div class="mini-bar" aria-label="Intensity ${bar.before} to ${bar.after}">
+                  <span style="width:${bar.before * 20}%"></span>
+                  <em style="width:${bar.after * 20}%"></em>
+                </div>
+                <span class="small">${bar.before}->${bar.after}</span>
+              </div>
+            `).join("") : `<p class="small">Complete sessions with intensity before and after to see the trend.</p>`}
+          </div>
+        </div>
+        <div class="example">
+          <h3>Mood counts</h3>
+          ${insights.moodCounts.length ? `
+            <ul class="plain-list">
+              ${insights.moodCounts.map(([mood, count]) => `<li>${escapeHTML(mood)}: ${count}</li>`).join("")}
+            </ul>
+          ` : `<p class="small">No mood data yet.</p>`}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderPatternTracker(patternStats) {
+  return `
+    <section class="panel" style="margin-top: 18px;">
+      <div class="meta-row">
+        <span class="pill">Relationship pattern tracker</span>
+        <span class="pill gold">${patternStats.total} logs</span>
+        ${patternStats.topPattern ? `<span class="pill coral">Top: ${escapeHTML(patternStats.topPattern[0])}</span>` : ""}
+      </div>
+      <h2>Track what repeats.</h2>
+      <p class="small">Use this for repeated relationship behavior, not one bad moment. The tracker feeds the adaptive coach so tomorrow's practice gets more relevant.</p>
+      <form id="patternForm" class="form">
+        <div class="grid three">
+          <div class="field">
+            <label for="patternType">Pattern</label>
+            <select id="patternType" name="pattern" required>
+              <option value="">Choose one</option>
+              ${["silence / distance", "blocking / disappearing", "mixed signals", "jealousy / testing", "conflict repair", "inconsistency", "overinvesting", "boundary crossed", "healthy repair", "steady consistency"].map((item) => `<option>${escapeHTML(item)}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field">
+            <label for="patternDirection">Direction</label>
+            <select id="patternDirection" name="direction" required>
+              <option value="">Choose one</option>
+              <option>improving</option>
+              <option>repeating</option>
+              <option>worse</option>
+              <option>unclear</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="patternBoundary">Secure response</label>
+            <input id="patternBoundary" name="response" placeholder="Space, boundary, repair, direct question">
+          </div>
+        </div>
+        <div class="field">
+          <label for="patternEvidence">Evidence</label>
+          <textarea id="patternEvidence" name="evidence" required placeholder="What actually happened? Keep it factual and short."></textarea>
+        </div>
+        <button class="button" type="submit">Log pattern</button>
+      </form>
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="example">
+          <h3>Current read</h3>
+          <p>${escapeHTML(patternStats.summary)}</p>
+        </div>
+        <div class="example">
+          <h3>Recent logs</h3>
+          ${patternStats.recent.length ? patternStats.recent.map((entry) => `
+            <article class="mini-entry">
+              <div class="meta-row">
+                <span class="pill">${escapeHTML(formatDate(entry.createdAt))}</span>
+                <span class="pill">${escapeHTML(entry.pattern)}</span>
+                <span class="pill ${entry.direction === "improving" ? "gold" : entry.direction === "worse" ? "coral" : ""}">${escapeHTML(entry.direction)}</span>
+              </div>
+              <p>${escapeHTML(entry.evidence)}</p>
+              ${entry.response ? `<p class="small">Secure response: ${escapeHTML(entry.response)}</p>` : ""}
+            </article>
+          `).join("") : `<p class="small">No relationship patterns logged yet.</p>`}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function getDailyContent(day) {
   const programDay = Math.max(1, Number(day) || 1);
   const contentDay = getContentDay(programDay);
@@ -4687,9 +5113,10 @@ function getAlignedExerciseTrack(phaseId, focusKey, moduleTitle, phaseDayIndex) 
   const moduleTracks = resolveExerciseTracks(MODULE_EXERCISE_TRACKS[moduleTitle]);
   const phaseTracks = resolveExerciseTracks(PHASE_EXERCISE_TRACKS[phaseId]);
   const focusTracks = resolveExerciseTracks(FOCUS_EXERCISE_TRACKS[focusKey]);
+  const adaptiveTracks = resolveExerciseTracks(getAdaptiveTrackTitles(focusKey));
   const baseTracks = moduleTracks.length ? moduleTracks : phaseTracks;
   const prioritized = focusTracks.filter((track) => baseTracks.some((item) => item.title === track.title));
-  const merged = [...prioritized];
+  const merged = [...adaptiveTracks, ...prioritized];
 
   for (const track of baseTracks) {
     if (!merged.some((item) => item.title === track.title)) merged.push(track);
@@ -4715,6 +5142,109 @@ function getAlignedReference(phaseId, focusKey, moduleTitle, dayIndex) {
   const maxScore = Math.max(...scored.map((item) => item.score));
   const bestMatches = scored.filter((item) => item.score === maxScore).map((item) => item.reference);
   return pick(bestMatches, dayIndex);
+}
+
+function getWeeklyContentFor(content, date = new Date()) {
+  const focusKey = state.profile?.analysis?.primaryFocus || "anxious";
+  const pack = getActiveWeeklyPack(date);
+  const scored = pack.items
+    .map((item) => ({
+      item,
+      score: scoreRoutedItem(item, content.phase.id, focusKey, content.moduleTitle)
+    }))
+    .filter((entry) => entry.score > 0);
+
+  const pool = scored.length ? scored : pack.items.map((item) => ({ item, score: 0 }));
+  const maxScore = Math.max(...pool.map((entry) => entry.score));
+  const best = pool.filter((entry) => entry.score === maxScore).map((entry) => entry.item);
+  return { pack, item: pick(best, content.contentDay - 1) };
+}
+
+function getActiveWeeklyPack(date = new Date()) {
+  const weekNumber = getISOWeekNumber(date);
+  return WEEKLY_CONTENT_PACKS[weekNumber % WEEKLY_CONTENT_PACKS.length];
+}
+
+function getISOWeekNumber(date) {
+  const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNumber = target.getUTCDay() || 7;
+  target.setUTCDate(target.getUTCDate() + 4 - dayNumber);
+  const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+  return Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
+}
+
+function scoreRoutedItem(item, phaseId, focusKey, moduleTitle) {
+  return [
+    item.moduleTitles?.includes(moduleTitle) ? 4 : 0,
+    item.focusKeys?.includes(focusKey) ? 2 : 0,
+    item.phaseIds?.includes(phaseId) ? 1 : 0
+  ].reduce((total, value) => total + value, 0);
+}
+
+function getAdaptiveCoachSignal(content) {
+  const latest = state.sessions[0];
+  const patternStats = getRelationshipPatternStats();
+  const lastIntensity = Number(latest?.intensityAfter || latest?.intensity || 0);
+  const latestTrigger = String(latest?.trigger || "").toLowerCase();
+  const topPattern = patternStats.topPattern?.[0] || "";
+
+  if (lastIntensity >= 4) {
+    return {
+      title: "Your next step is regulation, not interpretation.",
+      body: "Your last check-in still showed high intensity. Tomorrow's practice should reduce nervous-system load before you analyze the relationship.",
+      steps: ["Move or breathe for two minutes before checking messages.", "Write the fact in one sentence.", "Delay any relationship action until intensity drops one point."],
+      trackTitle: "State Standards and Momentum"
+    };
+  }
+
+  if (/silence|quiet|reply|blocked|blocking|distance|avoid/.test(`${latestTrigger} ${topPattern}`)) {
+    return {
+      title: "Practice space without pursuit.",
+      body: "Recent data points toward silence, distance, or access anxiety. The secure work is to stay reachable without chasing.",
+      steps: ["Do not send a second emotional message.", "Return to one normal routine.", "Watch for repair or return over time, not one moment."],
+      trackTitle: "Non-Anxious Connection"
+    };
+  }
+
+  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort/.test(`${latestTrigger} ${topPattern}`)) {
+    return {
+      title: "Match effort to reality.",
+      body: "Recent data points toward standards or reciprocity. The secure move is not proving harder; it is aligning access with behavior.",
+      steps: ["Write what you are giving.", "Write what is coming back consistently.", "Adjust one investment without drama."],
+      trackTitle: "Reciprocity and Value Reality Check"
+    };
+  }
+
+  if (content.phase.id === "strengthen" || content.phase.id === "maintain") {
+    return {
+      title: "Build proof outside the relationship.",
+      body: "You are in a phase where stability comes from self-trust and adult-life deposits, not more relationship analysis.",
+      steps: ["Choose health, work, home, money, friendship, or family.", "Make one small deposit there.", "Record proof before checking for reassurance."],
+      trackTitle: "Adult Life and Relationship Maturity"
+    };
+  }
+
+  return {
+    title: "Keep the next step small and trackable.",
+    body: "The app does not see enough repeated data yet. Keep logging sessions and patterns so personalization can become more precise.",
+    steps: ["Complete today's exercise.", "Log the real trigger in plain words.", "Record whether intensity went up, down, or stayed the same."],
+    trackTitle: content.exerciseTrackTitle
+  };
+}
+
+function getAdaptiveTrackTitles(focusKey) {
+  const titles = [];
+  const latest = state.sessions[0];
+  const patternStats = getRelationshipPatternStats();
+  const signalText = `${latest?.trigger || ""} ${patternStats.topPattern?.[0] || ""}`.toLowerCase();
+  const lastIntensity = Number(latest?.intensityAfter || latest?.intensity || 0);
+
+  if (lastIntensity >= 4) titles.push("State Standards and Momentum", "Non-Anxious Connection");
+  if (/silence|quiet|reply|blocked|blocking|distance|avoid/.test(signalText)) titles.push("Non-Anxious Connection", "Warm Clear Stop Protocol");
+  if (/boundary|disrespect|inconsistent|mixed|overinvest|access|effort/.test(signalText)) titles.push("Reciprocity and Value Reality Check", "Values and Responsibility");
+  if (focusKey === "boundaries") titles.push("Self-Leadership and Doubt Reset");
+  if (focusKey === "independence") titles.push("Adult Life and Relationship Maturity");
+  return [...new Set(titles)];
 }
 
 function resolveExerciseTracks(titles = []) {
@@ -4872,6 +5402,77 @@ function getWeeklySummary() {
   };
 }
 
+function getProgressInsights() {
+  const recent = state.sessions.slice(0, 10);
+  const numericPairs = recent
+    .map((session) => ({
+      day: session.day,
+      before: Number(session.intensity),
+      after: Number(session.intensityAfter || session.intensity)
+    }))
+    .filter((item) => Number.isFinite(item.before) && item.before > 0 && Number.isFinite(item.after) && item.after > 0);
+  const averageBefore = numericPairs.length
+    ? average(numericPairs.map((item) => item.before)).toFixed(1)
+    : "n/a";
+  const averageAfter = numericPairs.length
+    ? average(numericPairs.map((item) => item.after)).toFixed(1)
+    : "n/a";
+  const averageShift = numericPairs.length
+    ? average(numericPairs.map((item) => item.before - item.after))
+    : 0;
+  const moodCounts = countBy(recent.map((session) => session.moodBefore || session.mood).filter(Boolean));
+
+  return {
+    sessionCount: recent.length,
+    averageBefore,
+    averageAfter,
+    shiftLabel: numericPairs.length ? `${averageShift.toFixed(1)} average drop` : "add after-practice intensity",
+    topMood: moodCounts[0]?.[0] || "",
+    moodCounts,
+    intensityBars: numericPairs.slice().reverse().slice(-8)
+  };
+}
+
+function getRelationshipPatternStats() {
+  const logs = [...state.patternLog].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const counts = countBy(logs.map((entry) => entry.pattern).filter(Boolean));
+  const directionCounts = countBy(logs.map((entry) => entry.direction).filter(Boolean));
+  const topPattern = counts[0] || null;
+  const repeating = (directionCounts.find(([direction]) => direction === "repeating")?.[1] || 0)
+    + (directionCounts.find(([direction]) => direction === "worse")?.[1] || 0);
+  const improving = directionCounts.find(([direction]) => direction === "improving")?.[1] || 0;
+  const summary = !logs.length
+    ? "No relationship pattern has been logged yet. Add repeated behavior when you see it more than once."
+    : improving > repeating
+      ? "More logs are marked improving than repeating. Keep tracking behavior, not hope."
+      : topPattern
+        ? `"${topPattern[0]}" is the clearest pattern right now. Let your next response match the evidence.`
+        : "Keep logging; the pattern will become clearer with more evidence.";
+
+  return {
+    total: logs.length,
+    counts,
+    directionCounts,
+    topPattern,
+    recent: logs.slice(0, 5),
+    summary
+  };
+}
+
+function average(values) {
+  return values.reduce((total, value) => total + value, 0) / values.length;
+}
+
+function countBy(values) {
+  const counts = new Map();
+  values.forEach((value) => {
+    const key = String(value || "").trim().toLowerCase();
+    if (!key) return;
+    counts.set(key, (counts.get(key) || 0) + 1);
+  });
+  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+
 function getMissedDayRecovery() {
   const lastActivity = getLastActivityDate();
   if (!lastActivity) {
@@ -4990,6 +5591,10 @@ document.addEventListener("submit", async (event) => {
 
   if (event.target.id === "weeklyResetForm") {
     await handleWeeklyReset(event.target);
+  }
+
+  if (event.target.id === "patternForm") {
+    await handlePatternEntry(event.target);
   }
 });
 
@@ -5197,7 +5802,34 @@ async function handleWeeklyReset(form) {
   showToast("Weekly reset saved.");
 }
 
+async function handlePatternEntry(form) {
+  const formData = new FormData(form);
+  const entry = {
+    id: createId(),
+    createdAt: new Date().toISOString(),
+    pattern: String(formData.get("pattern") || "").trim(),
+    direction: String(formData.get("direction") || "").trim(),
+    evidence: String(formData.get("evidence") || "").trim(),
+    response: String(formData.get("response") || "").trim()
+  };
+
+  state.patternLog = [entry, ...state.patternLog].slice(0, 120);
+  await setKV("patternLog", state.patternLog);
+  await loadState();
+  activeView = "progress";
+  render();
+  showToast("Relationship pattern logged.");
+}
+
 async function handleAction(action, element) {
+  if (action === "choose-right-now") {
+    state.settings.rightNowChoice = element.dataset.choiceId || RIGHT_NOW_CHOICES[0].id;
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
   if (action === "skip-day") {
     state.settings.currentDay = Math.min(TOTAL_DAYS, state.settings.currentDay + 1);
     await setKV("settings", state.settings);
@@ -5459,6 +6091,13 @@ function getSearchIndex() {
     meta: track.title,
     tags: `${track.title} ${track.goal} ${exercise.steps.join(" ")}`
   })));
+  const weekly = WEEKLY_CONTENT_PACKS.flatMap((pack) => pack.items.map((item) => ({
+    type: "weekly practice",
+    title: item.title,
+    body: `${item.purpose} ${item.prompt}`,
+    meta: pack.title,
+    tags: `${pack.source} ${item.steps.join(" ")} ${item.phaseIds.join(" ")} ${item.focusKeys.join(" ")} ${item.moduleTitles.join(" ")}`
+  })));
   const influences = INFLUENCES.map((item) => ({
     type: "reference",
     title: item.author,
@@ -5473,8 +6112,15 @@ function getSearchIndex() {
     meta: "attachment map",
     tags: type.signs.join(" ")
   }));
+  const patterns = state.patternLog.map((entry) => ({
+    type: "pattern log",
+    title: entry.pattern,
+    body: `${entry.evidence} ${entry.response}`,
+    meta: entry.direction,
+    tags: "relationship pattern tracker"
+  }));
 
-  return [...situations, ...sos, ...notes, ...scripts, ...exercises, ...influences, ...attachments];
+  return [...situations, ...sos, ...notes, ...scripts, ...exercises, ...weekly, ...influences, ...attachments, ...patterns];
 }
 
 function getRewardBadges() {
@@ -5567,6 +6213,7 @@ function exportBackup() {
     bookmarks: state.bookmarks,
     reminders: state.reminders,
     weeklyReviews: state.weeklyReviews,
+    patternLog: state.patternLog,
     sessions: state.sessions,
     journal: state.journal
   };
@@ -5607,6 +6254,7 @@ async function importBackup(file) {
     setKV("bookmarks", payload.bookmarks || []),
     setKV("reminders", payload.reminders || DEFAULT_REMINDERS),
     setKV("weeklyReviews", payload.weeklyReviews || []),
+    setKV("patternLog", payload.patternLog || []),
     ...payload.sessions.map((session) => addRecord("sessions", session)),
     ...payload.journal.map((entry) => addRecord("journal", entry))
   ]);

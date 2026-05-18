@@ -9,6 +9,7 @@ A free local-first PWA for daily secure attachment practice.
 - Routes each user into a 180-day path: Stabilize, Understand, Practice, Strengthen, Maintain.
 - Includes daily coaching steps, real-life examples, scripts, journaling, progress tracking, and JSON backup export/import.
 - Includes dedicated exercise tracks for attachment practice, control/choice, self-relationship, body inquiry, secure communication, and self-improvement accountability.
+- Includes weekly content packs, adaptive daily suggestions, a right-now decision tool, progress insights, and a relationship pattern tracker.
 - Includes a four-pattern attachment guide: secure, anxious/preoccupied, avoidant/dismissive, and disorganized/fearful-avoidant.
 - Shows `Today for me` on every main page so each user logs one daily self-care commitment before making the relationship the center of the work.
 
