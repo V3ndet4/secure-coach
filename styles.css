@@ -623,6 +623,209 @@ select:focus {
   background: linear-gradient(90deg, var(--teal), var(--gold));
 }
 
+.moon-map-panel {
+  display: grid;
+  gap: 18px;
+  margin: 18px 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(244, 215, 131, 0.14), transparent 16rem),
+    radial-gradient(circle at 8% 12%, rgba(154, 136, 255, 0.18), transparent 18rem),
+    linear-gradient(135deg, rgba(25, 24, 54, 0.94), rgba(13, 17, 36, 0.9));
+}
+
+.moon-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.moon-node {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 14px;
+  background: rgba(250, 247, 255, 0.055);
+  border: 1px solid rgba(232, 225, 255, 0.13);
+  border-radius: 20px;
+  opacity: 0.72;
+}
+
+.moon-node.complete,
+.moon-node.active {
+  opacity: 1;
+}
+
+.moon-node.active {
+  border-color: rgba(244, 215, 131, 0.38);
+  box-shadow: inset 0 0 0 1px rgba(244, 215, 131, 0.12);
+}
+
+.moon-node h3,
+.moon-node p {
+  margin: 0;
+}
+
+.moon-node span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.moon-orb {
+  width: 54px;
+  height: 54px;
+  background: #15142d;
+  border: 1px solid rgba(232, 225, 255, 0.18);
+  border-radius: 50%;
+  box-shadow: 0 0 28px rgba(154, 136, 255, 0.18);
+}
+
+.moon-crescent {
+  background:
+    radial-gradient(circle at 66% 50%, #15142d 0 42%, transparent 43%),
+    #f4d783;
+}
+
+.moon-quarter {
+  background: linear-gradient(90deg, #15142d 0 50%, #f4d783 50% 100%);
+}
+
+.moon-gibbous {
+  background:
+    radial-gradient(circle at 20% 50%, #15142d 0 32%, transparent 33%),
+    #f4d783;
+}
+
+.moon-full {
+  background:
+    radial-gradient(circle at 36% 32%, #fffaf0, #f4d783 58%, #b8a9cf 100%);
+  box-shadow:
+    0 0 28px rgba(244, 215, 131, 0.3),
+    0 0 54px rgba(154, 136, 255, 0.2);
+}
+
+.playful-grid {
+  margin-bottom: 18px;
+}
+
+.fun-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(154, 136, 255, 0.16), transparent 12rem),
+    linear-gradient(180deg, rgba(44, 37, 79, 0.92), rgba(24, 23, 50, 0.86));
+}
+
+.fun-card h2,
+.fun-card p {
+  margin-bottom: 0;
+}
+
+.quest-list,
+.scenario-options {
+  display: grid;
+  gap: 10px;
+}
+
+.quest-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: rgba(250, 247, 255, 0.055);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.quest-item.done {
+  border-color: rgba(244, 215, 131, 0.34);
+  background: rgba(244, 215, 131, 0.08);
+}
+
+.quest-item h3,
+.quest-item p {
+  margin: 0 0 4px;
+}
+
+.quest-item span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.quest-toggle {
+  min-height: 38px;
+  padding: 8px 11px;
+  color: var(--ink);
+  background: rgba(250, 247, 255, 0.08);
+  border: 1px solid rgba(232, 225, 255, 0.18);
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.quest-item.done .quest-toggle {
+  color: #19162f;
+  background: linear-gradient(135deg, #fffaf0, #f4d783);
+}
+
+.choice-grid.compact {
+  margin: 0;
+}
+
+.scenario-option {
+  padding: 12px;
+  color: var(--ink);
+  background: rgba(250, 247, 255, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  text-align: left;
+}
+
+.scenario-option:hover,
+.scenario-option.picked {
+  border-color: rgba(154, 136, 255, 0.38);
+  background: var(--teal-soft);
+}
+
+.scenario-feedback {
+  padding: 14px;
+  background: rgba(250, 247, 255, 0.06);
+  border: 1px solid rgba(255, 157, 183, 0.24);
+  border-radius: 18px;
+}
+
+.scenario-feedback.secure {
+  border-color: rgba(244, 215, 131, 0.34);
+  background: rgba(244, 215, 131, 0.08);
+}
+
+.weekly-postcard {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.postcard-preview {
+  padding: 22px;
+  background:
+    linear-gradient(135deg, rgba(250, 247, 255, 0.1), rgba(154, 136, 255, 0.08));
+  border: 1px solid rgba(232, 225, 255, 0.18);
+  border-radius: 22px;
+  box-shadow: inset 0 0 0 1px rgba(250, 247, 255, 0.04);
+}
+
+.postcard-preview h3 {
+  color: var(--gold);
+}
+
+.postcard-preview p {
+  margin: 8px 0 0;
+}
+
 .today-memory-grid {
   margin-bottom: 18px;
 }

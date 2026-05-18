@@ -12,6 +12,7 @@ A free local-first PWA for daily secure attachment practice.
 - Includes weekly content packs, adaptive daily suggestions, a right-now decision tool, progress insights, and a relationship pattern tracker.
 - Includes guided 5-minute sessions, mood tap check-ins, coach notes, reflection memory, favorites on Today, recovery prompts, install prompts, and gentle local reminders.
 - Uses a calm moon-night interface with soft purple accents, glassy notebook cards, and readable low-glare contrast.
+- Adds playful commitment tools: a moon-phase progress map, daily card pull, mini quests, scenario practice, and weekly recap postcard.
 - Includes a four-pattern attachment guide: secure, anxious/preoccupied, avoidant/dismissive, and disorganized/fearful-avoidant.
 - Shows `Today for me` on every main page so each user logs one daily self-care commitment before making the relationship the center of the work.
 

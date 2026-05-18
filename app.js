@@ -107,6 +107,9 @@ const REWARD_BADGES = [
   { id: "three-patterns", title: "Evidence Builder", goal: "Log 3 relationship patterns.", check: () => state.patternLog.length >= 3 },
   { id: "first-improving-pattern", title: "Repair Evidence", goal: "Log one improving relationship pattern.", check: () => state.patternLog.some((entry) => entry.direction === "improving") },
   { id: "first-intensity-drop", title: "Nervous System Shift", goal: "Record one intensity drop after practice.", check: () => state.sessions.some((session) => Number(session.intensityAfter) && Number(session.intensity) > Number(session.intensityAfter)) },
+  { id: "first-mini-quest", title: "Quest Started", goal: "Complete 1 mini quest.", check: () => getCompletedQuestCount() >= 1 },
+  { id: "seven-mini-quests", title: "Quest Keeper", goal: "Complete 7 mini quests.", check: () => getCompletedQuestCount() >= 7 },
+  { id: "first-scenario", title: "Secure Rehearsal", goal: "Practice 1 relationship scenario.", check: () => getScenarioPracticeCount() >= 1 },
   { id: "self-care-seven", title: "Self-Care Week", goal: "Complete 7 self-care days.", check: () => calculateSelfCareStats().completed >= 7 },
   { id: "steady-streak", title: "Steady Streak", goal: "Reach a 7-day self-care streak.", check: () => calculateSelfCareStats().streak >= 7 },
   { id: "return-after-gap", title: "Returned Anyway", goal: "Come back after missing at least one day.", check: () => hasReturnedAfterGap() }
@@ -323,6 +326,129 @@ const RIGHT_NOW_CHOICES = [
     ],
     script: "My value is not proven by persuading someone to see it.",
     trackTitle: "The Value of Others Practice"
+  }
+];
+
+const MOON_PROGRESS = [
+  { id: "new", moon: "New Moon", title: "Begin Again", tone: "Quiet start", cue: "Stabilize before you solve." },
+  { id: "crescent", moon: "Crescent", title: "Small Light", tone: "First evidence", cue: "Notice the pattern without becoming it." },
+  { id: "quarter", moon: "Half Moon", title: "Practice Under Pressure", tone: "Choice point", cue: "Use the secure response while emotion is still active." },
+  { id: "gibbous", moon: "Gibbous", title: "Stronger Center", tone: "Standards", cue: "Let behavior, not fantasy, guide access." },
+  { id: "full", moon: "Full Moon", title: "Keep the Light", tone: "Maintenance", cue: "Return to the habits that keep you self-led." }
+];
+
+const DAILY_CARD_DECK = [
+  {
+    id: "ground",
+    badge: "Grounding card",
+    title: "Body Before Story",
+    purpose: "Stop the spiral before you explain the whole relationship to yourself.",
+    steps: ["Relax your jaw.", "Exhale longer than you inhale.", "Name one fact that is actually proven."],
+    anchor: "My body gets a vote before my phone does."
+  },
+  {
+    id: "boundary",
+    badge: "Boundary card",
+    title: "Warm And Clear",
+    purpose: "Use softness without abandoning your standard.",
+    steps: ["Validate one understandable part.", "Name the behavior that does not work.", "Say what you need once."],
+    anchor: "I can be kind without becoming endlessly available."
+  },
+  {
+    id: "release",
+    badge: "Letting go card",
+    title: "Open Hand",
+    purpose: "Detach from controlling the outcome.",
+    steps: ["Name what you want.", "Name what you cannot control.", "Choose the next action that protects your peace."],
+    anchor: "If I cannot control the outcome, I can still control my alignment."
+  },
+  {
+    id: "confidence",
+    badge: "Confidence card",
+    title: "Proof Over Hype",
+    purpose: "Build confidence through kept promises, not perfect feelings.",
+    steps: ["Pick one small promise.", "Finish it before checking for reassurance.", "Record proof."],
+    anchor: "Self-trust is built in small receipts."
+  },
+  {
+    id: "repair",
+    badge: "Repair card",
+    title: "One Clean Repair",
+    purpose: "Fix the part in front of you without dragging the whole past into it.",
+    steps: ["Name the present issue.", "Own your part if there is one.", "Ask for one repair behavior."],
+    anchor: "I can repair one piece without reopening every wound."
+  },
+  {
+    id: "focus",
+    badge: "Focus card",
+    title: "Return To Your Life",
+    purpose: "Stop making another person's mood the center of your day.",
+    steps: ["Choose one task for future you.", "Put your phone out of reach.", "Work for ten minutes before checking anything."],
+    anchor: "My life still needs me today."
+  }
+];
+
+const MINI_QUESTS = [
+  { id: "no-check", title: "No-Check Window", difficulty: "10 min", action: "Do not check status, blocks, likes, or last seen for ten minutes.", reward: "Self-control star" },
+  { id: "water-walk", title: "Water And Walk", difficulty: "8 min", action: "Drink water and walk without using the time to rehearse a text.", reward: "Body anchor" },
+  { id: "one-room", title: "Reset One Space", difficulty: "7 min", action: "Clean one small area so your environment feels less chaotic.", reward: "Clear room" },
+  { id: "late-text-rule", title: "9 PM Boundary", difficulty: "Tonight", action: "Send no emotional relationship message after 9 PM.", reward: "Night peace" },
+  { id: "direct-line", title: "One Direct Line", difficulty: "5 min", action: "Write one clear sentence that asks, needs, or declines without blaming.", reward: "Clear voice" },
+  { id: "future-self", title: "Future Self Deposit", difficulty: "12 min", action: "Do one task tomorrow's version of you will be glad you handled.", reward: "Future credit" },
+  { id: "phone-away", title: "Phone Away", difficulty: "15 min", action: "Put your phone across the room and complete one normal routine.", reward: "Attention back" },
+  { id: "truth-note", title: "Truth Note", difficulty: "4 min", action: "Write the factual version of what happened without mind-reading.", reward: "Clean evidence" }
+];
+
+const SCENARIO_PRACTICE = [
+  {
+    id: "quiet",
+    label: "They went quiet",
+    prompt: "You feel the urge to close the distance fast. What response practices security?",
+    options: [
+      { id: "chase", text: "Send another emotional message asking where you stand.", feedback: "This may relieve anxiety for a minute, but it adds pressure and makes your mood dependent on their reply." },
+      { id: "cold", text: "Punish the silence by acting colder than you feel.", feedback: "This protects pride, not connection. It turns fear into a test." },
+      { id: "secure", text: "Give space, keep your routine, and send one calm check-in later only if needed.", feedback: "Secure choice. You stay grounded, do not chase, and still leave room for direct communication.", secure: true }
+    ]
+  },
+  {
+    id: "returned-lightly",
+    label: "They came back lightly",
+    prompt: "They message casually after distance. What keeps you centered?",
+    options: [
+      { id: "interrogate", text: "Ask why they disappeared before saying anything else.", feedback: "The need for clarity is valid, but leading with interrogation can restart defensiveness." },
+      { id: "match", text: "Match the light tone first, then choose a calmer moment for the real conversation.", feedback: "Secure choice. You receive the return without abandoning the need for later clarity.", secure: true },
+      { id: "flood", text: "Use the opening to explain everything you felt while they were gone.", feedback: "This usually overloads the moment. Save depth for a regulated conversation." }
+    ]
+  },
+  {
+    id: "boundary",
+    label: "A boundary was crossed",
+    prompt: "You want to stay kind, but the standard matters. What do you say?",
+    options: [
+      { id: "formula", text: "I understand needing space. I am not okay with being blocked. Going forward I need a direct timeout message.", feedback: "Secure choice. It is specific, respectful, and measurable.", secure: true },
+      { id: "speech", text: "Send a long speech proving how much they hurt you.", feedback: "The hurt is real, but too many words can hide the actual boundary." },
+      { id: "ignore", text: "Say nothing and hope they figure out what changed.", feedback: "Silence can become resentment. Clear standards need clear language." }
+    ]
+  },
+  {
+    id: "jealousy",
+    label: "Jealousy got triggered",
+    prompt: "You feel threatened and want control. What response protects trust?",
+    options: [
+      { id: "monitor", text: "Ask to check their phone so you can feel safe.", feedback: "Monitoring is fear trying to become certainty. It does not build real trust." },
+      { id: "clarify", text: "Name the exact behavior, ask for clarity once, and watch whether actions match words.", feedback: "Secure choice. You seek clarity without possession.", secure: true },
+      { id: "compete", text: "Try to become more impressive so they choose you.", feedback: "That turns love into performance. Your standard matters too." }
+    ]
+  },
+  {
+    id: "letting-go",
+    label: "It may be time to let go",
+    prompt: "You keep hoping effort will become mutual. What response protects dignity?",
+    options: [
+      { id: "convince", text: "Explain your value one more time so they finally understand.", feedback: "If value needs endless explanation, the issue is not your wording." },
+      { id: "drama", text: "Leave dramatically so they feel what they lost.", feedback: "That keeps the focus on their reaction instead of your peace." },
+      { id: "peace", text: "Stop overgiving, reduce access, and let behavior show whether there is mutual effort.", feedback: "Secure choice. You choose peace without needing a performance.", secure: true }
+    ]
   }
 ];
 
@@ -4196,6 +4322,179 @@ function getRightNowChoice(id) {
   return RIGHT_NOW_CHOICES.find((choice) => choice.id === id) || RIGHT_NOW_CHOICES[0];
 }
 
+function renderMoonProgressMap(day, content) {
+  const items = getMoonProgressItems(day);
+  const active = items.find((item) => item.status === "active") || items[items.length - 1];
+
+  return `
+    <section class="panel moon-map-panel">
+      <div>
+        <p class="eyebrow">Moon map</p>
+        <h2>${escapeHTML(active.moon)}: ${escapeHTML(active.title)}</h2>
+        <p class="small">${escapeHTML(active.cue)} Current module: ${escapeHTML(content.moduleTitle)}.</p>
+      </div>
+      <div class="moon-track">
+        ${items.map((item) => `
+          <article class="moon-node ${escapeHTML(item.status)}">
+            <div class="moon-orb moon-${escapeHTML(item.id)}" aria-hidden="true"></div>
+            <div>
+              <h3>${escapeHTML(item.moon)}</h3>
+              <p>${escapeHTML(item.phase.title)} · ${escapeHTML(item.days)}</p>
+              <span>${escapeHTML(item.tone)}</span>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function getMoonProgressItems(day) {
+  return PHASES.map((phase, index) => {
+    const moon = MOON_PROGRESS[index] || MOON_PROGRESS[MOON_PROGRESS.length - 1];
+    const [start, end] = phase.days;
+    const status = day > end ? "complete" : day >= start ? "active" : "locked";
+    return {
+      ...moon,
+      phase,
+      status,
+      days: `Day ${start}-${end}`
+    };
+  });
+}
+
+function renderPlayfulPractice(content) {
+  return `
+    <div class="grid three playful-grid">
+      ${renderDailyCardPull(content)}
+      ${renderMiniQuests(content)}
+      ${renderScenarioPractice(content)}
+    </div>
+  `;
+}
+
+function renderDailyCardPull(content) {
+  const card = getDailyCard(content);
+  return `
+    <section class="card fun-card daily-card-pull">
+      <div class="meta-row">
+        <span class="pill gold">Daily card</span>
+        <span class="pill">${escapeHTML(card.badge)}</span>
+      </div>
+      <h2>${escapeHTML(card.title)}</h2>
+      <p>${escapeHTML(card.purpose)}</p>
+      <ol class="step-list">
+        ${card.steps.map((step, index) => `
+          <li>
+            <span class="step-number">${index + 1}</span>
+            <span>${escapeHTML(step)}</span>
+          </li>
+        `).join("")}
+      </ol>
+      <p class="example"><strong>Anchor:</strong> ${escapeHTML(card.anchor)}</p>
+      <div class="actions">
+        <button class="button secondary" type="button" data-action="draw-daily-card">Draw another</button>
+        <button class="button secondary" type="button" data-action="copy-text" data-text="${escapeHTML(card.anchor)}">Copy anchor</button>
+      </div>
+    </section>
+  `;
+}
+
+function getDailyCard(content) {
+  const offset = Number(state.settings?.dailyCardOffset || 0);
+  const index = (content.contentDay + offset + content.moduleTitle.length) % DAILY_CARD_DECK.length;
+  return DAILY_CARD_DECK[index];
+}
+
+function renderMiniQuests(content) {
+  const quests = getTodayMiniQuests(content);
+  const completed = getCompletedQuestsForToday();
+  const doneCount = quests.filter((quest) => completed[quest.id]).length;
+
+  return `
+    <section class="card fun-card quest-card">
+      <div class="meta-row">
+        <span class="pill">Mini quests</span>
+        <span class="pill gold">${doneCount}/${quests.length} today</span>
+      </div>
+      <h2>Make progress feel winnable.</h2>
+      <div class="quest-list">
+        ${quests.map((quest) => {
+          const done = Boolean(completed[quest.id]);
+          return `
+            <article class="quest-item ${done ? "done" : ""}">
+              <div>
+                <h3>${escapeHTML(quest.title)}</h3>
+                <p>${escapeHTML(quest.action)}</p>
+                <span>${escapeHTML(quest.difficulty)} · ${escapeHTML(quest.reward)}</span>
+              </div>
+              <button class="quest-toggle" type="button" data-action="toggle-mini-quest" data-quest-id="${escapeHTML(quest.id)}">${done ? "Done" : "Complete"}</button>
+            </article>
+          `;
+        }).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function getTodayMiniQuests(content) {
+  const start = (content.contentDay + content.exerciseTrackTitle.length) % MINI_QUESTS.length;
+  return Array.from({ length: 3 }, (_, index) => MINI_QUESTS[(start + index) % MINI_QUESTS.length]);
+}
+
+function getCompletedQuestsForToday() {
+  return state.settings?.completedQuests?.[getTodayKey()] || {};
+}
+
+function renderScenarioPractice(content) {
+  const selected = getScenarioChoice(state.settings?.scenarioChoice, content);
+  const todayResponse = state.settings?.scenarioResponses?.[getTodayKey()];
+  const picked = todayResponse?.scenarioId === selected.id
+    ? selected.options.find((option) => option.id === todayResponse.responseId)
+    : null;
+
+  return `
+    <section class="card fun-card scenario-card">
+      <div class="meta-row">
+        <span class="pill coral">Scenario practice</span>
+        <span class="pill">${escapeHTML(selected.label)}</span>
+      </div>
+      <h2>Rehearse before real life.</h2>
+      <div class="choice-grid compact">
+        ${SCENARIO_PRACTICE.map((scenario) => `
+          <button class="choice-chip ${scenario.id === selected.id ? "active" : ""}" type="button" data-action="choose-scenario" data-scenario-id="${escapeHTML(scenario.id)}">${escapeHTML(scenario.label)}</button>
+        `).join("")}
+      </div>
+      <p>${escapeHTML(selected.prompt)}</p>
+      <div class="scenario-options">
+        ${selected.options.map((option) => `
+          <button class="scenario-option ${picked?.id === option.id ? "picked" : ""}" type="button" data-action="choose-scenario-response" data-scenario-id="${escapeHTML(selected.id)}" data-response-id="${escapeHTML(option.id)}">
+            ${escapeHTML(option.text)}
+          </button>
+        `).join("")}
+      </div>
+      ${picked ? `
+        <article class="scenario-feedback ${picked.secure ? "secure" : ""}">
+          <h3>${picked.secure ? "Secure rehearsal" : "Notice the pattern"}</h3>
+          <p>${escapeHTML(picked.feedback)}</p>
+        </article>
+      ` : `<p class="small">Pick the response you would usually choose. The feedback helps you rehearse a steadier move.</p>`}
+    </section>
+  `;
+}
+
+function getScenarioChoice(id, content) {
+  if (id) {
+    const existing = SCENARIO_PRACTICE.find((scenario) => scenario.id === id);
+    if (existing) return existing;
+  }
+
+  const focus = state.profile?.analysis?.primaryFocus || "";
+  if (focus === "boundaries") return SCENARIO_PRACTICE.find((scenario) => scenario.id === "boundary");
+  if (focus === "self" || /let|release|standard/i.test(content.moduleTitle)) return SCENARIO_PRACTICE.find((scenario) => scenario.id === "letting-go");
+  return SCENARIO_PRACTICE[0];
+}
+
 function renderWeeklyPackCard(content) {
   const weekly = getWeeklyContentFor(content);
   if (!weekly) return "";
@@ -4408,6 +4707,48 @@ function renderMoodTapGroup(name, options, required = false) {
   `;
 }
 
+function renderWeeklyRecapPostcard() {
+  const text = getWeeklyPostcardText();
+  const lines = text.split("\n").filter(Boolean);
+  return `
+    <section class="panel weekly-postcard">
+      <div>
+        <p class="eyebrow">Weekly postcard</p>
+        <h2>A clean note from this week's evidence.</h2>
+        <p class="small">This is generated from local check-ins, self-care, triggers, and intensity shifts.</p>
+      </div>
+      <article class="postcard-preview">
+        ${lines.map((line, index) => index === 0
+          ? `<h3>${escapeHTML(line)}</h3>`
+          : `<p>${escapeHTML(line)}</p>`
+        ).join("")}
+      </article>
+      <button class="button secondary" type="button" data-action="copy-text" data-text="${escapeHTML(text)}">Copy postcard</button>
+    </section>
+  `;
+}
+
+function getWeeklyPostcardText() {
+  const summary = getWeeklySummary();
+  const insights = getProgressInsights();
+  const selfCareStats = calculateSelfCareStats();
+  const topTrigger = mostCommonTriggers(state.sessions.slice(0, 10))[0]?.[0] || "not enough data yet";
+  const bestSignal = insights.averageAfter !== "n/a" && insights.averageBefore !== "n/a"
+    ? `Intensity moved from ${insights.averageBefore} to ${insights.averageAfter} on average.`
+    : "Intensity data is still being built.";
+
+  return [
+    `Week ${Math.max(1, Math.ceil(state.settings.currentDay / 7))} postcard`,
+    `I completed ${summary.sessions} coaching session${summary.sessions === 1 ? "" : "s"} and ${summary.selfCareDone} self-care action${summary.selfCareDone === 1 ? "" : "s"} this week.`,
+    bestSignal,
+    `Main pattern to watch: ${topTrigger}.`,
+    `Win to keep: ${summary.win}`,
+    `Next reset: ${summary.reset}`,
+    `Self-care streak: ${selfCareStats.streak} day${selfCareStats.streak === 1 ? "" : "s"}.`,
+    "The goal is not perfection. The goal is returning with more honesty and less self-abandonment."
+  ].join("\n");
+}
+
 function renderToday() {
   const day = state.settings.currentDay;
   const content = getDailyContent(day);
@@ -4436,6 +4777,8 @@ function renderToday() {
 
     ${renderDailyFlow(content, progress)}
     ${renderGuidedSession(content)}
+    ${renderMoonProgressMap(day, content)}
+    ${renderPlayfulPractice(content)}
     ${renderRightNowTool()}
     ${renderCoachMemoryCards(content)}
     <div class="grid two" style="margin-bottom: 18px;">
@@ -5177,6 +5520,8 @@ function renderProgress() {
       <div class="card stat"><span class="small">Self-care days</span><strong>${selfCareStats.completed}</strong><span class="small">${selfCareStats.streak}-day self-care streak</span></div>
     </section>
 
+    ${renderMoonProgressMap(day, getDailyContent(day))}
+
     <section class="panel" style="margin-top: 18px;">
       <h2>Reward badges</h2>
       <div class="grid three">
@@ -5208,6 +5553,8 @@ function renderProgress() {
         </div>
       </div>
     </section>
+
+    ${renderWeeklyRecapPostcard()}
 
     ${renderProgressInsights(insights)}
     ${renderPatternTracker(patternStats)}
@@ -6373,6 +6720,54 @@ async function handleAction(action, element) {
     return;
   }
 
+  if (action === "draw-daily-card") {
+    state.settings.dailyCardOffset = Number(state.settings.dailyCardOffset || 0) + 1;
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
+  if (action === "toggle-mini-quest") {
+    const todayKey = getTodayKey();
+    const questId = element.dataset.questId;
+    const completedQuests = state.settings.completedQuests || {};
+    const todayQuests = { ...(completedQuests[todayKey] || {}) };
+    todayQuests[questId] = !todayQuests[questId];
+    state.settings.completedQuests = {
+      ...completedQuests,
+      [todayKey]: todayQuests
+    };
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    showToast(todayQuests[questId] ? "Mini quest completed." : "Mini quest reopened.");
+    return;
+  }
+
+  if (action === "choose-scenario") {
+    state.settings.scenarioChoice = element.dataset.scenarioId || SCENARIO_PRACTICE[0].id;
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
+  if (action === "choose-scenario-response") {
+    const todayKey = getTodayKey();
+    state.settings.scenarioResponses = {
+      ...(state.settings.scenarioResponses || {}),
+      [todayKey]: {
+        scenarioId: element.dataset.scenarioId || SCENARIO_PRACTICE[0].id,
+        responseId: element.dataset.responseId || ""
+      }
+    };
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
   if (action === "skip-day") {
     state.settings.currentDay = Math.min(TOTAL_DAYS, state.settings.currentDay + 1);
     await setKV("settings", state.settings);
@@ -6674,6 +7069,16 @@ function getRewardBadges() {
     ...badge,
     earned: Boolean(badge.check())
   }));
+}
+
+function getCompletedQuestCount() {
+  return Object.values(state.settings?.completedQuests || {}).reduce((total, quests) => {
+    return total + Object.values(quests || {}).filter(Boolean).length;
+  }, 0);
+}
+
+function getScenarioPracticeCount() {
+  return Object.values(state.settings?.scenarioResponses || {}).filter((entry) => entry?.responseId).length;
 }
 
 async function copyText(text) {

@@ -1,4 +1,4 @@
-const CACHE_NAME = "secure-coach-cache-v1-interactive-retention";
+const CACHE_NAME = "secure-coach-cache-v1-playful-practice";
 const APP_SHELL = [
   "./",
   "./index.html",
