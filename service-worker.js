@@ -1,4 +1,4 @@
-const CACHE_NAME = "secure-coach-cache-v1-value-of-others";
+const CACHE_NAME = "secure-coach-cache-v1-interactive-retention";
 const APP_SHELL = [
   "./",
   "./index.html",

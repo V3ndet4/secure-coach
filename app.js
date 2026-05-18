@@ -11,6 +11,7 @@ const app = document.getElementById("app");
 let db;
 let activeView = "today";
 let reminderTimers = [];
+let deferredInstallPrompt = null;
 let state = {
   profile: null,
   settings: null,
@@ -102,8 +103,13 @@ const REWARD_BADGES = [
   { id: "five-journals", title: "Pattern Tracker", goal: "Save 5 journal entries.", check: () => state.journal.length >= 5 },
   { id: "first-bookmark", title: "Saved Anchor", goal: "Bookmark a note, script, or exercise.", check: () => state.bookmarks.length >= 1 },
   { id: "weekly-reset", title: "Weekly Reset", goal: "Complete one weekly reset.", check: () => state.weeklyReviews.length >= 1 },
+  { id: "first-pattern", title: "Pattern Named", goal: "Log your first relationship pattern.", check: () => state.patternLog.length >= 1 },
+  { id: "three-patterns", title: "Evidence Builder", goal: "Log 3 relationship patterns.", check: () => state.patternLog.length >= 3 },
+  { id: "first-improving-pattern", title: "Repair Evidence", goal: "Log one improving relationship pattern.", check: () => state.patternLog.some((entry) => entry.direction === "improving") },
+  { id: "first-intensity-drop", title: "Nervous System Shift", goal: "Record one intensity drop after practice.", check: () => state.sessions.some((session) => Number(session.intensityAfter) && Number(session.intensity) > Number(session.intensityAfter)) },
   { id: "self-care-seven", title: "Self-Care Week", goal: "Complete 7 self-care days.", check: () => calculateSelfCareStats().completed >= 7 },
-  { id: "steady-streak", title: "Steady Streak", goal: "Reach a 7-day self-care streak.", check: () => calculateSelfCareStats().streak >= 7 }
+  { id: "steady-streak", title: "Steady Streak", goal: "Reach a 7-day self-care streak.", check: () => calculateSelfCareStats().streak >= 7 },
+  { id: "return-after-gap", title: "Returned Anyway", goal: "Come back after missing at least one day.", check: () => hasReturnedAfterGap() }
 ];
 
 const QUICK_SOS = [
@@ -3702,6 +3708,14 @@ const icons = {
 
 init();
 
+if (typeof window !== "undefined" && window.addEventListener) {
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    if (state.profile) render();
+  });
+}
+
 async function init() {
   db = await openDatabase();
   await loadState();
@@ -3904,7 +3918,7 @@ function renderTodayForMe() {
   const earned = getEarnedMilestones().length;
 
   return `
-    <section class="self-care-panel">
+    <section class="self-care-panel" id="selfCareToday">
       <div>
         <p class="eyebrow">Today for me</p>
         <h2>What am I doing today to become better for myself?</h2>
@@ -4062,6 +4076,86 @@ function renderDailyFlow(content, progress) {
   `;
 }
 
+function renderGuidedSession(content) {
+  const steps = getGuidedSteps(content);
+  const active = Math.min(steps.length - 1, Math.max(0, Number(state.settings?.guidedStep || 0)));
+  const started = Boolean(state.settings?.guidedActive);
+  const current = steps[active];
+
+  if (!started) {
+    return `
+      <section class="panel guided-panel">
+        <div class="meta-row">
+          <span class="pill gold">Guided mode</span>
+          <span class="pill">5-minute practice</span>
+        </div>
+        <h2>Start today's guided session.</h2>
+        <p>Move through one step at a time: regulate, read, practice, journal, complete. This keeps the app from feeling like too much at once.</p>
+        <button class="button" type="button" data-action="guided-start">Start today's 5-minute practice</button>
+      </section>
+    `;
+  }
+
+  return `
+    <section class="panel guided-panel">
+      <div class="meta-row">
+        <span class="pill gold">Guided mode</span>
+        <span class="pill">Step ${active + 1} of ${steps.length}</span>
+      </div>
+      <div class="guide-dots" aria-label="Guided session progress">
+        ${steps.map((step, index) => `<span class="${index === active ? "active" : ""}" title="${escapeHTML(step.title)}"></span>`).join("")}
+      </div>
+      <h2>${escapeHTML(current.title)}</h2>
+      <p>${escapeHTML(current.body)}</p>
+      <ol class="step-list">
+        ${current.steps.map((step, index) => `
+          <li>
+            <span class="step-number">${index + 1}</span>
+            <span>${escapeHTML(step)}</span>
+          </li>
+        `).join("")}
+      </ol>
+      <div class="actions" style="margin-top: 18px;">
+        <button class="button secondary" type="button" data-action="guided-prev" ${active === 0 ? "disabled" : ""}>Back</button>
+        ${active < steps.length - 1
+          ? `<button class="button" type="button" data-action="guided-next">Next step</button>`
+          : `<button class="button" type="button" data-scroll-target="dailyCheckIn" data-view="today">Complete check-in</button>`}
+        <button class="text-button" type="button" data-action="guided-end">Exit guided mode</button>
+      </div>
+    </section>
+  `;
+}
+
+function getGuidedSteps(content) {
+  return [
+    {
+      title: "Regulate first",
+      body: "Do not solve the relationship while your body is in alarm.",
+      steps: ["Put both feet on the floor.", "Lengthen your exhale three times.", "Name what you know for sure."]
+    },
+    {
+      title: "Read today's focus",
+      body: content.instruction,
+      steps: content.steps
+    },
+    {
+      title: "Do the practice",
+      body: `${content.exercise} (${content.exerciseTrackTitle})`,
+      steps: content.exerciseSteps
+    },
+    {
+      title: "Write the honest version",
+      body: content.prompt,
+      steps: ["Write what happened without exaggerating.", "Write the secure next step.", "Keep it concrete enough to do today."]
+    },
+    {
+      title: "Complete and continue",
+      body: "Log the session so tomorrow can adapt to your real data.",
+      steps: ["Tap Complete check-in.", "Save mood, trigger, intensity, and note.", "Let the next day update from evidence."]
+    }
+  ];
+}
+
 function renderRightNowTool() {
   const selected = getRightNowChoice(state.settings?.rightNowChoice);
   return `
@@ -4156,6 +4250,164 @@ function renderAdaptiveCoachCard(content) {
   `;
 }
 
+function renderCoachMemoryCards(content) {
+  return `
+    <div class="grid three today-memory-grid">
+      ${renderCoachVoiceCard()}
+      ${renderReflectionMemoryCard()}
+      ${renderFavoriteOnToday(content)}
+    </div>
+  `;
+}
+
+function renderCoachVoiceCard() {
+  const message = state.settings?.lastCoachMessage || getDefaultCoachMessage();
+  return `
+    <section class="card coach-note-card">
+      <div class="meta-row"><span class="pill gold">Coach note</span></div>
+      <h3>${escapeHTML(message.title)}</h3>
+      <p>${escapeHTML(message.body)}</p>
+      <p class="small">${escapeHTML(message.next)}</p>
+    </section>
+  `;
+}
+
+function getDefaultCoachMessage() {
+  return {
+    title: "The app learns from what you log.",
+    body: "Complete a check-in and tomorrow's practice will use your trigger, intensity, and pattern data.",
+    next: "Start with one honest session today."
+  };
+}
+
+function renderReflectionMemoryCard() {
+  const memory = getReflectionMemory();
+  return `
+    <section class="card memory-card">
+      <div class="meta-row"><span class="pill">Reflection memory</span></div>
+      <h3>${escapeHTML(memory.title)}</h3>
+      <p>${escapeHTML(memory.body)}</p>
+      <p class="small">${escapeHTML(memory.next)}</p>
+    </section>
+  `;
+}
+
+function getReflectionMemory() {
+  const improved = state.sessions.find((session) => Number(session.intensityAfter) && Number(session.intensity) > Number(session.intensityAfter));
+  if (improved) {
+    const trigger = improved.trigger || "that trigger";
+    return {
+      title: "You have evidence.",
+      body: `Last time you logged ${trigger}, intensity moved from ${improved.intensity} to ${improved.intensityAfter}.`,
+      next: "Use that as proof that regulation changes the moment."
+    };
+  }
+
+  const latest = state.sessions[0];
+  if (latest) {
+    return {
+      title: "Your last honest data point.",
+      body: `You logged ${latest.trigger || "a trigger"} with ${latest.moodBefore || latest.mood || "an honest mood"}.`,
+      next: "Add intensity after practice to start seeing change over time."
+    };
+  }
+
+  return {
+    title: "No memory yet.",
+    body: "Your first session will become the app's first memory of what helps you return.",
+    next: "Complete today once. Keep it simple."
+  };
+}
+
+function renderFavoriteOnToday(content) {
+  const favorite = getTodayFavorite(content);
+  if (!favorite) {
+    return `
+      <section class="card favorite-card">
+        <div class="meta-row"><span class="pill">Saved for today</span></div>
+        <h3>No saved anchors yet.</h3>
+        <p>Save one exercise, script, or note. Tomorrow it can show up here when you need it fast.</p>
+        <button class="button secondary" type="button" data-view="exercises">Find an anchor</button>
+      </section>
+    `;
+  }
+
+  return `
+    <section class="card favorite-card">
+      <div class="meta-row"><span class="pill gold">Saved for today</span><span class="pill">${escapeHTML(favorite.meta || favorite.type)}</span></div>
+      <h3>${escapeHTML(favorite.title)}</h3>
+      <p>${escapeHTML(favorite.body)}</p>
+      <button class="button secondary" type="button" data-view="saved">Open saved</button>
+    </section>
+  `;
+}
+
+function getTodayFavorite(content) {
+  if (!state.bookmarks.length) return null;
+  const scored = state.bookmarks.map((bookmark) => {
+    const haystack = `${bookmark.title} ${bookmark.body} ${bookmark.meta}`.toLowerCase();
+    const score = [
+      haystack.includes(content.exerciseTrackTitle.toLowerCase()) ? 3 : 0,
+      haystack.includes(content.moduleTitle.toLowerCase()) ? 2 : 0,
+      haystack.includes(content.phase.title.toLowerCase()) ? 1 : 0
+    ].reduce((total, value) => total + value, 0);
+    return { bookmark, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored[0]?.bookmark || state.bookmarks[0];
+}
+
+function renderInstallPromptCard() {
+  return `
+    <section class="panel install-panel">
+      <div class="meta-row">
+        <span class="pill gold">Return easier</span>
+        <span class="pill">Install prompt</span>
+      </div>
+      <h2>Add Secure Coach to your home screen.</h2>
+      <p>Installed apps are easier to return to, and consistency is the point. Your data still stays on this device.</p>
+      <div class="actions">
+        <button class="button" type="button" data-action="install-app">${deferredInstallPrompt ? "Install app" : "Show install steps"}</button>
+        <button class="button secondary" type="button" data-action="request-notifications">Enable gentle reminders</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderStreakRecoveryCard() {
+  const missed = getMissedDayCount();
+  if (!missed) return "";
+  const recovery = getMissedDayRecovery();
+  return `
+    <section class="panel recovery-panel">
+      <div class="meta-row"><span class="pill coral">Streak recovery</span><span class="pill">${missed} missed day${missed === 1 ? "" : "s"}</span></div>
+      <h2>Nothing is ruined.</h2>
+      <p>${escapeHTML(recovery.message)}</p>
+      <ol class="step-list">
+        ${recovery.steps.slice(0, 3).map((step, index) => `
+          <li>
+            <span class="step-number">${index + 1}</span>
+            <span>${escapeHTML(step)}</span>
+          </li>
+        `).join("")}
+      </ol>
+    </section>
+  `;
+}
+
+function renderMoodTapGroup(name, options, required = false) {
+  return `
+    <div class="mood-taps" role="radiogroup" aria-label="${escapeHTML(name)}">
+      ${options.map((option, index) => `
+        <label class="mood-tap">
+          <input type="radio" name="${escapeHTML(name)}" value="${escapeHTML(option)}" ${required && index === 0 ? "required" : ""}>
+          <span>${escapeHTML(option)}</span>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
 function renderToday() {
   const day = state.settings.currentDay;
   const content = getDailyContent(day);
@@ -4183,10 +4435,16 @@ function renderToday() {
     </header>
 
     ${renderDailyFlow(content, progress)}
+    ${renderGuidedSession(content)}
     ${renderRightNowTool()}
+    ${renderCoachMemoryCards(content)}
     <div class="grid two" style="margin-bottom: 18px;">
       ${renderWeeklyPackCard(content)}
       ${renderAdaptiveCoachCard(content)}
+    </div>
+    <div class="grid two" style="margin-bottom: 18px;">
+      ${renderInstallPromptCard()}
+      ${renderStreakRecoveryCard()}
     </div>
 
     <div class="grid two">
@@ -4265,28 +4523,12 @@ function renderToday() {
         <input type="hidden" name="day" value="${day}">
         <div class="grid three">
           <div class="field">
-            <label for="moodBefore">Mood before</label>
-            <select id="moodBefore" name="moodBefore" required>
-              <option value="">Choose one</option>
-              <option>steady</option>
-              <option>anxious</option>
-              <option>sad</option>
-              <option>angry</option>
-              <option>numb</option>
-              <option>hopeful</option>
-            </select>
+            <span class="field-label">Mood before</span>
+            ${renderMoodTapGroup("moodBefore", ["steady", "anxious", "sad", "angry", "numb", "hopeful"], true)}
           </div>
           <div class="field">
-            <label for="moodAfter">Mood after</label>
-            <select id="moodAfter" name="moodAfter">
-              <option value="">Choose after practice</option>
-              <option>steadier</option>
-              <option>still anxious</option>
-              <option>clearer</option>
-              <option>softer</option>
-              <option>tired but honest</option>
-              <option>proud</option>
-            </select>
+            <span class="field-label">Mood after</span>
+            ${renderMoodTapGroup("moodAfter", ["steadier", "still anxious", "clearer", "softer", "tired but honest", "proud"], false)}
           </div>
           <div class="field">
             <label for="intensity">Intensity before</label>
@@ -4635,7 +4877,17 @@ function renderSearch() {
       ${query
         ? results.length
           ? results.map(renderSearchResult).join("")
-          : `<div class="empty">No results yet. Try a simpler word like space, text, repair, or self-worth.</div>`
+          : `
+            <article class="empty empty-state">
+              <h3>No match yet.</h3>
+              <p>Try a simpler word like space, text, repair, self-worth, panic, or boundaries.</p>
+              <div class="actions">
+                ${["space", "repair", "self-worth", "panic"].map((term) => `
+                  <button class="button secondary" type="button" data-action="set-search" data-query="${escapeHTML(term)}">${escapeHTML(term)}</button>
+                `).join("")}
+              </div>
+            </article>
+          `
         : SITUATION_GUIDES.map(renderSituationCard).join("")}
     </section>
   `;
@@ -4678,7 +4930,16 @@ function renderSaved() {
             <button class="button warn" type="button" data-action="remove-bookmark" data-bookmark-id="${escapeHTML(item.id)}">Remove</button>
           </div>
         </article>
-      `).join("") : `<div class="empty">Nothing saved yet. Use Save this on notes, scripts, exercises, SOS cards, or search results.</div>`}
+      `).join("") : `
+        <article class="empty empty-state">
+          <h3>No saved anchors yet.</h3>
+          <p>Save one exercise, SOS line, script, or search result so Today can surface it when it matches your current module.</p>
+          <div class="actions">
+            <button class="button" type="button" data-view="search">Search library</button>
+            <button class="button secondary" type="button" data-view="sos">Open SOS</button>
+          </div>
+        </article>
+      `}
     </section>
   `;
 }
@@ -5030,7 +5291,13 @@ function renderProgress() {
           <ul class="plain-list">
             ${triggerList.map(([trigger, count]) => `<li>${escapeHTML(trigger)}: ${count}</li>`).join("")}
           </ul>
-        ` : `<div class="empty">Complete daily sessions to see trigger patterns.</div>`}
+        ` : `
+          <div class="empty empty-state">
+            <h3>No trigger pattern yet.</h3>
+            <p>Complete a daily session with one honest trigger. The app will start showing what repeats.</p>
+            <button class="button secondary" type="button" data-view="today" data-scroll-target="dailyCheckIn">Use check-in</button>
+          </div>
+        `}
       </section>
 
       <section class="panel">
@@ -5047,7 +5314,13 @@ function renderProgress() {
               ${entry.proof ? `<p class="small">Proof: ${escapeHTML(entry.proof)}</p>` : ""}
             </article>
           `).join("")}
-        ` : `<div class="empty">Save today's self-care commitment to begin accountability tracking.</div>`}
+        ` : `
+          <div class="empty empty-state">
+            <h3>No self-care proof yet.</h3>
+            <p>Start with one small promise for today. Proof matters more than size.</p>
+            <button class="button secondary" type="button" data-view="today" data-scroll-target="selfCareToday">Save today's action</button>
+          </div>
+        `}
       </section>
     </div>
 
@@ -5075,7 +5348,13 @@ function renderProgress() {
           </div>
           <p>${escapeHTML(session.note)}</p>
         </article>
-      `).join("") : `<div class="empty">No completed sessions yet.</div>`}
+      `).join("") : `
+        <div class="empty empty-state">
+          <h3>No completed sessions yet.</h3>
+          <p>Run one guided practice and save the check-in. This starts your progress history.</p>
+          <button class="button" type="button" data-view="today" data-scroll-target="dailyCheckIn">Start today's check-in</button>
+        </div>
+      `}
     </section>
   `;
 }
@@ -5180,7 +5459,12 @@ function renderPatternTracker(patternStats) {
               <p>${escapeHTML(entry.evidence)}</p>
               ${entry.response ? `<p class="small">Secure response: ${escapeHTML(entry.response)}</p>` : ""}
             </article>
-          `).join("") : `<p class="small">No relationship patterns logged yet.</p>`}
+          `).join("") : `
+            <div class="empty empty-state">
+              <h3>No relationship patterns yet.</h3>
+              <p>Log behavior only when it repeats. Use facts, not fear, so the adaptive coach has clean evidence.</p>
+            </div>
+          `}
         </div>
       </div>
     </section>
@@ -5636,18 +5920,13 @@ function countBy(values) {
 }
 
 function getMissedDayRecovery() {
-  const lastActivity = getLastActivityDate();
-  if (!lastActivity) {
+  const missed = getMissedDayCount();
+  if (missed === null) {
     return {
       message: "No missed day to repair. Start with one small promise today.",
       steps: ["Choose one action for yourself.", "Make it smaller than your anxiety wants.", "Log proof when it is done."]
     };
   }
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const last = new Date(`${lastActivity}T00:00:00`);
-  const missed = Math.max(0, Math.round((today - last) / 86400000) - 1);
 
   if (missed === 0) {
     return {
@@ -5667,12 +5946,34 @@ function getMissedDayRecovery() {
   };
 }
 
+function getMissedDayCount() {
+  const lastActivity = getLastActivityDate();
+  if (!lastActivity) return null;
+  return Math.max(0, daysBetweenDates(lastActivity, getTodayKey()) - 1);
+}
+
+function hasReturnedAfterGap() {
+  const dates = getActivityDates();
+  return dates.some((date, index) => index > 0 && daysBetweenDates(dates[index - 1], date) > 1);
+}
+
 function getLastActivityDate() {
+  const dates = getActivityDates();
+  return dates[dates.length - 1] || null;
+}
+
+function getActivityDates() {
   const sessionDates = state.sessions.map((session) => session.createdAt.slice(0, 10));
   const selfCareDates = Object.values(state.selfCareLog)
     .filter((entry) => entry.completedAt)
     .map((entry) => entry.date);
-  return [...sessionDates, ...selfCareDates].sort().reverse()[0] || null;
+  return [...new Set([...sessionDates, ...selfCareDates].filter(Boolean))].sort();
+}
+
+function daysBetweenDates(startDate, endDate) {
+  const start = new Date(`${startDate}T00:00:00`);
+  const end = new Date(`${endDate}T00:00:00`);
+  return Math.round((end - start) / 86400000);
 }
 
 function getTodayKey() {
@@ -5866,6 +6167,9 @@ async function handleDailySession(form) {
   };
 
   state.settings.currentDay = Math.min(TOTAL_DAYS, state.settings.currentDay + 1);
+  state.settings.guidedActive = false;
+  state.settings.guidedStep = 0;
+  state.settings.lastCoachMessage = buildPostSessionCoachMessage(session, content);
   await Promise.all([
     addRecord("sessions", session),
     addRecord("journal", journalEntry),
@@ -5983,7 +6287,84 @@ async function handlePatternEntry(form) {
   showToast("Relationship pattern logged.");
 }
 
+function buildPostSessionCoachMessage(session, content) {
+  const before = Number(session.intensity);
+  const after = Number(session.intensityAfter);
+  const trigger = session.trigger || "today's trigger";
+
+  if (Number.isFinite(before) && Number.isFinite(after) && after < before) {
+    return {
+      title: "You moved the number.",
+      body: `${trigger} went from intensity ${before} to ${after}. That is evidence that practice changes your state.`,
+      next: `Tomorrow, stay with ${content.exerciseTrackTitle} and repeat what worked.`
+    };
+  }
+
+  if (Number.isFinite(before) && before >= 4) {
+    return {
+      title: "Intensity stayed high. Go smaller.",
+      body: `${trigger} activated you strongly. The next step is regulation before interpretation.`,
+      next: "Tomorrow's win is not solving everything. It is lowering the charge by one point."
+    };
+  }
+
+  if (session.keptPromise === "yes") {
+    return {
+      title: "You kept a promise to yourself.",
+      body: "That is how self-trust becomes believable: not through intensity, through proof.",
+      next: "Repeat one small promise tomorrow before checking for reassurance."
+    };
+  }
+
+  return {
+    title: "Session saved. The next step is clearer.",
+    body: `You practiced ${content.exerciseTrackTitle}. The app will keep matching the path to your check-ins.`,
+    next: "Come back tomorrow and log the real trigger again."
+  };
+}
+
 async function handleAction(action, element) {
+  if (action === "guided-start") {
+    state.settings.guidedActive = true;
+    state.settings.guidedStep = 0;
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
+  if (action === "guided-next") {
+    state.settings.guidedActive = true;
+    state.settings.guidedStep = Math.min(4, Number(state.settings.guidedStep || 0) + 1);
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
+  if (action === "guided-prev") {
+    state.settings.guidedActive = true;
+    state.settings.guidedStep = Math.max(0, Number(state.settings.guidedStep || 0) - 1);
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
+  if (action === "guided-end") {
+    state.settings.guidedActive = false;
+    state.settings.guidedStep = 0;
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    return;
+  }
+
+  if (action === "install-app") {
+    await handleInstallApp();
+    return;
+  }
+
   if (action === "choose-right-now") {
     state.settings.rightNowChoice = element.dataset.choiceId || RIGHT_NOW_CHOICES[0].id;
     await setKV("settings", state.settings);
@@ -6320,6 +6701,21 @@ async function shareAppLink() {
   await copyText(location.href);
 }
 
+async function handleInstallApp() {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice.catch(() => null);
+    deferredInstallPrompt = null;
+    showToast(choice?.outcome === "accepted" ? "Install started." : "Install is still available from your browser menu.");
+    render();
+    return;
+  }
+
+  activeView = "access";
+  render();
+  showToast("Install steps are shown in Access.");
+}
+
 async function requestNotificationPermission() {
   if (!("Notification" in window)) {
     showToast("Notifications are not available in this browser.");
@@ -6336,9 +6732,9 @@ function scheduleReminderNudges() {
   if (!state.reminders?.enabled) return;
 
   const reminders = [
-    { time: state.reminders.dailyTime, title: "Secure Coach", body: "Do today's secure practice." },
-    { time: state.reminders.eveningTime, title: "Secure Coach", body: "Evening reflection: did you keep your promise to yourself?" },
-    { time: state.reminders.weeklyTime, title: "Secure Coach", body: "Weekly reset: what improved and what needs repetition?", weekly: true }
+    { time: state.reminders.dailyTime, title: "Secure Coach", body: "Five minutes today. Your peace gets built in small returns." },
+    { time: state.reminders.eveningTime, title: "Secure Coach", body: "Evening check: what did you do today that protected your future self?" },
+    { time: state.reminders.weeklyTime, title: "Secure Coach", body: "Weekly reset: keep what worked, soften what was harsh, repeat one practice.", weekly: true }
   ];
 
   for (const reminder of reminders) {
