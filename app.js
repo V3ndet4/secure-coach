@@ -614,6 +614,49 @@ const WEEKLY_CONTENT_PACKS = [
     ]
   },
   {
+    week: "love-science-week",
+    title: "Love Science Week",
+    source: "Original weekly pack based on Helen Fisher's work on lust, romantic attraction, attachment, rejection, slow love, and temperament",
+    items: [
+      {
+        title: "Lust, attraction, attachment sorter",
+        phaseIds: ["stabilize", "understand"],
+        focusKeys: ["anxious", "selfWorth", "independence"],
+        moduleTitles: ["Stop the spiral", "Fact versus story", "Trigger map"],
+        purpose: "Stop treating one intense brain system as the whole truth of the relationship.",
+        steps: ["Name what is chemistry or sexual pull.", "Name what is romantic focus, longing, or idealization.", "Name what is real safety, calm, care, and consistency."],
+        prompt: "Today the loudest system is ____. The actual relationship evidence is ____."
+      },
+      {
+        title: "Rejection reward-loop plan",
+        phaseIds: ["stabilize", "practice"],
+        focusKeys: ["anxious", "conflict"],
+        moduleTitles: ["No emergency from uncertainty", "Space tolerance", "Repair without collapse"],
+        purpose: "Treat heartbreak urgency as activation that needs regulation, not proof that chasing is required.",
+        steps: ["Name the urge: text, check, explain, beg, or monitor.", "Remove one cue for 20 minutes.", "Do one body-based regulation action before any relationship action."],
+        prompt: "The craving wants ____. My regulated choice is ____."
+      },
+      {
+        title: "Slow-love evidence",
+        phaseIds: ["practice", "maintain"],
+        focusKeys: ["conflict", "independence", "boundaries"],
+        moduleTitles: ["Pattern review", "Stay open and centered", "Weekly review"],
+        purpose: "Let consistency over time matter more than a temporary rush.",
+        steps: ["List three repeated behaviors from the last two weeks.", "Mark each as safety-building, neutral, or destabilizing.", "Choose the next step from the pattern, not the peak emotion."],
+        prompt: "The pattern over time shows ____. My next secure step is ____."
+      },
+      {
+        title: "Temperament curiosity",
+        phaseIds: ["understand", "strengthen"],
+        focusKeys: ["conflict", "independence"],
+        moduleTitles: ["Need beneath the strategy", "Hard conversation practice", "Choose from standards"],
+        purpose: "Use personality differences for curiosity and agreements, not labels or destiny.",
+        steps: ["Name one difference in pace, novelty, structure, directness, or empathy.", "Ask how this difference helps the relationship.", "Ask what agreement would protect both people."],
+        prompt: "Our difference is ____. It can help by ____. The agreement we need is ____."
+      }
+    ]
+  },
+  {
     week: "value-of-others-week",
     title: "Value of Others Week",
     source: "Original weekly pack based on The Value of Others: perceived value, value exchange, reciprocity, access, and selection",
@@ -1597,6 +1640,17 @@ const INFLUENCES = [
     ]
   },
   {
+    author: "Helen Fisher, PhD",
+    work: "Anatomy of Love; Why We Love; Why Him? Why Her?; TED talks; romantic love and rejection research",
+    source: "https://evolution.rutgers.edu/people/ches-associates/ches-associate-member/116-helen-fisher",
+    theme: "Brain systems of romantic love, attraction, attachment, rejection, and temperament",
+    uses: [
+      "Help users separate lust, romantic attraction, and attachment so intensity is not mistaken for safety, compatibility, or commitment.",
+      "Treat heartbreak, rejection, obsessive focus, and checking urges as reward-system activation that needs regulation, distance from cues, and values-led behavior.",
+      "Use temperament and slow-love ideas to evaluate compatibility through patterns over time instead of chemistry, fantasy, or fear alone."
+    ]
+  },
+  {
     author: "Dr Orion Taraban",
     work: "The Value of Others; PsycHacks",
     source: "https://books.google.com/books/about/The_Value_of_Others.html?id=hKAPEQAAQBAJ",
@@ -1781,6 +1835,11 @@ const REFERENCE_ROUTING = {
     focusKeys: ["anxious", "boundaries", "independence"],
     moduleTitles: ["Body before meaning", "No emergency from uncertainty", "Choose from standards", "Relapse plan"]
   },
+  "Helen Fisher, PhD": {
+    phaseIds: ["stabilize", "understand", "practice", "maintain"],
+    focusKeys: ["anxious", "selfWorth", "independence"],
+    moduleTitles: ["Stop the spiral", "No emergency from uncertainty", "Fact versus story", "Trigger map", "Space tolerance", "Relapse plan", "Stay open and centered"]
+  },
   "Dr Orion Taraban": {
     phaseIds: ["understand", "practice", "strengthen"],
     focusKeys: ["boundaries", "independence"],
@@ -1794,6 +1853,58 @@ const REFERENCE_ROUTING = {
 };
 
 const ADDITIONAL_EXERCISE_TRACKS = [
+  {
+    title: "Love Systems Reality Check",
+    lens: "Lust, attraction, attachment, rejection, and slow love",
+    goal: "Help users separate brain chemistry from secure relationship evidence before they chase, collapse, or overidealize.",
+    exercises: [
+      {
+        name: "Three-system map",
+        steps: [
+          "Write what is lust or chemistry: body pull, fantasy, sexual energy, or novelty.",
+          "Write what is romantic attraction: focus, longing, idealization, urgency, or craving.",
+          "Write what is attachment: calm, care, consistency, trust, repair, and everyday safety."
+        ],
+        prompt: "Chemistry says ____. Attraction says ____. Attachment evidence says ____."
+      },
+      {
+        name: "Rejection craving interrupt",
+        steps: [
+          "Name the urge as a reward-loop alarm, not a command.",
+          "Remove one cue for 20 minutes: chat thread, photo, social feed, or rereading old messages.",
+          "Do one grounding action and one self-respect action before deciding whether contact is needed."
+        ],
+        prompt: "The craving wants ____. I will interrupt it by ____."
+      },
+      {
+        name: "Intensity versus safety audit",
+        steps: [
+          "Rate the intensity of the connection from 1 to 5.",
+          "Rate the safety, consistency, repair, and mutuality from 1 to 5.",
+          "Let the lowest score decide the next growth step."
+        ],
+        prompt: "The intensity score is ____. The safety score is ____. The next secure move is ____."
+      },
+      {
+        name: "Slow-love evidence review",
+        steps: [
+          "Look at behavior over the last two weeks, not the strongest moment.",
+          "List repeated signs of care, repair, consistency, avoidance, or instability.",
+          "Choose the next step from the pattern instead of the rush."
+        ],
+        prompt: "The two-week pattern shows ____. I will respond by ____."
+      },
+      {
+        name: "Temperament translation",
+        steps: [
+          "Name one difference in novelty, structure, directness, independence, or emotional expression.",
+          "Translate it without insult: 'This may mean they need ____ while I need ____.'",
+          "Ask for one agreement that respects both nervous systems."
+        ],
+        prompt: "The difference is ____. The agreement that would help is ____."
+      }
+    ]
+  },
   {
     title: "Real Self-Care Compass",
     lens: "Boundaries, compassion, values, and agency",
@@ -3180,6 +3291,7 @@ const PHASE_EXERCISE_TRACKS = {
     "State Standards and Momentum",
     "Self-Compassion and Regulation",
     "Real Self-Care Compass",
+    "Love Systems Reality Check",
     "Emotional Toolkit",
     "Body & Trauma Inquiry",
     "Self-Leadership and Doubt Reset",
@@ -3189,6 +3301,7 @@ const PHASE_EXERCISE_TRACKS = {
   ],
   understand: [
     "Attachment Practice",
+    "Love Systems Reality Check",
     "Non-Anxious Connection",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
@@ -3203,6 +3316,7 @@ const PHASE_EXERCISE_TRACKS = {
   practice: [
     "Secure Communication",
     "Non-Anxious Connection",
+    "Love Systems Reality Check",
     "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
@@ -3216,6 +3330,7 @@ const PHASE_EXERCISE_TRACKS = {
   strengthen: [
     "Self-Leadership and Doubt Reset",
     "Real Self-Care Compass",
+    "Love Systems Reality Check",
     "Adult Life and Relationship Maturity",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
@@ -3231,6 +3346,7 @@ const PHASE_EXERCISE_TRACKS = {
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
     "Real Self-Care Compass",
+    "Love Systems Reality Check",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Values and Responsibility",
@@ -3246,6 +3362,7 @@ const PHASE_EXERCISE_TRACKS = {
 const FOCUS_EXERCISE_TRACKS = {
   anxious: [
     "Non-Anxious Connection",
+    "Love Systems Reality Check",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Let Them / Let Me",
@@ -3257,6 +3374,7 @@ const FOCUS_EXERCISE_TRACKS = {
   conflict: [
     "Non-Anxious Connection",
     "Secure Communication",
+    "Love Systems Reality Check",
     "Relationship Repair Lab",
     "Real Self-Care Compass",
     "Deep Seeing and Listening"
@@ -3270,9 +3388,19 @@ const FOCUS_EXERCISE_TRACKS = {
     "Values and Responsibility",
     "Courage and Task Separation"
   ],
+  selfWorth: [
+    "Love Systems Reality Check",
+    "Self-Leadership and Doubt Reset",
+    "Real Self-Care Compass",
+    "Self-Compassion and Regulation",
+    "Self-Esteem Pillars",
+    "Let Go With Dignity",
+    "Critical Self-Analysis and Confidence"
+  ],
   independence: [
     "Adult Life and Relationship Maturity",
     "Self-Leadership and Doubt Reset",
+    "Love Systems Reality Check",
     "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
@@ -3286,6 +3414,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Stop the spiral": [
     "Regulate and Reframe",
     "Non-Anxious Connection",
+    "Love Systems Reality Check",
     "State Standards and Momentum",
     "Self-Compassion and Regulation",
     "Real Self-Care Compass",
@@ -3302,6 +3431,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Body before meaning": [
     "Regulate and Reframe",
+    "Love Systems Reality Check",
     "State Standards and Momentum",
     "Real Self-Care Compass",
     "Body & Trauma Inquiry",
@@ -3311,6 +3441,7 @@ const MODULE_EXERCISE_TRACKS = {
   "No emergency from uncertainty": [
     "Release Outcome and Return to Self",
     "Non-Anxious Connection",
+    "Love Systems Reality Check",
     "Real Self-Care Compass",
     "Regulate and Reframe",
     "Emotional Toolkit",
@@ -3318,6 +3449,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Let Them / Let Me"
   ],
   "Fact versus story": [
+    "Love Systems Reality Check",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Real Self-Care Compass",
@@ -3329,6 +3461,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Trigger map": [
     "Body & Trauma Inquiry",
     "Parts, Boundaries, and Inner Leadership",
+    "Love Systems Reality Check",
     "Real Self-Care Compass",
     "Attachment Practice"
   ],
@@ -3340,6 +3473,7 @@ const MODULE_EXERCISE_TRACKS = {
     "Self-Esteem Pillars"
   ],
   "Pattern review": [
+    "Love Systems Reality Check",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
     "Real Self-Care Compass",
@@ -3366,6 +3500,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Space tolerance": [
     "Warm Clear Stop Protocol",
+    "Love Systems Reality Check",
     "Real Self-Care Compass",
     "The Value of Others Practice",
     "Reciprocity and Value Reality Check",
@@ -3434,6 +3569,7 @@ const MODULE_EXERCISE_TRACKS = {
   ],
   "Relapse plan": [
     "State Standards and Momentum",
+    "Love Systems Reality Check",
     "Let Go With Dignity",
     "Real Self-Care Compass",
     "Values and Responsibility",
@@ -3465,6 +3601,7 @@ const MODULE_EXERCISE_TRACKS = {
   "Stay open and centered": [
     "Non-Anxious Connection",
     "Release Outcome and Return to Self",
+    "Love Systems Reality Check",
     "Real Self-Care Compass",
     "Trust Freedom and Mutual Effort",
     "Quiet Strength",
@@ -3474,6 +3611,24 @@ const MODULE_EXERCISE_TRACKS = {
 };
 
 const EXTRA_NOTES = [
+  {
+    title: "Chemistry is not the whole relationship",
+    phaseIds: ["stabilize", "understand", "practice"],
+    moduleTitles: ["Stop the spiral", "Fact versus story", "Trigger map", "Space tolerance"],
+    focusKeys: ["anxious", "selfWorth", "independence"],
+    body: "Strong attraction can create urgency, focus, and fantasy. That does not automatically mean the connection is safe, mutual, or ready for more access. Separate chemistry, romantic longing, and attachment evidence before you act.",
+    prompt: "Which part is chemistry, which part is longing, and which part is actual safety?",
+    script: "I can feel the pull without letting the pull make the decision."
+  },
+  {
+    title: "Rejection can act like craving",
+    phaseIds: ["stabilize", "practice", "maintain"],
+    moduleTitles: ["No emergency from uncertainty", "Space tolerance", "Relapse plan"],
+    focusKeys: ["anxious", "conflict"],
+    body: "After rejection or distance, the urge to text, check, explain, or chase can feel like a command. Treat it as activation first. Reduce cues, regulate the body, and choose from self-respect after the wave drops.",
+    prompt: "What cue keeps reactivating the craving loop, and what will I remove for the next 20 minutes?",
+    script: "This urge is loud, but it does not get to drive."
+  },
   {
     title: "Value needs reciprocity",
     phaseIds: ["understand", "practice", "strengthen", "maintain"],

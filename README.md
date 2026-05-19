@@ -109,6 +109,7 @@ The app includes an in-app `References` view with influence notes from:
 - Dr John Delony references: `Building a Non-Anxious Life`, `Own Your Past, Change Your Future`, and his public relationship and mental wellness work
 - Scott Galloway references: `The Algebra of Happiness`, `The Algebra of Wealth`, and `Notes on Being a Man`
 - Tony Robbins' public work on state, standards, rituals, and personal development
+- Helen Fisher, PhD references: `Anatomy of Love`, `Why We Love`, `Why Him? Why Her?`, TED talks, and her romantic love/rejection research, used for lust-attraction-attachment mapping, heartbreak regulation, temperament curiosity, and slow-love evidence checks
 - Dr Orion Taraban references: `The Value of Others` and `PsycHacks`, used carefully for perceived value, reciprocity, access, selection, and reality-testing exercises
 - Pooja Lakshmin, MD reference: `Real Self-Care`, used for boundaries, compassion, values, power/agency, real-vs-faux self-care, and the Real Self-Care Compass
 
