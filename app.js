@@ -4298,6 +4298,23 @@ async function loadState() {
 async function migrateSettingsIfNeeded() {
   if (!state.profile || !state.settings) return;
 
+  const selectedStage = state.profile.stage;
+  const explicitStage = ["start", "build", "maintain"].includes(selectedStage) ? selectedStage : null;
+  const existingAnalysis = state.profile.analysis || analyzeProfile(state.profile);
+  const correctedStage = explicitStage || existingAnalysis.stage || "start";
+  const correctedStartDay = STAGE_START_DAY[correctedStage] || 1;
+  const correctedAnalysis = {
+    ...existingAnalysis,
+    stage: correctedStage,
+    stageLabel: correctedStage === "start" ? "Beginning" : correctedStage === "build" ? "Middle practice" : "Maintenance",
+    startDay: correctedStartDay
+  };
+  const nextProfile = { ...state.profile, analysis: correctedAnalysis };
+  if (JSON.stringify(nextProfile) !== JSON.stringify(state.profile)) {
+    state.profile = nextProfile;
+    await setKV("profile", nextProfile);
+  }
+
   const contentOffset = Math.max(0, (state.profile.analysis?.startDay || 1) - 1);
   const currentDay = Number(state.settings.currentDay || 1);
   const needsDayModel = state.settings.contentOffset === undefined;
@@ -5321,7 +5338,7 @@ function renderPath() {
         <h2>180-day structure</h2>
         <div class="phase-map">
           ${PHASES.map((item) => `
-            <article class="phase-item ${item.id === routePhase.id ? "active" : ""}">
+            <article class="phase-item ${item.id === programPhase.id ? "active" : ""}">
               <div class="phase-days">${item.days[0]}-${item.days[1]}</div>
               <div>
                 <h3>${escapeHTML(item.title)}</h3>
@@ -6446,6 +6463,7 @@ function analyzeProfile(input) {
 }
 
 function detectStage(selectedStage, text) {
+  if (["start", "build", "maintain"].includes(selectedStage)) return selectedStage;
   if (selectedStage === "maintain" || /\b(maintain|mastered|continue|long term|grounded)\b/.test(text)) return "maintain";
   if (selectedStage === "build" || /\b(already|middle|therapy|working on|practice|started)\b/.test(text)) return "build";
   return "start";

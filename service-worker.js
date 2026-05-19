@@ -1,4 +1,4 @@
-const CACHE_NAME = "secure-coach-cache-v1-helen-fisher";
+const CACHE_NAME = "secure-coach-cache-v1-path-stage-fix";
 const APP_SHELL = [
   "./",
   "./index.html",
