@@ -335,6 +335,49 @@ const RIGHT_NOW_CHOICES = [
   }
 ];
 
+const CLARITY_FACTORS = [
+  { id: "consistency", label: "Consistency", low: "Unpredictable", mid: "Mixed", high: "Steady" },
+  { id: "repair", label: "Repair", low: "Avoided", mid: "Sometimes", high: "Owned and repaired" },
+  { id: "honesty", label: "Honesty", low: "Unclear", mid: "Partial", high: "Direct" },
+  { id: "respect", label: "Respect", low: "Costs my dignity", mid: "Inconsistent", high: "Mutual" },
+  { id: "effort", label: "Mutual effort", low: "One-sided", mid: "Uneven", high: "Both investing" }
+];
+
+const SELF_ABANDONMENT_OPTIONS = [
+  { value: "", label: "Choose one" },
+  { value: "no", label: "No - I stayed with myself" },
+  { value: "small", label: "A little - I bent but noticed" },
+  { value: "yes", label: "Yes - I abandoned myself to keep connection" }
+];
+
+const SPIRAL_RESET_STEPS = [
+  {
+    title: "Stop the relationship action",
+    body: "Do not text, check, accuse, explain, or decide while your body is in alarm.",
+    steps: ["Put the phone face down.", "Unclench your jaw and hands.", "Say: this is activation, not instruction."]
+  },
+  {
+    title: "Give the body proof of safety",
+    body: "Your nervous system needs a signal before your mind can think clearly.",
+    steps: ["Inhale for four, exhale for six.", "Repeat five times.", "Name three things you can see."]
+  },
+  {
+    title: "Separate fact from fear",
+    body: "A spiral blends old pain, current facts, and imagined endings.",
+    steps: ["Write one fact only.", "Write the fear story separately.", "Do not treat the fear as evidence."]
+  },
+  {
+    title: "Choose the smallest secure move",
+    body: "Security is a behavior you can repeat in a hard moment.",
+    steps: ["Delay contact for 20 minutes.", "Do one normal routine.", "If needed, send one clear sentence later."]
+  },
+  {
+    title: "Return to yourself",
+    body: "The goal is not to stop caring. The goal is to stop abandoning yourself.",
+    steps: ["Name one promise to yourself.", "Take the first tiny action.", "Log what changed in your body."]
+  }
+];
+
 const MOON_PROGRESS = [
   { id: "new", moon: "New Moon", title: "Begin Again", tone: "Quiet start", cue: "Stabilize before you solve." },
   { id: "crescent", moon: "Crescent", title: "Small Light", tone: "First evidence", cue: "Notice the pattern without becoming it." },
@@ -5150,17 +5193,26 @@ function renderToday() {
     </header>
 
     ${renderDailyFlow(content, progress)}
+    ${renderWhyThisExercise(content, analysis)}
     ${renderGuidedSession(content)}
     ${renderMoonProgressMap(day, content)}
     ${renderPlayfulPractice(content)}
     ${renderRightNowTool()}
+    ${renderSpiralResetPanel()}
     ${renderCoachMemoryCards(content)}
     <div class="grid two" style="margin-bottom: 18px;">
-      ${renderWeeklyPackCard(content)}
-      ${renderAdaptiveCoachCard(content)}
+      ${renderWeeklyCoachSummary()}
+      ${renderRelationshipClarityCard()}
     </div>
     <div class="grid two" style="margin-bottom: 18px;">
+      ${renderSelfAbandonmentTracker()}
+      ${renderWeeklyPackCard(content)}
+    </div>
+    <div class="grid two" style="margin-bottom: 18px;">
+      ${renderAdaptiveCoachCard(content)}
       ${renderInstallPromptCard()}
+    </div>
+    <div class="grid two" style="margin-bottom: 18px;">
       ${renderStreakRecoveryCard()}
     </div>
 
@@ -5285,6 +5337,8 @@ function renderToday() {
             </select>
           </div>
         </div>
+        ${renderDailyClarityFields()}
+        ${renderDailySelfAbandonmentFields()}
         <div class="field">
           <label for="dailyNote">${escapeHTML(content.prompt)}</label>
           <textarea id="dailyNote" name="note" required placeholder="Write the honest version first. Then write the secure next step."></textarea>
@@ -5298,6 +5352,182 @@ function renderToday() {
           <button class="button secondary" type="button" data-action="skip-day">Skip to next day</button>
         </div>
       </form>
+    </section>
+  `;
+}
+
+function renderWhyThisExercise(content, analysis) {
+  const reason = getDailyExerciseReason(content, analysis);
+  return `
+    <section class="panel">
+      <div class="meta-row">
+        <span class="pill">Why this exercise?</span>
+        <span class="pill coral">${escapeHTML(content.exerciseTrackTitle)}</span>
+      </div>
+      <h2>${escapeHTML(reason.title)}</h2>
+      <p>${escapeHTML(reason.body)}</p>
+      <div class="grid three" style="margin-top: 14px;">
+        ${reason.cues.map((cue) => `<div class="example"><p>${escapeHTML(cue)}</p></div>`).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderSpiralResetPanel() {
+  const active = Boolean(state.settings?.spiralActive);
+  const stepIndex = Math.min(SPIRAL_RESET_STEPS.length - 1, Math.max(0, Number(state.settings?.spiralStep || 0)));
+  const step = SPIRAL_RESET_STEPS[stepIndex];
+
+  if (!active) {
+    return `
+      <section class="panel" id="spiralReset">
+        <div class="meta-row">
+          <span class="pill coral">I'm spiraling</span>
+          <span class="pill">3-minute reset</span>
+        </div>
+        <h2>Use this before texting, checking, or deciding.</h2>
+        <p>When urgency is high, the app switches from insight to regulation. The only goal is to get your body back online before you act.</p>
+        <div class="actions">
+          <button class="button" type="button" data-action="spiral-start">Start spiral reset</button>
+          <button class="button secondary" type="button" data-view="sos">Open SOS library</button>
+        </div>
+      </section>
+    `;
+  }
+
+  return `
+    <section class="panel" id="spiralReset">
+      <div class="meta-row">
+        <span class="pill coral">Spiral reset active</span>
+        <span class="pill gold">Step ${stepIndex + 1} of ${SPIRAL_RESET_STEPS.length}</span>
+      </div>
+      <h2>${escapeHTML(step.title)}</h2>
+      <p>${escapeHTML(step.body)}</p>
+      <ol class="step-list">
+        ${step.steps.map((item, index) => `
+          <li>
+            <span class="step-number">${index + 1}</span>
+            <span>${escapeHTML(item)}</span>
+          </li>
+        `).join("")}
+      </ol>
+      <div class="actions">
+        <button class="button secondary" type="button" data-action="spiral-prev" ${stepIndex === 0 ? "disabled" : ""}>Back</button>
+        ${stepIndex < SPIRAL_RESET_STEPS.length - 1
+          ? `<button class="button" type="button" data-action="spiral-next">Next reset step</button>`
+          : `<button class="button" type="button" data-action="spiral-end">Finish reset</button>`}
+        <button class="text-button" type="button" data-action="spiral-end">Close</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderWeeklyCoachSummary() {
+  const read = getWeeklyCoachRead();
+  return `
+    <section class="panel">
+      <div class="meta-row">
+        <span class="pill gold">Weekly coach summary</span>
+        <span class="pill">${escapeHTML(read.weekLabel)}</span>
+      </div>
+      <h2>${escapeHTML(read.title)}</h2>
+      <p>${escapeHTML(read.body)}</p>
+      <ul class="plain-list">
+        ${read.points.map((point) => `<li>${escapeHTML(point)}</li>`).join("")}
+      </ul>
+      <p class="example"><strong>Next focus:</strong> ${escapeHTML(read.nextFocus)}</p>
+    </section>
+  `;
+}
+
+function renderRelationshipClarityCard() {
+  const stats = getRelationshipClarityStats();
+  return `
+    <section class="panel">
+      <div class="meta-row">
+        <span class="pill">Relationship clarity</span>
+        <span class="pill ${stats.score === null ? "" : stats.score >= 70 ? "gold" : stats.score < 45 ? "coral" : ""}">${stats.score === null ? "not logged" : `${stats.score}/100`}</span>
+      </div>
+      <h2>${escapeHTML(stats.title)}</h2>
+      <p>${escapeHTML(stats.body)}</p>
+      <div class="grid two" style="margin-top: 14px;">
+        <div class="example">
+          <h3>Evidence to watch</h3>
+          <p>${escapeHTML(stats.evidence)}</p>
+        </div>
+        <div class="example">
+          <h3>Secure response</h3>
+          <p>${escapeHTML(stats.nextStep)}</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderSelfAbandonmentTracker() {
+  const stats = getSelfAbandonmentStats();
+  return `
+    <section class="panel">
+      <div class="meta-row">
+        <span class="pill">Self-abandonment tracker</span>
+        <span class="pill ${stats.risk === "high" ? "coral" : stats.risk === "low" ? "gold" : ""}">${escapeHTML(stats.label)}</span>
+      </div>
+      <h2>${escapeHTML(stats.title)}</h2>
+      <p>${escapeHTML(stats.body)}</p>
+      <div class="grid three" style="margin-top: 14px;">
+        <div class="stat"><span class="small">Stayed with self</span><strong>${stats.no}</strong><span class="small">recent logs</span></div>
+        <div class="stat"><span class="small">Bent but noticed</span><strong>${stats.small}</strong><span class="small">recent logs</span></div>
+        <div class="stat"><span class="small">Abandoned self</span><strong>${stats.yes}</strong><span class="small">recent logs</span></div>
+      </div>
+      <p class="example"><strong>Today:</strong> ${escapeHTML(stats.nextStep)}</p>
+    </section>
+  `;
+}
+
+function renderDailyClarityFields() {
+  return `
+    <section class="card">
+      <div class="meta-row"><span class="pill">Relationship clarity score</span></div>
+      <h3>What did the relationship show today?</h3>
+      <p class="small">Score behavior, not hope. Skip anything that does not apply today.</p>
+      <div class="grid three">
+        ${CLARITY_FACTORS.map(renderClaritySelect).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderClaritySelect(factor) {
+  return `
+    <div class="field">
+      <label for="clarity-${factor.id}">${escapeHTML(factor.label)}</label>
+      <select id="clarity-${factor.id}" name="clarity_${factor.id}">
+        <option value="">Not enough data</option>
+        <option value="0">${escapeHTML(factor.low)}</option>
+        <option value="1">${escapeHTML(factor.mid)}</option>
+        <option value="2">${escapeHTML(factor.high)}</option>
+      </select>
+    </div>
+  `;
+}
+
+function renderDailySelfAbandonmentFields() {
+  return `
+    <section class="card">
+      <div class="meta-row"><span class="pill">Self-abandonment check</span></div>
+      <h3>Did I leave myself to keep connection?</h3>
+      <div class="grid two">
+        <div class="field">
+          <label for="selfAbandonmentStatus">Today I...</label>
+          <select id="selfAbandonmentStatus" name="selfAbandonmentStatus">
+            ${SELF_ABANDONMENT_OPTIONS.map((option) => `<option value="${escapeHTML(option.value)}">${escapeHTML(option.label)}</option>`).join("")}
+          </select>
+        </div>
+        <div class="field">
+          <label for="selfAbandonmentPattern">What did it look like?</label>
+          <input id="selfAbandonmentPattern" name="selfAbandonmentPattern" placeholder="Overexplained, chased, ignored my body, said yes when I meant no">
+        </div>
+      </div>
     </section>
   `;
 }
@@ -5486,6 +5716,8 @@ function renderSOS() {
         <p class="lead">Pick the moment you are in. The goal is to regulate first, then choose the smallest secure action.</p>
       </div>
     </header>
+
+    ${renderSpiralResetPanel()}
 
     <section class="grid two">
       ${QUICK_SOS.map((item) => `
@@ -5927,6 +6159,14 @@ function renderProgress() {
         </div>
       </div>
     </section>
+
+    <div class="grid two" style="margin-top: 18px;">
+      ${renderWeeklyCoachSummary()}
+      ${renderRelationshipClarityCard()}
+    </div>
+    <div class="grid two" style="margin-top: 18px;">
+      ${renderSelfAbandonmentTracker()}
+    </div>
 
     ${renderWeeklyRecapPostcard()}
 
@@ -6571,6 +6811,146 @@ function getWeeklySummary() {
   };
 }
 
+function getWeeklyCoachRead() {
+  const summary = getWeeklySummary();
+  const clarity = getRelationshipClarityStats();
+  const abandonment = getSelfAbandonmentStats();
+  const patternStats = getRelationshipPatternStats();
+  const focusLabel = state.profile?.analysis?.primaryFocusLabel || "your current focus";
+  const weekLabel = `Week ${Math.max(1, Math.ceil(Number(state.settings?.currentDay || 1) / 7))}`;
+  const points = [
+    `${summary.sessions} session${summary.sessions === 1 ? "" : "s"} logged this week.`,
+    `${summary.selfCareDone} self-care action${summary.selfCareDone === 1 ? "" : "s"} completed.`,
+    clarity.score === null ? "Relationship clarity has not been scored yet." : `Latest relationship clarity is ${clarity.score}/100.`,
+    abandonment.total ? `Self-abandonment was logged ${abandonment.yes + abandonment.small} time${abandonment.yes + abandonment.small === 1 ? "" : "s"} recently.` : "Self-abandonment data is still building."
+  ];
+  const nextFocus = abandonment.risk === "high"
+    ? "Make the next practice about staying with yourself before managing the relationship."
+    : clarity.score !== null && clarity.score < 50
+      ? "Watch behavior and reduce access until consistency, repair, and respect improve."
+      : patternStats.topPattern
+        ? `Prepare a secure response for "${patternStats.topPattern[0]}" before it repeats.`
+        : `Stay with ${focusLabel} and keep the check-ins honest.`;
+
+  return {
+    weekLabel,
+    title: summary.sessions || summary.selfCareDone ? "Here is the pattern from this week." : "Start the weekly evidence trail.",
+    body: summary.sessions
+      ? "This is not a judgment. It is a local read of your check-ins, self-care, clarity scores, and self-abandonment logs."
+      : "Complete a few daily check-ins and this card will become more personal.",
+    points,
+    nextFocus
+  };
+}
+
+function getDailyExerciseReason(content, analysis) {
+  const latest = state.sessions[0];
+  const patternStats = getRelationshipPatternStats();
+  const focusLabel = analysis.primaryFocusLabel || FOCUS_AREAS[analysis.primaryFocus || "anxious"].label;
+  const cues = [
+    `Focus: ${focusLabel}.`,
+    `Module: ${content.moduleTitle}.`,
+    `Practice track: ${content.exerciseTrackTitle}.`
+  ];
+
+  if (latest?.trigger) cues.push(`Recent trigger: ${latest.trigger}.`);
+  if (patternStats.topPattern) cues.push(`Repeated pattern: ${patternStats.topPattern[0]}.`);
+
+  return {
+    title: "This is matched to your current pattern.",
+    body: `The app chose this because your path is in ${content.phase.title}, your main focus is ${focusLabel}, and today's module is ${content.moduleTitle}.`,
+    cues: cues.slice(0, 6)
+  };
+}
+
+function getRelationshipClarityStats() {
+  const scored = state.sessions
+    .map((session) => ({
+      session,
+      values: CLARITY_FACTORS
+        .map((factor) => Number(session.clarity?.[factor.id]))
+        .filter((value) => Number.isFinite(value))
+    }))
+    .filter((item) => item.values.length);
+  const latest = scored[0];
+
+  if (!latest) {
+    return {
+      score: null,
+      title: "No clarity score yet.",
+      body: "After today's check-in, this will show whether the relationship is giving safety, repair, honesty, respect, and mutual effort.",
+      evidence: "Score the five clarity fields once per day when there is enough evidence.",
+      nextStep: "Do not force certainty. Just log what behavior showed today."
+    };
+  }
+
+  const score = calculateClarityScore(latest.values);
+  const lowestFactor = CLARITY_FACTORS
+    .map((factor) => ({ factor, value: Number(latest.session.clarity?.[factor.id]) }))
+    .filter((item) => Number.isFinite(item.value))
+    .sort((a, b) => a.value - b.value)[0];
+  const averageScore = Math.round(average(scored.slice(0, 5).map((item) => calculateClarityScore(item.values))));
+  const label = score >= 70 ? "Clear enough to stay open." : score >= 45 ? "Mixed. Slow down and watch behavior." : "Low clarity. Protect your peace.";
+
+  return {
+    score,
+    averageScore,
+    title: label,
+    body: `Latest score is ${score}/100. Recent average is ${averageScore}/100.`,
+    evidence: lowestFactor ? `${lowestFactor.factor.label} needs the most attention right now.` : "Keep scoring actual behavior.",
+    nextStep: score >= 70
+      ? "Stay open, but keep tracking consistency."
+      : score >= 45
+        ? "Ask for one clear behavior and watch follow-through."
+        : "Reduce overinvestment and return to self-care before seeking more reassurance."
+  };
+}
+
+function calculateClarityScore(values) {
+  const max = values.length * 2;
+  return max ? Math.round((values.reduce((total, value) => total + value, 0) / max) * 100) : null;
+}
+
+function getSelfAbandonmentStats() {
+  const recent = state.sessions
+    .map((session) => session.selfAbandonment)
+    .filter((entry) => entry?.status)
+    .slice(0, 10);
+  const counts = {
+    no: recent.filter((entry) => entry.status === "no").length,
+    small: recent.filter((entry) => entry.status === "small").length,
+    yes: recent.filter((entry) => entry.status === "yes").length
+  };
+  const latest = recent[0];
+  const risk = counts.yes >= 2 || (latest?.status === "yes" && counts.small >= 1)
+    ? "high"
+    : counts.no > counts.yes + counts.small
+      ? "low"
+      : "building";
+
+  return {
+    ...counts,
+    total: recent.length,
+    risk,
+    label: risk === "high" ? "protect self" : risk === "low" ? "self-led" : "building data",
+    title: !recent.length
+      ? "No self-abandonment data yet."
+      : risk === "high"
+        ? "The pattern is asking for a boundary."
+        : risk === "low"
+          ? "You are staying with yourself more often."
+          : "Keep watching where you bend.",
+    body: !recent.length
+      ? "Track whether you overexplain, chase, ignore your body, or say yes when you mean no."
+      : latest?.pattern
+        ? `Most recent note: ${latest.pattern}`
+        : "Recent check-ins are building a clearer picture.",
+    nextStep: risk === "high"
+      ? "Before the next relationship action, ask: what would I do if I refused to abandon myself?"
+      : "Name one small way to stay honest, even if connection feels uncertain."
+  };
+}
+
 function getProgressInsights() {
   const recent = state.sessions.slice(0, 10);
   const numericPairs = recent
@@ -6862,6 +7242,15 @@ async function handleDailySession(form) {
   const formData = new FormData(form);
   const day = Number(formData.get("day"));
   const content = getDailyContent(day);
+  const clarity = Object.fromEntries(
+    CLARITY_FACTORS
+      .map((factor) => [factor.id, String(formData.get(`clarity_${factor.id}`) || "")])
+      .filter(([, value]) => value !== "")
+  );
+  const selfAbandonment = {
+    status: String(formData.get("selfAbandonmentStatus") || ""),
+    pattern: String(formData.get("selfAbandonmentPattern") || "").trim()
+  };
   const session = {
     id: createId(),
     day,
@@ -6875,6 +7264,8 @@ async function handleDailySession(form) {
     trigger: String(formData.get("trigger") || "").trim(),
     note: String(formData.get("note") || "").trim(),
     keptPromise: String(formData.get("keptPromise") || ""),
+    clarity,
+    selfAbandonment,
     eveningReflection: String(formData.get("eveningReflection") || "").trim(),
     createdAt: new Date().toISOString()
   };
@@ -6884,7 +7275,12 @@ async function handleDailySession(form) {
     day,
     contentDay: content.contentDay,
     prompt: content.prompt,
-    text: [session.note, session.eveningReflection ? `Tonight reflection: ${session.eveningReflection}` : ""].filter(Boolean).join("\n\n"),
+    text: [
+      session.note,
+      Object.keys(clarity).length ? `Relationship clarity: ${calculateClarityScore(Object.values(clarity).map(Number))}/100` : "",
+      selfAbandonment.status ? `Self-abandonment check: ${selfAbandonment.status}${selfAbandonment.pattern ? ` - ${selfAbandonment.pattern}` : ""}` : "",
+      session.eveningReflection ? `Tonight reflection: ${session.eveningReflection}` : ""
+    ].filter(Boolean).join("\n\n"),
     createdAt: session.createdAt,
     source: "daily"
   };
@@ -7080,6 +7476,46 @@ async function handleAction(action, element) {
     await setKV("settings", state.settings);
     await loadState();
     render();
+    return;
+  }
+
+  if (action === "spiral-start") {
+    state.settings.spiralActive = true;
+    state.settings.spiralStep = 0;
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    requestAnimationFrame(() => scrollToSection("spiralReset"));
+    return;
+  }
+
+  if (action === "spiral-next") {
+    state.settings.spiralActive = true;
+    state.settings.spiralStep = Math.min(SPIRAL_RESET_STEPS.length - 1, Number(state.settings.spiralStep || 0) + 1);
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    requestAnimationFrame(() => scrollToSection("spiralReset"));
+    return;
+  }
+
+  if (action === "spiral-prev") {
+    state.settings.spiralActive = true;
+    state.settings.spiralStep = Math.max(0, Number(state.settings.spiralStep || 0) - 1);
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    requestAnimationFrame(() => scrollToSection("spiralReset"));
+    return;
+  }
+
+  if (action === "spiral-end") {
+    state.settings.spiralActive = false;
+    state.settings.spiralStep = 0;
+    await setKV("settings", state.settings);
+    await loadState();
+    render();
+    showToast("Spiral reset closed. Choose the next small secure action.");
     return;
   }
 
